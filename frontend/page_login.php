@@ -13,7 +13,7 @@
 <div class="login-box">
 <h2>Login</h2>
     <form action="../backend/phpscripts/login.php" method="POST">
-        <input type="text" name="username_or_email" placeholder="Username or Email" required>
+        <input type="text" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
