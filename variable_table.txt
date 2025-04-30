@@ -1,0 +1,17 @@
+variables for formIds are same as the ones in the database
+
+page_user_account:
+    - saveAccForm 
+    - savePassForm
+
+page_register:
+    - registerForm
+    - user_passCheck (confirm password)
+
+session variables
+    - $user_id = $_SESSION['user_id'];
+    - $user_name = $_SESSION['user_name'];
+    - $user_role = $_SESSION['role'];
+
+
+session.php is used in

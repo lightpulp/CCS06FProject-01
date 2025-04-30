@@ -1,6 +1,6 @@
 <?php
-
-
+include "../backend/phpscripts/session.php";
+include "../backend/phpscripts/account.php";
 ?>
 
 
