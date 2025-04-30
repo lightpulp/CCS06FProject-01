@@ -10,7 +10,6 @@ $(document).ready(function(){
     });    
 
     $('.btn-primary').on('click', function (e) {
-        e.preventDefault(); // prevent form from submitting instantly for demo
         const button = $(this);
         
         button.addClass('animate__animated animate__pulse');

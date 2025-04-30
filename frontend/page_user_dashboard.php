@@ -427,8 +427,8 @@ include "../backend/phpscripts/account.php";
 
         <ul class="sidebar-menu p-3 m-0 mb-0">
             <!-- Dashboard Bar -->
-            <li class="sidebar-menu-item">
-                <a href="page_user_dashboard.php">
+            <li class="sidebar-menu-item active">
+                <a href="#">
                     <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
                     Dashboard
                 </a>
@@ -459,7 +459,7 @@ include "../backend/phpscripts/account.php";
             </li>
 
             <!-- Account Management Bar -->
-            <li class="sidebar-menu-item active">
+            <li class="sidebar-menu-item">
                 <a href="page_user_account.php">
                     <i class="ri-group-line sidebar-menu-item-icon"></i>
                     Account Management
@@ -520,12 +520,27 @@ include "../backend/phpscripts/account.php";
     <div class="sidebar-overlay"></div>
     <!-- end: Sidebar -->
 
+    <!-- start: Main -->
     <main class="bg-light">
         <div class="p-2">
             <!-- start: Navbar -->
             <nav class="px-3 py-2 bg-white rounded shadow-sm">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
-                <h5 class="fw-bold mb-0 me-auto">USER ACCOUNT</h5>
+                <h5 class="fw-bold mb-0 me-auto">Dashboard</h5>
+                <div class="dropdown">
+                    <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="me-2 d-none d-sm-block">John Doe</span>
+                        <img class="navbar-profile-image"
+                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                            alt="Image">
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
             </nav>
             <!-- end: Navbar -->
 
@@ -533,80 +548,84 @@ include "../backend/phpscripts/account.php";
             <div class="py-4">
                 <!-- start: Summary -->
                 <div class="row g-3">
-                    <form id="saveAccForm" method="POST">
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">First Name</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your first name here" name="user_fname" id="user_fname" value="<?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Last Name</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your last name here" name="user_lname" id="user_lname" value="<?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Username</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your username here" name="user_name" id="user_name" value="<?php echo isset($user_data['user_name']) ? htmlspecialchars($user_data['user_name']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Email</label>
-                            <input class="form-control" type="text" value="<?php echo isset($user_data['user_email']) ? htmlspecialchars($user_data['user_email']) : ''; ?>" disabled>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">Date of Birth</label>
-                            <input type="date" class="form-control py-2" name="birthdate" id="birthdate" value="<?php echo isset($user_data['birthdate']) ? htmlspecialchars($user_data['birthdate']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Address</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your Address Here" name="address" id="address" value="<?php echo isset($user_data['address']) ? htmlspecialchars($user_data['address']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Phone Number</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control py-2" placeholder="Enter your Address Here" name="number" id="number" maxlength="11" value="<?php echo isset($user_data['number']) ? htmlspecialchars($user_data['number']) : ''; ?>">
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <a href="#"
+                            class="text-dark text-decoration-none bg-white p-3 rounded shadow-sm d-flex justify-content-between summary-primary">
+                            <div>
+                                <i class="ri-shopping-cart-2-line summary-icon bg-primary mb-2"></i>
+                                <div>Sales</div>
                             </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Account</button>
-                    </form>
+                            <h4>$435</h4>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <a href="#"
+                            class="text-dark text-decoration-none bg-white p-3 rounded shadow-sm d-flex justify-content-between summary-indigo">
+                            <div>
+                                <i class="ri-shopping-cart-2-line summary-icon bg-indigo mb-2"></i>
+                                <div>Sales</div>
+                            </div>
+                            <h4>$435</h4>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <a href="#"
+                            class="text-dark text-decoration-none bg-white p-3 rounded shadow-sm d-flex justify-content-between summary-success">
+                            <div>
+                                <i class="ri-shopping-cart-2-line summary-icon bg-success mb-2"></i>
+                                <div>Sales</div>
+                            </div>
+                            <h4>$435</h4>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <a href="#"
+                            class="text-dark text-decoration-none bg-white p-3 rounded shadow-sm d-flex justify-content-between summary-danger">
+                            <div>
+                                <i class="ri-shopping-cart-2-line summary-icon bg-danger mb-2"></i>
+                                <div>Sales</div>
+                            </div>
+                            <h4>$435</h4>
+                        </a>
+                    </div>
                 </div>
                 <!-- end: Summary -->
                 <!-- start: Graph -->
                 <div class="row g-3 mt-2">
-                    <form id="savePassForm" method="POST">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Old Password</label>
-                            <input type="password" class="form-control py-2" placeholder="Enter your old password here" name="user_pass" id="user_pass">
+                    <div class="col-12 col-md-7 col-xl-8">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                Sales
+                            </div>
+                            <div class="card-body">
+                                <canvas id="sales-chart"></canvas>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">New Password</label>
-                            <input type="password" class="form-control py-2" placeholder="Enter your new password here" name="new_pass" id="new_pass">
+                    </div>
+                    <div class="col-12 col-md-5 col-xl-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                Visitors
+                            </div>
+                            <div class="card-body">
+                                <canvas id="visitors-chart"></canvas>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Confirm New Password</label>
-                            <input type="password" class="form-control py-2" placeholder="Confirm your new password here" name="new_passCheck" id="new_passCheck">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save</button>
-                    </form>
+                    </div>
                 </div>
                 <!-- end: Graph -->
             </div>
             <!-- end: Content -->
         </div>
-
     </main>
+    <!-- end: Main -->
 
+    <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../backend/javascript/save_account.js"></script>
-    <script src="../backend/javascript/save_password.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../assets/script/script.js"></script>
+    <!-- end: JS -->
 
     <script>
       $(document).ready(function(){
@@ -648,8 +667,50 @@ include "../backend/phpscripts/account.php";
               $('.sidebar').addClass('collapsed')
           }
           // end: Sidebar
+
+
+
+          // start: Charts
+          const labels = [
+              'January',
+              'February',
+              'March',
+              'April',
+              'May',
+              'June',
+          ];
+
+          const salesChart = new Chart($('#sales-chart'), {
+              type: 'bar',
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      backgroundColor: '#6610f2',
+                      data: [5, 10, 5, 2, 20, 30, 45],
+                  }]
+              },
+              options: {
+                  plugins: {
+                      legend: {
+                          display: false
+                      }
+                  }
+              }
+          })
+
+          const visitorsChart = new Chart($('#visitors-chart'), {
+              type: 'doughnut',
+              data: {
+                  labels: ['Children', 'Teenager', 'Parent'],
+                  datasets: [{
+                      backgroundColor: ['#6610f2', '#198754', '#ffc107'],
+                      data: [40, 60, 80],
+                  }]
+              }
+          })
+          // end: Charts
       });
     </script>
 </body>
-</html>
 
+</html>
