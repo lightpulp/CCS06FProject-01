@@ -1,0 +1,13 @@
+CREATE TABLE users (
+    user_id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(255),
+    user_pass VARCHAR(255),
+    user_fname VARCHAR(255),
+    user_lname VARCHAR(255),
+    user_email VARCHAR(255),
+    birthdate DATE,
+    address VARCHAR(255),
+    number VARCHAR(11),
+    role TINYINT(1),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
