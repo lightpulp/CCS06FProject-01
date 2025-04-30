@@ -1,3 +1,9 @@
+<?php
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,16 +21,16 @@
         <div class="p-3 text-center fs-5 fw-bold border-bottom">Dashboard</div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="#"></> Dashboard</a>
+                <a class="nav-link" href="page_user_dashboard.php"></> Dashboard</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"></i> Manage Articles</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"></i> Reports</a>
-            </li>
+            </li>   
             <li class="nav-item">
-                <a class="nav-link" href="#"></i> Account</a>
+                <a class="nav-link" href="page_user_account.php"></i> Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"></i> Export Data</a>
@@ -33,8 +39,11 @@
     </div>
 
     <main class="flex-grow-1 p-3 overflow-auto">
-        <h1>Content Area</h1>
+        
+    <h1>DASHBOARD</h1>
+        <?php include '../components/button_logout.php'; ?>
     </main>
+
 </body>
 </html>
 
