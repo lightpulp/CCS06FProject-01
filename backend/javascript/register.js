@@ -19,25 +19,28 @@ $('#registerForm').on('submit', function(e) {
         x++;
         return;
     }
-//EMAIL CHECKER STILL NOT WORKING
+
     if (x == 0) {
         $.ajax({
             url: "../backend/phpscripts/register.php",
             type: "POST",
             data: $('#registerForm').serialize(),
             success: function(response) {
-                console.log("Response from server:", response);
-                let res = JSON.parse(response);
-                if (res.status === "success") {
+                console.log("Response from server:", response); // Log the response for debugging
+
+                if (response.status === "success") {
                     alert("Registered successfully!");
                     window.location.href = "page_login.php";
-                } else {
-                    alert("Error");
+                } else if (response.status === "error") {
+                    alert("Error: " + response.message);
                 }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", error);
+                alert("An error occurred while processing your request. Please try again later.");
             }
         });
     } else {
-        alert("Somethings wrong, try again later")
+        alert("Something went wrong. Please try again later.");
     }
-
 });
