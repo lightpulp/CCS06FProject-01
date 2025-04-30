@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Loading...</title>
-  <meta http-equiv="refresh" content="3;url=frontend/page_register.php">
+  <meta http-equiv="refresh" content="3;url=frontend/page_login.php">
 
   <style>
     body {

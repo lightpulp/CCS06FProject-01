@@ -19,37 +19,37 @@
                 <h5 class="text-brand-500 fw-bold">TUTUBAN</h5>
                 <h2 class="mt-4 fw-bold">Register with Tutuban</h2>
                 <p class="text-muted opacity-50">Naiimagine mo sa sarili mo na sakses ka eh. Bigla kang sumakses eh.</p>
-
-                <form id="registerForm">
+                <form id="registerForm" method="POST">
+                    
                     <!-- First Name -->
                     <div class="mb-3">
                     <label class="form-label fw-bold">First Name</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your first name here">
+                    <input type="text" class="form-control py-2" placeholder="Enter your first name here" name="user_fname" id="user_fname">
                     </div>
 
                     <!-- Last Name -->
                     <div class="mb-3">
                     <label class="form-label fw-bold">Last Name</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your last name here">
+                    <input type="text" class="form-control py-2" placeholder="Enter your last name here" name="user_lname" id="user_lname">
                     </div>
 
                     <!-- UserName -->
                     <div class="mb-3">
                     <label class="form-label fw-bold">Username</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your username here">
+                    <input type="text" class="form-control py-2" placeholder="Enter your username here" name="user_name" id="user_name">
                     </div>
 
                     <!-- Email -->
                     <div class="mb-3">
                     <label class="form-label fw-bold">Email</label>
-                    <input type="email" class="form-control py-2" placeholder="eg: john@email.com">
+                    <input type="email" class="form-control py-2" placeholder="eg: john@email.com" name="user_email" id="user_email">
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
                         <label for="regPassword" class="form-label fw-bold">Password</label>
                         <div class="input-group">
-                        <input type="password" class="form-control py-2" name="password" id="regPassword" placeholder="Type your password here" required>
+                        <input type="password" class="form-control py-2" name="password" id="regPassword" placeholder="Type your password here" required name="user_pass" id="user_pass">
 
                         <!-- Password Visibility -->
                         <span class="input-group-text toggle-password"><i class="fa-solid fa-eye"></i></span>
@@ -60,7 +60,7 @@
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label fw-bold">Confirm Password</label>
                         <div class="input-group">
-                        <input type="password" class="form-control py-2" name="confirmPassword" id="regConfirmPassword" placeholder="Confirm Password" required>
+                        <input type="password" class="form-control py-2" name="confirmPassword" id="regConfirmPassword" placeholder="Confirm Password" required name="user_passCheck" id="user_passCheck">
                         
                         <!-- Password Visibility -->
                         <span class="input-group-text toggle-password"><i class="fa-solid fa-eye"></i></span>
@@ -70,38 +70,26 @@
                     <!-- Date of Birth -->
                     <div class="mb-4">
                     <label class="form-label fw-bold">Date of Birth</label>
-                    <input type="date" class="form-control py-2">
-                    </div>
-
-                    <!-- Gender -->
-                    <div class="mb-3">
-                    <label class="form-label fw-bold">Gender</label>
-                    <select class="form-select py-2">
-                        <option selected disabled>Select Gender</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
-                    </select>
+                    <input type="date" class="form-control py-2" name="birthdate" id="birthdate">
                     </div>
 
                     <!-- Address -->
                     <div class="mb-3">
                     <label class="form-label fw-bold">Address</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your Address Here">
+                    <input type="text" class="form-control py-2" placeholder="Enter your Address Here" name="address" id="address">
                     </div>
 
                     <!-- Phone Number -->
                     <div class="mb-3">
                     <label class="form-label fw-bold">Phone Number</label>
                     <div class="input-group">
-                        <input type="text" class="form-control py-2" placeholder="Enter your Address Here">
+                        <input type="text" class="form-control py-2" placeholder="Enter your Address Here" name="number" id="number" maxlength="11">
                     </div>
                     </div>
 
                     <div class="mb-3">
                     <p>Have an account? <a href="page_login.php" class="sessionsLink fw-bold">Sign In.</a></p>
                     </div>
-
                     <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Register Now</button>
                 </form>
             </div>
@@ -112,6 +100,11 @@
             <div class="circle-2"></div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../backend/javascript/register.js">
+        
+</script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/script/script.js"></script>

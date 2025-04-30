@@ -15,29 +15,31 @@
 
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center py-5">
     <div class="row w-100 mx-auto shadow-lg rounded overflow-hidden" style="max-width: 1200px;">
-      
-    <!-- Login form panel -->
-      <div class="col-md-6 p-5 d-flex flex-column justify-content-center form-side animate__animated animate__fadeInLeft bg-white">  
+    <div class="col-md-6 p-5 d-flex flex-column justify-content-center form-side animate__animated animate__fadeInLeft bg-white">  
         <h5 class="text-brand-500 fw-bold">TUTUBAN</h5>
         <h2 class="mt-4 fw-bold">Login with Tutuban</h2>
         <p class="text-muted opacity-50">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        <form>
-          <div class="mb-3">
-            <label for="username" class="form-label fw-bold">Username</label>
-            <input type="text" class="form-control py-2" name="email" id="login_email" placeholder="Enter your Email Address" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label fw-bold">Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control py-2" name="password" id="loginPassword" placeholder="Type your password here" required>
-              <span class="input-group-text toggle-password"><i class="fa-solid fa-eye"></i></span>
+        
+        <form action="../backend/phpscripts/login.php" method="POST">
+          
+            <div class="mb-3">
+                <label for="username" class="form-label fw-bold">Email</label>
+                <input type="text" class="form-control py-2" name="user_email" id="user_email" placeholder="Enter your Email Address" required>
             </div>
-          </div>
-          <p class="small">Don't have an account? <a href="page_register.php" class="sessionsLink fw-bold">Register Now.</a></p>
-          <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Log In</button>
-
+            <div class="mb-3">
+                <label for="password" class="form-label fw-bold">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control py-2" name="user_pass" id="user_pass" placeholder="Type your password here" required>
+                    
+                    <span class="input-group-text toggle-password"><i class="fa-solid fa-eye"></i></span>
+                </div>
+            </div>
+        
+            <p class="small">Don't have an account? <a href="page_register.php" class="sessionsLink fw-bold">Register Now.</a></p>
+            <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Log In</button>
         </form>
-      </div>
+    
+    </div>
   
       <!-- Image panel -->
       <div class="col-md-6 p-0 image-side animate__animated animate__fadeInRight">

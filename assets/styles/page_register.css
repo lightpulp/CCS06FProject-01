@@ -1,39 +1,39 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .register-box {
-    background: #fff;
-    padding: 20px 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  .register-box h2 {
-    margin-bottom: 15px;
-    font-size: 22px;
-  }
-  .register-box input {
-    display: block;
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .register-box button {
-    width: 100%;
-    padding: 8px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .register-box button:hover {
-    background-color: #45a049;
-  }
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.register-box {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.register-box h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+.register-box input {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.register-box button {
+  width: 100%;
+  padding: 8px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.register-box button:hover {
+  background-color: #45a049;
+}
