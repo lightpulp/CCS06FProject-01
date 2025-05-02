@@ -18,457 +18,48 @@ include "../backend/phpscripts/account.php";
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- start: CSS -->
-    <link rel="stylesheet" href="../assets/styles/style_one.css">
+    <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>User Dashboard</title>
+    <title>Account Profile Setting</title>
 </head>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-    /* start: Global */
-    :root {
-        --bs-brand-color: #650021;
-        --bs-blue: #0d6efd;
-        --bs-indigo: #6610f2;
-        --bs-purple: #6f42c1;
-        --bs-pink: #d63384;
-        --bs-red: #dc3545;
-        --bs-orange: #fd7e14;
-        --bs-yellow: #ffc107;
-        --bs-green: #198754;
-        --bs-teal: #20c997;
-        --bs-cyan: #0dcaf0;
-        --bs-black: #000;
-        --bs-white: #fff;
-        --bs-gray: #6c757d;
-        --bs-gray-dark: #343a40;
-        --bs-gray-100: #f8f9fa;
-        --bs-gray-200: #e9ecef;
-        --bs-gray-300: #dee2e6;
-        --bs-gray-400: #ced4da;
-        --bs-gray-500: #adb5bd;
-        --bs-gray-600: #6c757d;
-        --bs-gray-700: #495057;
-        --bs-gray-800: #343a40;
-        --bs-gray-900: #212529;
-        --bs-primary: #0d6efd;
-        --bs-secondary: #6c757d;
-        --bs-success: #198754;
-        --bs-info: #0dcaf0;
-        --bs-warning: #ffc107;
-        --bs-danger: #dc3545;
-        --bs-light: #f8f9fa;
-        --bs-dark: #212529;
-        --bs-primary-rgb: 13, 110, 253;
-        --bs-secondary-rgb: 108, 117, 125;
-        --bs-success-rgb: 25, 135, 84;
-        --bs-info-rgb: 13, 202, 240;
-        --bs-warning-rgb: 255, 193, 7;
-        --bs-danger-rgb: 220, 53, 69;
-        --bs-light-rgb: 248, 249, 250;
-        --bs-dark-rgb: 33, 37, 41;
-        --bs-white-rgb: 255, 255, 255;
-        --bs-black-rgb: 0, 0, 0;
-        --bs-body-color-rgb: 33, 37, 41;
-        --bs-body-bg-rgb: 255, 255, 255;
-        
-        --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-        --bs-body-font-family: var(--bs-font-sans-serif);
-        --bs-body-font-size: 1rem;
-        --bs-body-font-weight: 400;
-        --bs-body-line-height: 1.5;
-        --bs-body-color: #212529;
-        --bs-body-bg: #fff;
-        --bs-border-width: 1px;
-        --bs-border-style: solid;
-        --bs-border-color: #dee2e6;
-        --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-        --bs-border-radius: 0.375rem;
-        --bs-border-radius-sm: 0.25rem;
-        --bs-border-radius-lg: 0.5rem;
-        --bs-border-radius-xl: 1rem;
-        --bs-border-radius-2xl: 2rem;
-        --bs-border-radius-pill: 50rem;
-        --bs-heading-color: ;
-        --bs-link-color: #0d6efd;
-        --bs-link-hover-color: #0a58ca;
-        --bs-code-color: #d63384;
-        --bs-highlight-bg: #fff3cd;
-    }
-    body {
-        font-family: 'Open Sans', sans-serif;
-    }
-
-
-    .text-brand:hover,
-    .text-brand {
-        color: var(--bs-brand-color);
-    }
-
-    .bg-indigo {
-        background-color: var(--bs-indigo);
-    }
-    .dropdown-toggle::after {
-        display: none;
-    }
-    .cursor-pointer {
-        cursor: pointer;
-    }
-    .fw-semibold {
-        font-weight: 600;
-    }
-    .fs-7 {
-        font-size: .875rem;
-    }
-
-
-    .fx-dropdown-menu {
-        min-width: 16rem;
-        padding: 0;
-        overflow: hidden;
-    }
-    /* start: Global */
-
-
-
-    /* start: Sidebar */
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, .5);
-        z-index: 490;
-        opacity: 1;
-        visibility: visible;
-        transition: opacity .2s;
-    }
-    .sidebar.collapsed ~ .sidebar-overlay {
-        opacity: 0;
-        visibility: hidden;
-    }
-    .sidebar.collapsed:hover,
-    .sidebar {
-        width: 16rem;
-        overflow-y: auto;
-        transition: width .2s, left .2s;
-        left: 0;
-        z-index: 500;
-    }
-    .sidebar.collapsed {
-        left: -16rem;
-    }
-    .sidebar::-webkit-scrollbar {
-        width: .25rem;
-    }
-    .sidebar::-webkit-scrollbar-track {
-        background-color: var(--bs-gray-300);
-    }
-    .sidebar::-webkit-scrollbar-thumb {
-        background-color: var(--bs-gray-500);
-    }
-    .sidebar::-webkit-scrollbar-thumb:hover {
-        background-color: var(--bs-gray-600);
-    }
-    .sidebar-toggle {
-        cursor: pointer;
-        transition: .2s;
-    }
-    .sidebar-toggle:hover {
-        color: var(--bs-brand-color);
-    }
-    .sidebar-menu {
-        list-style-type: none;
-    }
-    .sidebar-menu-item {
-        margin-bottom: .25rem;
-    }
-    .sidebar-menu-item a {
-        font-weight: 500;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        color: var(--bs-dark);
-        padding: .375rem .75rem;
-        border-radius: .375rem;
-        font-size: .875rem;
-        white-space: nowrap;
-    }
-    .sidebar-menu-item > a {
-        overflow: hidden;
-    }
-    .sidebar-menu-item.focused > a,
-    .sidebar-menu-item > a:hover {
-        background-color: var(--bs-gray-200);
-    }
-    .sidebar-menu-item.active a {
-        background-color: var(--bs-brand-color);
-        color: var(--bs-light);
-        box-shadow: 0 .25rem .25rem rgba(0, 0, 0, 0.175);
-    }
-    .sidebar-menu-item-icon {
-        margin-right: .625rem;
-        font-size: 1.25rem;
-    }
-    .sidebar-menu-item-accordion {
-        transition: transform .2s;
-    }
-    .sidebar-dropdown-menu-item.focused > a .sidebar-menu-item-accordion,
-    .sidebar-menu-item.focused > a .sidebar-menu-item-accordion {
-        transform: rotateZ(180deg);
-    }
-    .sidebar.collapsed:hover .sidebar-menu-divider,
-    .sidebar-menu-divider {
-        font-size: .75rem;
-        color: var(--bs-gray-600);
-        transition: opacity .2s;
-        opacity: 1;
-        visibility: visible;
-    }
-    .sidebar-dropdown-menu-item a {
-        padding: .375rem 0;
-        padding-right: .75rem;
-    }
-    .sidebar-dropdown-menu-item.focused > a,
-    .sidebar-dropdown-menu-item a:hover {
-        color: var(--bs-brand-color);
-    }
-    .sidebar-dropdown-menu {
-        padding-left: 2rem;
-    }
-    .sidebar-dropdown-menu .sidebar-dropdown-menu {
-        padding-left: 1rem;
-        list-style-type: circle;
-    }
-    /* end: Sidebar */
-
-
-
-    /* start: Main */
-    main {
-        padding-left: 0;
-        min-height: 100vh;
-        font-family: 'Open Sans', sans-serif;
-    }
-
-
-
-    /* start: Navbar */
-    nav {
-        display: flex;
-        align-items: center;
-    }
-    .navbar-profile-image {
-        width: 2.5rem;
-        height: 2.5rem;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-    .navbar-link {
-        width: 2.5rem;
-        height: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: .25rem;
-    }
-    .navbar-link:hover {
-        background-color: var(--bs-gray-200);
-    }
-    /* end: Navbar */
-
-
-
-    /* start: Suummary */
-    .summary-icon {
-        width: 4rem;
-        height: 4rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--bs-light);
-        font-size: 1.5rem;
-        border-radius: 50%;
-    }
-    .summary-primary,
-    .summary-indigo,
-    .summary-success,
-    .summary-danger {
-        transition: .2s;
-    }
-    .summary-primary:hover,
-    .summary-indigo:hover,
-    .summary-success:hover,
-    .summary-danger:hover {
-        color: var(--bs-light) !important;
-    }
-    .summary-primary:hover .summary-icon,
-    .summary-indigo:hover .summary-icon,
-    .summary-success:hover .summary-icon,
-    .summary-danger:hover .summary-icon {
-        background-color: var(--bs-light) !important;
-    }
-    .summary-primary:hover .summary-icon {
-        color: var(--bs-primary) !important;
-    }
-    .summary-indigo:hover .summary-icon {
-        color: var(--bs-indigo) !important;
-    }
-    .summary-success:hover .summary-icon {
-        color: var(--bs-success) !important;
-    }
-    .summary-danger:hover .summary-icon {
-        color: var(--bs-danger) !important;
-    }
-    .summary-primary:hover {
-        background-color: var(--bs-primary) !important;
-    }
-    .summary-indigo:hover {
-        background-color: var(--bs-indigo) !important;
-    }
-    .summary-success:hover {
-        background-color: var(--bs-success) !important;
-    }
-    .summary-danger:hover {
-        background-color: var(--bs-danger) !important;
-    }
-    /* end: Suummary */
-    /* end: Main */
-
-
-
-    /* start: Breakpoints */
-    /* X-Small devices (portrait phones, less than 576px) */
-    /* No media query for `xs` since this is the default in Bootstrap */
-
-    /* Small devices (landscape phones, 576px and up) */
-    @media (min-width: 576px) {
-        
-    }
-
-    /* Medium devices (tablets, 768px and up) */
-    @media (min-width: 768px) {
-        /* start: Sidebar */
-        .sidebar-overlay {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .sidebar.collapsed {
-            width: 4.75rem;
-            left: 0;
-        }
-        .sidebar.collapsed .sidebar-logo {
-            display: none;
-        }
-        .sidebar.collapsed:hover .sidebar-logo {
-            display: block;
-        }
-        .sidebar.collapsed:hover .sidebar-toggle {
-            margin-left: auto;
-            margin-right: 0;
-        }
-        .sidebar.collapsed .sidebar-toggle {
-            margin: 0 auto;
-            transform: rotateZ(180deg);
-        }
-        .sidebar.collapsed:hover .sidebar-menu-divider {
-            font-size: .75rem;
-            color: var(--bs-gray-600);
-            transition: opacity .2s;
-            opacity: 1;
-            visibility: visible;
-        }
-        .sidebar.collapsed .sidebar-menu-divider {
-            opacity: 0;
-            visibility: hidden;
-        }
-        /* end: Sidebar */
-
-
-
-        /* start: Main */
-        main {
-            transition: padding-left .2s;
-            padding-left: 16rem;
-        }
-        .sidebar.collapsed ~ main {
-            padding-left: 4.75rem;
-        }
-        /* end: Main */
-    }
-
-    /* Large devices (desktops, 992px and up) */
-    @media (min-width: 992px) {
-        
-    }
-
-    /* X-Large devices (large desktops, 1200px and up) */
-    @media (min-width: 1200px) {
-        
-    }
-
-    /* XX-Large devices (larger desktops, 1400px and up) */
-    @media (min-width: 1400px) {
-        
-    }
-    /* end: Breakpoints */
-</style>
 
 <body>
 
     <!-- start: Sidebar -->
     <div class="sidebar position-fixed top-0 bottom-0 bg-white border-end">
         <div class="d-flex align-items-center p-3">
-            <a href="#" class="sidebar-logo text-uppercase fw-bold text-decoration-none text-brand fs-3">TUTUBAN</a>
+            <a href="#" class="sidebar-logo text-uppercase fw-bold text-decoration-none text-brand fs-4">TUTUBAN</a>
             <i class="sidebar-toggle ri-arrow-left-circle-line ms-auto fs-5 d-none d-md-block"></i>
         </div>
 
         <ul class="sidebar-menu p-3 m-0 mb-0">
-            <!-- Dashboard Bar -->
+            <!-- User Overview Bar -->
             <li class="sidebar-menu-item">
                 <a href="page_user_dashboard.php">
                     <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
-                    Dashboard
+                    User Overview
                 </a>
             </li>
             
-            <!-- Manage Articles Bar -->
+            <!-- My Articles Bar -->
             <li class="sidebar-menu-item">
                 <a href="#">
                     <i class="ri-newspaper-line sidebar-menu-item-icon"></i>
-                    Manage Articles
+                    My Articles
                 </a>
             </li>
 
-            <!-- Reports Bar -->
+            <!-- Explore Article Bar -->
             <li class="sidebar-menu-item">
                 <a href="#">
                     <i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i>
-                    Reports
-                </a>
-            </li>
-
-            <!-- Activity Logs Bar -->
-            <li class="sidebar-menu-item">
-                <a href="#">
-                    <i class="ri-history-line sidebar-menu-item-icon"></i>
-                    Activity Logs
-                </a>
-            </li>
-
-            <!-- Account Management Bar -->
-            <li class="sidebar-menu-item active">
-                <a href="page_user_account.php">
-                    <i class="ri-group-line sidebar-menu-item-icon"></i>
-                    Account Management
+                    Explore
                 </a>
             </li>
 
             <!-- Settings Bar -->
             <li class="sidebar-menu-item has-dropdown">
-                <a href="#">
+                <a href="#" id="settingBar">
                     <i class="ri-settings-2-line sidebar-menu-item-icon"></i>
                     Settings
                     <i class="ri-arrow-down-s-line sidebar-menu-item-accordion ms-auto"></i>
@@ -477,179 +68,166 @@ include "../backend/phpscripts/account.php";
                 <!-- Dropdown Menu: Settings -->
                 <ul class="sidebar-dropdown-menu">
 
-                    <!-- Settings: Update Profile -->
-                    <li class="sidebar-dropdown-menu-item">
-                        <a href="#">
-                            Update Profile
+                   <!-- Settings: Profile Setting -->
+                    <li class="sidebar-dropdown-menu-item active">
+                        <a href="page_user_account.php">
+                            Profile Setting
                         </a>
                     </li>
 
-                    <!-- Settings: Category Setting -->
                     <li class="sidebar-dropdown-menu-item">
-                        <a href="#">
-                            Category Setting
+                        <a href="page_change_password_account.php">
+                            Change Password
                         </a>
-                    </li>
-                    <li class="sidebar-dropdown-menu-item has-dropdown">
-                        <a href="#">
-                            Blog
-                            <i class="ri-arrow-down-s-line sidebar-menu-item-accordion ms-auto"></i>
-                        </a>
-                        <ul class="sidebar-dropdown-menu">
-                            <li class="sidebar-dropdown-menu-item">
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li class="sidebar-dropdown-menu-item">
-                                <a href="#">
-                                    Post
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
-            </li>
-
-            <!-- Account Management Bar -->
-            <li class="sidebar-menu-item">
-                <?php include '../components/button_logout.php'; ?>
             </li>
         </ul>
     </div>
     <div class="sidebar-overlay"></div>
     <!-- end: Sidebar -->
 
+    <!-- start: Main -->
     <main class="bg-light">
-        <div class="p-2">
+        <div class="px-3 py-3">
             <!-- start: Navbar -->
-            <nav class="px-3 py-2 bg-white rounded shadow-sm">
+            <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
-                <h5 class="fw-bold mb-0 me-auto">USER ACCOUNT</h5>
+                <div class="col">
+                    <h3 class="fw-bolder me-auto text-muted">Settings</h3>
+                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Profile Setting</p>
+                </div>
+                <div class="dropdown">
+                    <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="me-2 d-none d-sm-block">
+                            <?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?> 
+                            <?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>
+                        </span>
+                        <img class="navbar-profile-image"
+                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                            alt="Image">
+                    </div>
+                    <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item rounded text-center py-2" id="logoutAccount" href="#">Log out</a></li>
+                    </ul>
+                </div>
             </nav>
             <!-- end: Navbar -->
 
             <!-- start: Content -->
-            <div class="py-4">
-                <!-- start: Summary -->
-                <div class="row g-3">
-                    <form id="saveAccForm" method="POST">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10 col-xl-8">
+                        <div class="my-4">
+                            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link fs-7 active" id="home-tab" data-toggle="tab" href="page_user_account.php" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link fs-7" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
+                                </li>
+                            </ul>
+                            
+                                <div class="row mt-5 align-items-center">
+                                    <!-- Avatar Image -->
+                                    <div class="col-md-4 text-center mb-5">
+                                        <div class="avatar avatar-xl">
+                                            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="..." class="avatar-img rounded-circle">
+                                        </div>
+                                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">First Name</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your first name here" name="user_fname" id="user_fname" value="<?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?>">
-                        </div>
+                                    <div class="col-md-8">
+                                        <!-- Malaking Name -->
+                                        <div class="row align-items-center">
+                                            <div class="col-md-5">
+                                                <h4 class="mb-1 fw-semibold"><?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>, 
+                                                <?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?></h4>
+                                            </div>
+                                        </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Last Name</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your last name here" name="user_lname" id="user_lname" value="<?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>">
-                        </div>
+                                        <!-- Copypasta -->
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <p class="text-muted fs-7"> Makikita mo 🧐👀👁️👁️👍sa imagine 🤯😱🤔💭 mo sakses📈🪜🍾🙏🥇💯🏆🏅 ka eh💐🥳 , bigla😱😲kang sumakses eh🤑. peru step🪜🦵 by the step🦶pala bago ka sumakses👌🥳💐❤️‍🔥, peru☝️ yong ☝️na imagine 🫨🤔🧐mo biglang kang sumakses🥂📈📈 </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                            <form id="saveAccForm" method="POST">
+                                <div class="row">
+                                    <!-- First Name -->
+                                    <div class="form-group col-md-6">
+                                        <label for="user_fname" class="fw-semibold fs-7 mb-2 text-muted">First Name</label>
+                                        <input type="text" name="user_fname" id="user_fname" class="form-control" placeholder="Enter your First Name" value="<?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?>">
+                                    </div>
+                                    
+                                    <!-- Last Name -->
+                                    <div class="form-group col-md-6">
+                                        <label for="user_lname" class="fw-semibold fs-7 mb-2 text-muted">Last Name</label>
+                                        <input type="text" name="user_lname" id="user_lname" class="form-control" placeholder="Enter your Last Name" value="<?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>">
+                                    </div>
+                                </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Username</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your username here" name="user_name" id="user_name" value="<?php echo isset($user_data['user_name']) ? htmlspecialchars($user_data['user_name']) : ''; ?>">
-                        </div>
+                                <div class="row">
+                                    <!-- User Name -->
+                                    <div class="form-group col-md-6">
+                                        <label for="user_name" class="fw-semibold fs-7 mb-2 text-muted">Username</label>
+                                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter your User Name" value="<?php echo isset($user_data['user_name']) ? htmlspecialchars($user_data['user_name']) : ''; ?>">
+                                    </div>
+                                    
+                                    <!-- Email -->
+                                    <div class="form-group col-md-6">
+                                        <label class="fw-semibold fs-7 mb-2 text-muted">Email</label>
+                                        <input type="text" name="user_lname" id="user_lname" class="form-control" value="<?php echo isset($user_data['user_email']) ? htmlspecialchars($user_data['user_email']) : ''; ?>" disabled>
+                                    </div>
+                                </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Email</label>
-                            <input class="form-control" type="text" value="<?php echo isset($user_data['user_email']) ? htmlspecialchars($user_data['user_email']) : ''; ?>" disabled>
-                        </div>
+                                <div class="row">
+                                    <!-- DOB -->
+                                    <div class="form-group col-md-2">
+                                        <label for="birthdate" class="fw-semibold fs-7 mb-2 text-muted">Birth Date</label>
+                                        <input type="date" name="birthdate" id="birthdate" class="form-control" value="<?php echo isset($user_data['birthdate']) ? htmlspecialchars($user_data['birthdate']) : ''; ?>">
+                                    </div>
+                                    
+                                    <!-- Address -->
+                                    <div class="form-group col-md-6">
+                                        <label for="address" class="fw-semibold fs-7 mb-2 text-muted">Address</label>
+                                        <input type="text" name="address" id="address" class="form-control" value="<?php echo isset($user_data['address']) ? htmlspecialchars($user_data['address']) : ''; ?>">
+                                    </div>
 
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">Date of Birth</label>
-                            <input type="date" class="form-control py-2" name="birthdate" id="birthdate" value="<?php echo isset($user_data['birthdate']) ? htmlspecialchars($user_data['birthdate']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Address</label>
-                            <input type="text" class="form-control py-2" placeholder="Enter your Address Here" name="address" id="address" value="<?php echo isset($user_data['address']) ? htmlspecialchars($user_data['address']) : ''; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Phone Number</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control py-2" placeholder="Enter your Address Here" name="number" id="number" maxlength="11" value="<?php echo isset($user_data['number']) ? htmlspecialchars($user_data['number']) : ''; ?>">
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Account</button>
-                    </form>
-                </div>
-                <!-- end: Summary -->
-                <!-- start: Graph -->
-                <div class="row g-3 mt-2">
-                    <form id="savePassForm" method="POST">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Old Password</label>
-                            <input type="password" class="form-control py-2" placeholder="Enter your old password here" name="user_pass" id="user_pass">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">New Password</label>
-                            <input type="password" class="form-control py-2" placeholder="Enter your new password here" name="new_pass" id="new_pass">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Confirm New Password</label>
-                            <input type="password" class="form-control py-2" placeholder="Confirm your new password here" name="new_passCheck" id="new_passCheck">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save</button>
-                    </form>
-                </div>
-                <!-- end: Graph -->
-            </div>
-            <!-- end: Content -->
+                                    <!-- Contact Number -->
+                                    <div class="form-group col-md-4">
+                                        <label for="number" class="fw-semibold fs-7 mb-2 text-muted">Contact Number</label>
+                                        <input type="text" name="number" id="number" class="form-control" maxlength="11" value="<?php echo isset($user_data['number']) ? htmlspecialchars($user_data['number']) : ''; ?>">
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                                <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Changes</button>
+                            </form>
+                        </div> <!-- /.card-body -->
+                    </div> <!-- /.col-12 -->
+                </div> <!-- .row -->
+            </div> <!-- .container-fluid -->
+             <!-- end: Content -->
         </div>
 
     </main>
 
+    <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/script/script.js"></script>
     <script src="../backend/javascript/save_account.js"></script>
-    <script src="../backend/javascript/save_password.js"></script>
+    <!-- end: JS -->
 
     <script>
-      $(document).ready(function(){
-          // start: Sidebar
-          $('.sidebar-dropdown-menu').slideUp('fast')
-
-          $('.sidebar-menu-item.has-dropdown > a, .sidebar-dropdown-menu-item.has-dropdown > a').click(function(e) {
-              e.preventDefault()
-
-              if(!($(this).parent().hasClass('focused'))) {
-                  $(this).parent().parent().find('.sidebar-dropdown-menu').slideUp('fast')
-                  $(this).parent().parent().find('.has-dropdown').removeClass('focused')
-              }
-
-              $(this).next().slideToggle('fast')
-              $(this).parent().toggleClass('focused')
-          })
-
-          $('.sidebar-toggle').click(function () {
-            $('.sidebar').toggleClass('collapsed');
-          
-            if ($(window).width() < 768) {
-              $('.sidebar-overlay').toggleClass('d-none');
-            }
-          
-            $('.sidebar-dropdown-menu').slideUp('fast');
-            $('.sidebar-menu-item.has-dropdown, .sidebar-dropdown-menu-item.has-dropdown').removeClass('focused');
-          });
-          
-
-          $('.sidebar-overlay').click(function() {
-              $('.sidebar').addClass('collapsed')
-
-              $('.sidebar-dropdown-menu').slideUp('fast')
-              $('.sidebar-menu-item.has-dropdown, .sidebar-dropdown-menu-item.has-dropdown').removeClass('focused')
-          })
-
-          if(window.innerWidth < 768) {
-              $('.sidebar').addClass('collapsed')
-          }
-          // end: Sidebar
-      });
+      
     </script>
+    <?php include "../components/button_logout.php" ?>
+
 </body>
 </html>
 
