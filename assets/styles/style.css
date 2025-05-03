@@ -515,7 +515,154 @@ a.sessionsLink:hover {
   /* end: ### page_user_dashboard.php ### */
   /* end: Article Overview Cards */
 
+/* Start: ### page_admin_account_management.php ### */
+      /* Account Management Section */
+      .account-mgmt .btn-group .btn {
+        min-width: 5rem;
+    }
 
+    .account-mgmt table#accountTable thead th {
+        position: relative;
+        cursor: pointer;
+        background: transparent;
+        color: var(--bs-gray-600);
+        border-bottom: 1px solid var(--bs-gray-300);
+        text-transform: uppercase;
+        font-size: 0.80rem;
+        padding: 1rem;
+    }
+
+    /* Sorting icons via FontAwesome */
+    .account-mgmt table#accountTable thead th.sorting:after {
+        content: "\f0dc"; /* fa-sort */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        right: .75rem;
+        color: var(--bs-gray-400);
+    }
+
+    .account-mgmt table#accountTable thead th.sorting_asc:after {
+        content: "\f0de"; /* fa-sort-up */
+        color: var(--bs-brand-color);
+    }
+    .account-mgmt table#accountTable thead th.sorting_desc:after {
+        content: "\f0dd"; /* fa-sort-down */
+        color: var(--bs-brand-color);
+    }
+
+    .account-mgmt table#accountTable tbody td {
+        background: transparent;
+        font-size: 0.90rem;
+        font-weight: 500;
+        color: var(--bs-gray-600);
+        padding: 1rem;
+    }
+
+    .account-mgmt table#accountTable tbody td:nth-child(2) {
+        color: var(--bs-gray-700);
+        font-weight: 600;
+    }
+
+    .account-mgmt .status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: var(--bs-border-radius);
+    }
+
+    .status-admin, .status-active {
+        background: #B2DFDB;
+        color: var(--bs-success);
+    }
+    
+    .status-user {
+        background: #B3E5FC;
+        color: #039BE5;
+    }
+    
+    .status-inactive {
+        background: var(--bs-gray-300);
+        color: var(--bs-gray-700);
+    }
+    
+    .account-mgmt .action-btn {
+        background: transparent;
+        border: none;
+        color: var(--bs-gray-700);
+        cursor: pointer;
+        margin: 0 0.25rem;
+    }
+
+    .account-mgmt .action-btn:hover {
+        color: var(--bs-brand-color);
+    }
+
+    .dataTables_filter {
+        display: none !important;
+    }
+
+    /* ──────────────────────────────────────────────────
+    DataTables footer: info, paginate & length menu
+    ────────────────────────────────────────────────── */
+
+    /* Table-footer styling */
+    /* layout of your footer blocks */
+    .my-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+
+    /* each block can shrink or grow as you like */
+    .footer-block {
+    /* e.g. info on left, pagination center, length on right */
+        flex: 1 1 auto;
+    }
+
+    /* center the pagination buttons */
+    #paginateContainer {
+        text-align: center;
+    }
+
+    #lengthContainer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* brand your "Show X entries" dropdown */
+    #lengthContainer .dataTables_length label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    #lengthContainer .dataTables_length select {
+        max-width: 5rem;
+        border: none;
+        border-radius: var(--bs-border-radius);
+        cursor: pointer;
+        appearance: none;
+    }
+
+    /* restyle pagination buttons */
+    #paginateContainer .paginate_button {
+        border-radius: var(--bs-border-radius);
+        border: 1px solid var(--bs-gray-300);
+        background: var(--bs-white);
+        cursor: pointer;
+    }
+
+    .paginate_button.active>.page-link, .page-link.active {
+        background: var(--bs-brand-color);
+        color: #fff !important;
+        border-color: var(--bs-brand-color);
+    }
+/* End: ### page_admin_account_management.php ### */
 /* Start: ### page_user_account.php ### */
   /* Start: Main */
   /* start: Container Fluid */
@@ -652,10 +799,24 @@ a.sessionsLink:hover {
   }
 
   @media (max-width: 768px) {
-    /* Style: page_login.php */
-    .image-side {
-      display: none;
-    }
+      /* Start: page_login.php */
+      .image-side {
+        display: none;
+      }
+    /* End: page_login.php */
+
+    /* Start: page_admin_account_management.php */
+      .account-mgmt .btn-group,
+      .account-mgmt #filterAccountBtn,
+      .account-mgmt #newAccountBtn {
+          width: 100%;
+      }
+      .account-mgmt .btn-group .btn,
+      .account-mgmt #filterAccountBtn,
+      .account-mgmt #newAccountBtn {
+          justify-content: center;
+      }
+    /* End: page_admin_account_management.php */
   }
 
   @media (max-width: 576px) {

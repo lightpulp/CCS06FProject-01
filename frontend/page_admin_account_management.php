@@ -22,213 +22,8 @@ include "../backend/phpscripts/account.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Account Management</title>
+    <title>Activity Logs</title>
 </head>
-<style>
-    /* Account Management Section */
-    .account-mgmt .btn-group .btn {
-        min-width: 5rem;
-    }
-
-    .account-mgmt table#accountTable thead th {
-        position: relative;
-        cursor: pointer;
-        background: transparent;
-        color: var(--bs-gray-600);
-        border-bottom: 1px solid var(--bs-gray-300);
-        text-transform: uppercase;
-        font-size: 0.80rem;
-        padding: 1rem;
-    }
-
-    /* Sorting icons via FontAwesome */
-    .account-mgmt table#accountTable thead th.sorting:after {
-        content: "\f0dc"; /* fa-sort */
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        position: absolute;
-        right: .75rem;
-        color: var(--bs-gray-400);
-    }
-
-    .account-mgmt table#accountTable thead th.sorting_asc:after {
-        content: "\f0de"; /* fa-sort-up */
-        color: var(--bs-brand-color);
-    }
-    .account-mgmt table#accountTable thead th.sorting_desc:after {
-        content: "\f0dd"; /* fa-sort-down */
-        color: var(--bs-brand-color);
-    }
-
-    .account-mgmt table#accountTable tbody td {
-        background: transparent;
-        font-size: 0.90rem;
-        font-weight: 500;
-        color: var(--bs-gray-600);
-        padding: 1rem;
-    }
-
-    .account-mgmt table#accountTable tbody td:nth-child(2) {
-        color: var(--bs-gray-700);
-        font-weight: 600;
-    }
-
-    .account-mgmt .status-badge {
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
-        border-radius: var(--bs-border-radius);
-    }
-
-    .status-admin, .status-active {
-        background: #B2DFDB;
-        color: var(--bs-success);
-    }
-    
-    .status-user {
-        background: #B3E5FC;
-        color: #039BE5;
-    }
-    
-    .status-inactive {
-        background: var(--bs-gray-300);
-        color: var(--bs-gray-700);
-    }
-    
-    .account-mgmt .action-btn {
-        background: transparent;
-        border: none;
-        color: var(--bs-gray-700);
-        cursor: pointer;
-        margin: 0 0.25rem;
-    }
-
-    .account-mgmt .action-btn:hover {
-        color: var(--bs-brand-color);
-    }
-
-    /* ──────────────────────────────────────────────────
-   1) Hide the built-in DataTables search box
-   2) Restyle the paginate buttons
-   ────────────────────────────────────────────────── */
-
-    /* 1) kill the built-in search input */
-    .dataTables_filter {
-        display: none !important;
-    }
-
-        /* ──────────────────────────────────────────────────
-    DataTables footer: info, paginate & length menu
-    ────────────────────────────────────────────────── */
-    /*
-    .table-footer {
-        margin-top: 1rem;
-        padding-top: .5rem;
-        border-top: 1px solid var(--bs-gray-300);
-    }
-
-    .table-footer .table-info {
-        font-size: .875rem;
-        color: var(--bs-gray-700);
-    }
-    
-    .table-footer .table-paginate .paginate_button.current {
-        background: var(--bs-brand-color);
-        color: var(--bs-white) !important;
-        border-color: var(--bs-brand-color);
-    }
-    .table-footer .table-paginate .paginate_button:hover {
-    background: var(--bs-gray-200);
-    }
-
-    .table-footer .table-length {
-    display: flex;
-    align-items: center;
-    font-size: .875rem;
-    }
-    .table-footer .table-length label {
-    margin-right: .5rem;
-    white-space: nowrap;
-    color: var(--bs-gray-700);
-    }
-    .table-footer .table-length select {
-    margin-left: .25rem;
-    }
-    */
-
-    /* Table-footer styling */
-    /* layout of your footer blocks */
-    .my-footer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
-        gap: 1rem;
-    }
-
-    /* each block can shrink or grow as you like */
-    .footer-block {
-    /* e.g. info on left, pagination center, length on right */
-        flex: 1 1 auto;
-    }
-
-    /* center the pagination buttons */
-    #paginateContainer {
-        text-align: center;
-    }
-
-    #lengthContainer {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    /* brand your "Show X entries" dropdown */
-    #lengthContainer .dataTables_length label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-    }
-
-    #lengthContainer .dataTables_length select {
-        max-width: 5rem;
-        border: none;
-        border-radius: var(--bs-border-radius);
-        cursor: pointer;
-        appearance: none;
-    }
-
-    /* restyle pagination buttons */
-    #paginateContainer .paginate_button {
-        border-radius: var(--bs-border-radius);
-        border: 1px solid var(--bs-gray-300);
-        background: var(--bs-white);
-        cursor: pointer;
-    }
-
-    .paginate_button.active>.page-link, .page-link.active {
-        background: var(--bs-brand-color);
-        color: #fff !important;
-        border-color: var(--bs-brand-color);
-    }
-
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-        .account-mgmt .btn-group,
-        .account-mgmt #filterAccountBtn,
-        .account-mgmt #newAccountBtn {
-            width: 100%;
-        }
-        .account-mgmt .btn-group .btn,
-        .account-mgmt #filterAccountBtn,
-        .account-mgmt #newAccountBtn {
-            justify-content: center;
-        }
-    }
-
-</style>
 <body>
 
     <!-- start: Sidebar -->
@@ -265,8 +60,8 @@ include "../backend/phpscripts/account.php";
 
             <!-- Activity Logs Bar -->
             <li class="sidebar-menu-item">
-                <a href="#">
-                    <i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i>
+                <a href="page_admin_activity_log.php">
+                    <i class="ri-time-line sidebar-menu-item-icon"></i>
                     Activity Logs
                 </a>
             </li>
@@ -342,7 +137,7 @@ include "../backend/phpscripts/account.php";
             <!-- Search box -->
             <div class="col-12 col-md-6">
                 <div class="input-group">
-                    <input type="text" id="searchBox" class="form-control" placeholder="Search for id, account name, username etc.">
+                    <input type="text" class="form-control table-search" data-table="#accountTable" placeholder="Search for id, account name, username etc.">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
@@ -361,9 +156,9 @@ include "../backend/phpscripts/account.php";
                             <i class="fas fa-download me-1"></i> Export
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" id="exportCsv"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
-                            <li><a class="dropdown-item" href="#" id="exportExcel"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
-                            <li><a class="dropdown-item" href="#" id="exportPrint"><i class="fas fa-print me-1"></i> Print</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#accountTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#accountTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#accountTable"><i class="fas fa-print me-1"></i> Print</a></li>
                         </ul>
                     </div>
 
@@ -402,6 +197,7 @@ include "../backend/phpscripts/account.php";
                         <td>reijikawashima@test.com</td>
                         <td>09170000000</td>
                         <td>
+                            <!-- Please focus dun sa status-admin, status-active, status-user, status-inactive, para madynamic mo ma add yung class name sa php -->
                             <div class="rounded p-1 status-admin text-center" style="max-width: 80px;">
                                 Admin
                             </div>
@@ -511,64 +307,7 @@ include "../backend/phpscripts/account.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
-    
-    <script>
-        $(document).ready(function(){
-            $(function(){
-                var table = $('#accountTable').DataTable({
-                    dom: 'Blfrtip',
-                    buttons: [
-                    { extend: 'csv',   className: 'd-none' },
-                    { extend: 'excel', className: 'd-none' },
-                    { extend: 'print', className: 'd-none' }
-                    ],
-                    lengthChange: true,
-                    lengthMenu: [[10,20,50,100],[10,20,50,100]],
-                    pageLength: 10,
-                    ordering: true,
-                    responsive: true,
-                    language: { paginate: { previous: '<', next: '>' } },
 
-                    initComplete: function() {
-                        // move the built-in info, paginate & length into our wrappers
-                        $('#accountTable_info').appendTo('#infoContainer');
-                        $('#accountTable_length').appendTo('#lengthContainer');
-                        $('#accountTable_paginate').appendTo('#paginateContainer');
-                        },
-                        drawCallback: function() {
-                        // re-append pagination on every redraw (to keep it centered)
-                        $('#accountTable_paginate').appendTo('#paginateContainer');
-                        }
-                });
-
-                // custom search
-                $('#searchBox').on('keyup', function(){ table.search(this.value).draw(); });
-
-                // export bindings
-                $('#exportCsv').click(e => { e.preventDefault(); table.button(0).trigger(); });
-                $('#exportExcel').click(e => { e.preventDefault(); table.button(1).trigger(); });
-                $('#exportPrint').click(e => { e.preventDefault(); table.button(2).trigger(); });
-
-                // filter modal
-                $('#filterForm').submit(function(e){
-                    e.preventDefault();
-                    table
-                    .column(7).search($('#filterRole').val())
-                    .column(8).search($('#filterActive').val())
-                    .draw();
-                    $('#filterModal').modal('hide');
-                });
-
-            // your other wiring (searchBox, exportCsv/Excel/Print, filterForm, etc.)
-            });
-
-            // new account
-            $('#newUserBtn').click(function(){
-                window.location.href = 'page_admin_account_new.php';
-            });
-        });
-
-    </script>
     <?php include "../components/button_logout.php" ?>
 
 </body>

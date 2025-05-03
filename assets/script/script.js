@@ -16,11 +16,47 @@ $(document).ready(function(){
     
         // Remove the class after animation ends to allow it to trigger again next click
         button.one('animationend', function () {
-          button.removeClass('animate__animated animate__pulse');
+        button.removeClass('animate__animated animate__pulse');
         });
     });
 
-    // start: Sidebar
+    $(document).on('click', '#logoutAccount', function (e) {
+        e.preventDefault(); // Prevent actual link behavior
+        $('#logoutModal').modal('show'); // Trigger Bootstrap modal
+    });
+
+    ////////////////////////////////////////////
+    //  START: DATATABLES EXPORT AND SEARCH   //
+    ////////////////////////////////////////////
+
+    // custom search
+    $('.table-search').on('keyup', function() {
+        const tableSelector = $(this).data('table');
+        const table = $(tableSelector).DataTable();
+        table.search(this.value).draw();
+    });
+    
+    // dynamically reference
+    $('.export-btn').on('click', function(e) {
+        e.preventDefault();
+        const type = $(this).data('type');
+        const tableSelector = $(this).data('table');
+        const table = $(tableSelector).DataTable();
+
+        const buttonIndex = { csv: 0, excel: 1, print: 2 }[type];
+        if (table && buttonIndex !== undefined) {
+            table.button(buttonIndex).trigger();
+        }
+    });
+
+    //////////////////////////////////////////
+    //  END: DATATABLES EXPORT AND SEARCH   //
+    //////////////////////////////////////////
+
+    
+    //////////////////////////////////////////
+    //           Start: Sidebar             //
+    //////////////////////////////////////////
     if (!$('.sidebar').hasClass('collapsed')) {
         $('.sidebar-dropdown-menu-item.active').closest('.sidebar-dropdown-menu').slideDown('fast');
         $('.sidebar-dropdown-menu-item.active').closest('.has-dropdown').addClass('focused');
@@ -80,13 +116,6 @@ $(document).ready(function(){
     $('.sidebar-dropdown-menu-item.active').closest('.sidebar-dropdown-menu').slideDown('fast');
     $('.sidebar-dropdown-menu-item.active').closest('.has-dropdown').addClass('focused');
 
-    
-    $(document).on('click', '#logoutAccount', function (e) {
-        e.preventDefault(); // Prevent actual link behavior
-        $('#logoutModal').modal('show'); // Trigger Bootstrap modal
-    });
-});
-
     // Auto-collapse sidebar when window shrinks below 768px
     $(window).on('resize', function () {
         if ($(window).width() < 768) {
@@ -105,7 +134,58 @@ $(document).ready(function(){
                 $('.sidebar-dropdown-menu-item.active').closest('.has-dropdown').addClass('focused');
             }
         }
-    // Trigger it once on load to apply the correct state
-    $(window).trigger('resize');
-    // end: Sidebar
+        // Trigger it once on load to apply the correct state
+        $(window).trigger('resize');
+    });
+
+    //////////////////////////////////////////
+    //           End: Sidebar               //
+    //////////////////////////////////////////
+    
+    ///////////////////////////////////////////////
+    // Start: page_admin_account_management.php  //
+    ///////////////////////////////////////////////
+    var accountTable = $.fn.dataTable.isDataTable('#accountTable') 
+        ? $('#accountTable').DataTable() 
+        : $('#accountTable').DataTable({
+            dom: 'Blfrtip',
+            buttons: [
+                { extend: 'csv',   className: 'd-none' },
+                { extend: 'excel', className: 'd-none' },
+                { extend: 'print', className: 'd-none' }
+            ],
+            lengthChange: true,
+            lengthMenu: [[10,20,50,100],[10,20,50,100]],
+            pageLength: 10,
+            ordering: true,
+            responsive: true,
+            language: { paginate: { previous: '<', next: '>' } },
+            initComplete: function() {
+                $('#accountTable_info').appendTo('#infoContainer');
+                $('#accountTable_length').appendTo('#lengthContainer');
+                $('#accountTable_paginate').appendTo('#paginateContainer');
+            },
+            drawCallback: function() {
+                $('#accountTable_paginate').appendTo('#paginateContainer');
+            }
+        });
+
+
+    // filter modal
+    $('#filterForm').submit(function(e){
+        e.preventDefault();
+        accountTable
+        .column(7).search($('#filterRole').val())
+        .column(8).search($('#filterActive').val())
+        .draw();
+        $('#filterModal').modal('hide');
+    });
+
+    // new account
+    $('#newUserBtn').click(function(){
+        window.location.href = 'page_admin_account_new.php';
+    });
+    ///////////////////////////////////////////////
+    //   End: page_admin_account_management.php  //
+    ///////////////////////////////////////////////
 });
