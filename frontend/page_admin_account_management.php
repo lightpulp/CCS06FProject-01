@@ -24,7 +24,211 @@ include "../backend/phpscripts/account.php";
     <!-- end: CSS -->
     <title>Account Management</title>
 </head>
+<style>
+    /* Account Management Section */
+    .account-mgmt .btn-group .btn {
+        min-width: 5rem;
+    }
 
+    .account-mgmt table#accountTable thead th {
+        position: relative;
+        cursor: pointer;
+        background: transparent;
+        color: var(--bs-gray-600);
+        border-bottom: 1px solid var(--bs-gray-300);
+        text-transform: uppercase;
+        font-size: 0.80rem;
+        padding: 1rem;
+    }
+
+    /* Sorting icons via FontAwesome */
+    .account-mgmt table#accountTable thead th.sorting:after {
+        content: "\f0dc"; /* fa-sort */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        right: .75rem;
+        color: var(--bs-gray-400);
+    }
+
+    .account-mgmt table#accountTable thead th.sorting_asc:after {
+        content: "\f0de"; /* fa-sort-up */
+        color: var(--bs-brand-color);
+    }
+    .account-mgmt table#accountTable thead th.sorting_desc:after {
+        content: "\f0dd"; /* fa-sort-down */
+        color: var(--bs-brand-color);
+    }
+
+    .account-mgmt table#accountTable tbody td {
+        background: transparent;
+        font-size: 0.90rem;
+        font-weight: 500;
+        color: var(--bs-gray-600);
+        padding: 1rem;
+    }
+
+    .account-mgmt table#accountTable tbody td:nth-child(2) {
+        color: var(--bs-gray-700);
+        font-weight: 600;
+    }
+
+    .account-mgmt .status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: var(--bs-border-radius);
+    }
+
+    .status-admin, .status-active {
+        background: #B2DFDB;
+        color: var(--bs-success);
+    }
+    
+    .status-user {
+        background: #B3E5FC;
+        color: #039BE5;
+    }
+    
+    .status-inactive {
+        background: var(--bs-gray-300);
+        color: var(--bs-gray-700);
+    }
+    
+    .account-mgmt .action-btn {
+        background: transparent;
+        border: none;
+        color: var(--bs-gray-700);
+        cursor: pointer;
+        margin: 0 0.25rem;
+    }
+
+    .account-mgmt .action-btn:hover {
+        color: var(--bs-brand-color);
+    }
+
+    /* ──────────────────────────────────────────────────
+   1) Hide the built-in DataTables search box
+   2) Restyle the paginate buttons
+   ────────────────────────────────────────────────── */
+
+    /* 1) kill the built-in search input */
+    .dataTables_filter {
+        display: none !important;
+    }
+
+        /* ──────────────────────────────────────────────────
+    DataTables footer: info, paginate & length menu
+    ────────────────────────────────────────────────── */
+    /*
+    .table-footer {
+        margin-top: 1rem;
+        padding-top: .5rem;
+        border-top: 1px solid var(--bs-gray-300);
+    }
+
+    .table-footer .table-info {
+        font-size: .875rem;
+        color: var(--bs-gray-700);
+    }
+    
+    .table-footer .table-paginate .paginate_button.current {
+        background: var(--bs-brand-color);
+        color: var(--bs-white) !important;
+        border-color: var(--bs-brand-color);
+    }
+    .table-footer .table-paginate .paginate_button:hover {
+    background: var(--bs-gray-200);
+    }
+
+    .table-footer .table-length {
+    display: flex;
+    align-items: center;
+    font-size: .875rem;
+    }
+    .table-footer .table-length label {
+    margin-right: .5rem;
+    white-space: nowrap;
+    color: var(--bs-gray-700);
+    }
+    .table-footer .table-length select {
+    margin-left: .25rem;
+    }
+    */
+
+    /* Table-footer styling */
+    /* layout of your footer blocks */
+    .my-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+
+    /* each block can shrink or grow as you like */
+    .footer-block {
+    /* e.g. info on left, pagination center, length on right */
+        flex: 1 1 auto;
+    }
+
+    /* center the pagination buttons */
+    #paginateContainer {
+        text-align: center;
+    }
+
+    #lengthContainer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* brand your "Show X entries" dropdown */
+    #lengthContainer .dataTables_length label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    #lengthContainer .dataTables_length select {
+        max-width: 5rem;
+        border: none;
+        border-radius: var(--bs-border-radius);
+        cursor: pointer;
+        appearance: none;
+    }
+
+    /* restyle pagination buttons */
+    #paginateContainer .paginate_button {
+        border-radius: var(--bs-border-radius);
+        border: 1px solid var(--bs-gray-300);
+        background: var(--bs-white);
+        cursor: pointer;
+    }
+
+    .paginate_button.active>.page-link, .page-link.active {
+        background: var(--bs-brand-color);
+        color: #fff !important;
+        border-color: var(--bs-brand-color);
+    }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+        .account-mgmt .btn-group,
+        .account-mgmt #filterAccountBtn,
+        .account-mgmt #newAccountBtn {
+            width: 100%;
+        }
+        .account-mgmt .btn-group .btn,
+        .account-mgmt #filterAccountBtn,
+        .account-mgmt #newAccountBtn {
+            justify-content: center;
+        }
+    }
+
+</style>
 <body>
 
     <!-- start: Sidebar -->
@@ -107,14 +311,14 @@ include "../backend/phpscripts/account.php";
     <!-- end: Sidebar -->
 
     <!-- start: Main -->
-    <main class="bg-light">
+    <main class="bg-light account-mgmt">
         <div class="px-3 py-3">
             <!-- start: Navbar -->
             <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
-                    <h3 class="fw-bolder me-auto text-muted">Settings</h3>
-                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Change Password</p>
+                    <h3 class="fw-bolder me-auto text-muted">Account Management</h3>
+                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Manage accounts information and roles</p>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -133,202 +337,237 @@ include "../backend/phpscripts/account.php";
                 </div>
             </nav>
             <!-- end: Navbar -->
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                    <h2 class="mb-2 page-title">Data table</h2>
-                    <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, built upon the foundations of progressive enhancement, that adds all of these advanced features to any HTML table. </p>
-                    <div class="row my-4">
-                        <!-- Small table -->
-                        <div class="col-md-12">
-                        <div class="card shadow">
-                            <div class="card-body">
-                            <!-- table -->
-                            <table class="table datatables" id="dataTable-1">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Company</th>
-                                        <th>Address</th>
-                                        <th>City</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                        </td>
-                                        <td>368</td>
-                                        <td>Imani Lara</td>
-                                        <td>(478) 446-9234</td>
-                                        <td>Asset Management</td>
-                                        <td>Borland</td>
-                                        <td>9022 Suspendisse Rd.</td>
-                                        <td>High Wycombe</td>
-                                        <td>Jun 8, 2019</td>
-                                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Remove</a>
-                                            <a class="dropdown-item" href="#">Assign</a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                        </td>
-                                        <td>323</td>
-                                        <td>Walter Sawyer</td>
-                                        <td>(671) 969-1704</td>
-                                        <td>Tech Support</td>
-                                        <td>Macromedia</td>
-                                        <td>Ap #708-5152 Cursus. Ave</td>
-                                        <td>Bath</td>
-                                        <td>May 8, 2020</td>
-                                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Remove</a>
-                                            <a class="dropdown-item" href="#">Assign</a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                        </td>
-                                        <td>371</td>
-                                        <td>Noelle Ray</td>
-                                        <td>(803) 792-2559</td>
-                                        <td>Human Resources</td>
-                                        <td>Sibelius</td>
-                                        <td>Ap #992-8933 Sagittis Street</td>
-                                        <td>Ivanteyevka</td>
-                                        <td>Apr 2, 2021</td>
-                                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Remove</a>
-                                            <a class="dropdown-item" href="#">Assign</a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                        </td>
-                                        <td>302</td>
-                                        <td>Portia Nolan</td>
-                                        <td>(216) 946-1119</td>
-                                        <td>Payroll</td>
-                                        <td>Microsoft</td>
-                                        <td>Ap #461-4415 Enim Rd.</td>
-                                        <td>Kanpur Cantonment</td>
-                                        <td>Dec 4, 2019</td>
-                                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Remove</a>
-                                            <a class="dropdown-item" href="#">Assign</a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                        </td>
-                                        <td>443</td>
-                                        <td>Scarlett Anderson</td>
-                                        <td>(486) 309-3564</td>
-                                        <td>Tech Support</td>
-                                        <td>Yahoo</td>
-                                        <td>P.O. Box 988, 7282 Lobortis Avenue</td>
-                                        <td>Lot</td>
-                                        <td>Dec 27, 2019</td>
-                                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Remove</a>
-                                            <a class="dropdown-item" href="#">Assign</a>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                        </div> <!-- simple table -->
-                    </div> <!-- end section -->
-                    </div> <!-- .col-12 -->
-                </div> <!-- .row -->
-            </div> <!-- .container-fluid -->
-             <!-- end: Content -->
+            <!-- Controls: responsive row -->
+            <div class="row align-items-center gy-2 mb-4">
+            <!-- Search box -->
+            <div class="col-12 col-md-6">
+                <div class="input-group">
+                    <input type="text" id="searchBox" class="form-control" placeholder="Search for id, account name, username etc.">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+
+            <!-- Button group: Filter, Export, New Account -->
+            <div class="col-12 col-md-6">
+                <div class="d-flex flex-wrap justify-content-md-end gap-2">
+                    <!-- Filter Button -->
+                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fas fa-filter me-1"></i> Filter
+                    </button>
+
+                    <!-- Export Dropdown -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="exportCsv"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
+                            <li><a class="dropdown-item" href="#" id="exportExcel"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
+                            <li><a class="dropdown-item" href="#" id="exportPrint"><i class="fas fa-print me-1"></i> Print</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- New Account Button -->
+                    <button id="newAccountBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold">
+                        <i class="fas fa-user-plus me-1"></i> New Account
+                    </button>
+                </div>
+            </div>
         </div>
 
+        <!-- DataTable -->
+        <div class="table-responsive">
+            <table id="accountTable" class="table table-hover nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Account Name</th>
+                    <th>Username</th>
+                    <th>Birth Date</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Role</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Reiji Kawashima</td>
+                        <td>reijikawashima_01</td>
+                        <td>March 21, 1995</td>
+                        <td>Kanagawa, Japan</td>
+                        <td>reijikawashima@test.com</td>
+                        <td>09170000000</td>
+                        <td>
+                            <div class="rounded p-1 status-admin text-center" style="max-width: 80px;">
+                                Admin
+                            </div>
+                        </td>
+                        <td>
+                            <div class="rounded p-1 status-active text-center" style="max-width: 80px;">
+                                Active
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#" class="link-warning"><i class="fa-solid fa-pen-to-square fs-5 mx-1"></i></a>
+                            <a href="#" class="link-danger"><i class="fa-solid fa-trash fs-5"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Saori Hayami</td>
+                        <td>yumekosaori</td>
+                        <td>May 21, 1992</td>
+                        <td>Kagoshima, Japan</td>
+                        <td>saorihayami@test.com</td>
+                        <td>09170000023</td>
+                        <td>
+                            <div class="rounded p-1 status-user text-center" style="max-width: 80px;">
+                                User
+                            </div>
+                        </td>
+                        <td>
+                            <div class="rounded p-1 status-inactive text-center" style="max-width: 80px;">
+                                Inactive
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#" class="link-warning"><i class="fa-solid fa-pen-to-square fs-5 mx-1"></i></a>
+                            <a href="#" class="link-danger"><i class="fa-solid fa-trash fs-5"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- custom footer placeholders -->
+        <div class="my-footer row">
+            <div class="col">
+                <div id="infoContainer" class="footer-block"></div>
+                <div id="paginateContainer" class="footer-block"></div>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <div id="lengthContainer" class="footer-block"></div>
+            </div>
+        </div>
     </main>
+
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <form id="filterForm">
+                <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="mb-3">
+                    <label for="filterRole" class="form-label">Role</label>
+                    <select id="filterRole" class="form-select">
+                    <option value="">All</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="filterActive" class="form-label">Status</label>
+                    <select id="filterActive" class="form-select">
+                    <option value="">All</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.min.css">
-    <script src="https://cdn.datatables.net/2.3.0/js/jquery.dataTables.min.js"></script>
 
-    <!-- DataTables Buttons -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.min.css">
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
- 
+    <!-- Core DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    <!-- Required for export -->
+    <!-- Buttons extension + Bootstrap 5 styling -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+
+    <!-- Optional dependencies for CSV/Excel/PDF/print buttons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.19/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.19/vfs_fonts.js"></script>
-    <script src="../assets/script/script.js"></script>
-    <!-- end: JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
+    <!-- HTML5 export buttons -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="../assets/script/script.js"></script>
+    
     <script>
-        $(document).ready(function() {
-            $('#dataTable-1').DataTable({
-            dom: 'Bfrtip',
-            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'print']
+        $(document).ready(function(){
+            $(function(){
+                var table = $('#accountTable').DataTable({
+                    dom: 'Blfrtip',
+                    buttons: [
+                    { extend: 'csv',   className: 'd-none' },
+                    { extend: 'excel', className: 'd-none' },
+                    { extend: 'print', className: 'd-none' }
+                    ],
+                    lengthChange: true,
+                    lengthMenu: [[10,20,50,100],[10,20,50,100]],
+                    pageLength: 10,
+                    ordering: true,
+                    responsive: true,
+                    language: { paginate: { previous: '<', next: '>' } },
+
+                    initComplete: function() {
+                        // move the built-in info, paginate & length into our wrappers
+                        $('#accountTable_info').appendTo('#infoContainer');
+                        $('#accountTable_length').appendTo('#lengthContainer');
+                        $('#accountTable_paginate').appendTo('#paginateContainer');
+                        },
+                        drawCallback: function() {
+                        // re-append pagination on every redraw (to keep it centered)
+                        $('#accountTable_paginate').appendTo('#paginateContainer');
+                        }
+                });
+
+                // custom search
+                $('#searchBox').on('keyup', function(){ table.search(this.value).draw(); });
+
+                // export bindings
+                $('#exportCsv').click(e => { e.preventDefault(); table.button(0).trigger(); });
+                $('#exportExcel').click(e => { e.preventDefault(); table.button(1).trigger(); });
+                $('#exportPrint').click(e => { e.preventDefault(); table.button(2).trigger(); });
+
+                // filter modal
+                $('#filterForm').submit(function(e){
+                    e.preventDefault();
+                    table
+                    .column(7).search($('#filterRole').val())
+                    .column(8).search($('#filterActive').val())
+                    .draw();
+                    $('#filterModal').modal('hide');
+                });
+
+            // your other wiring (searchBox, exportCsv/Excel/Print, filterForm, etc.)
+            });
+
+            // new account
+            $('#newUserBtn').click(function(){
+                window.location.href = 'page_admin_account_new.php';
             });
         });
+
     </script>
     <?php include "../components/button_logout.php" ?>
 
