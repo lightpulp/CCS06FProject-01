@@ -521,7 +521,7 @@ a.sessionsLink:hover {
         min-width: 5rem;
     }
 
-    .account-mgmt table#accountTable thead th {
+    .account-mgmt table thead th {
         position: relative;
         cursor: pointer;
         background: transparent;
@@ -533,7 +533,7 @@ a.sessionsLink:hover {
     }
 
     /* Sorting icons via FontAwesome */
-    .account-mgmt table#accountTable thead th.sorting:after {
+    .account-mgmt table thead th.sorting:after {
         content: "\f0dc"; /* fa-sort */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
@@ -542,16 +542,16 @@ a.sessionsLink:hover {
         color: var(--bs-gray-400);
     }
 
-    .account-mgmt table#accountTable thead th.sorting_asc:after {
+    .account-mgmt table thead th.sorting_asc:after {
         content: "\f0de"; /* fa-sort-up */
         color: var(--bs-brand-color);
     }
-    .account-mgmt table#accountTable thead th.sorting_desc:after {
+    .account-mgmt table thead th.sorting_desc:after {
         content: "\f0dd"; /* fa-sort-down */
         color: var(--bs-brand-color);
     }
 
-    .account-mgmt table#accountTable tbody td {
+    .account-mgmt table tbody td {
         background: transparent;
         font-size: 0.90rem;
         font-weight: 500;
