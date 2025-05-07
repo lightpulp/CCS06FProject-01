@@ -34,6 +34,10 @@ $(document).ready(function(){
         const tableSelector = $(this).data('table');
         const table = $(tableSelector).DataTable();
         table.search(this.value).draw();
+        
+        if (!$('#adminCardViewArticleContainer').hasClass('d-none')) {
+            renderCards();
+        }
     });
     
     // dynamically reference
@@ -275,7 +279,7 @@ $(document).ready(function(){
             $('#categoryModal').modal('hide');
             $('#categoryForm')[0].reset();
             alert('Category successfully added!');
-            loadCategories()
+            loadCategories();
           },
           error: function() {
             alert('There was an error adding the category.');

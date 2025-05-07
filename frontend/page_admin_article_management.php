@@ -1,37 +1,321 @@
+<?php
+include "../backend/phpscripts/session.php";
+include "../backend/phpscripts/account.php";
+include "../backend/phpscripts/check_role.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Article Management</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <!-- start: Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <!-- start: Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- start: CSS -->
+    <link rel="stylesheet" href="../assets/styles/style.css">
+    <!-- end: CSS -->
+    <title>Manage Article</title>
 </head>
+<style>
+    .min-w-0 { min-width: 0; }
+
+    /* clamp to 3 lines */
+    .multiline-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .article-card-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .article-card {
+        overflow: hidden;
+        box-shadow: 0px 2px 20px var(--bs-gray-300);
+        background: white;
+        border-radius: 0.5rem;
+        position: relative;
+        max-width: 350px;
+        margin: 1rem;
+        transition: 250ms all ease-in-out;
+    }
+
+    .article-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 2px 40px var(--bs-gray-300);
+    }
+
+    .banner-img {
+        position: absolute;
+        object-fit: cover;
+        height: 14rem;
+        width: 100%;
+    }
+
+    .article-category-tag {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: white;
+        background: var(--bs-brand-color);
+        padding: 0.5rem 1.3rem 0.5rem 1rem;
+        text-transform: uppercase;
+        position: absolute;
+        z-index: 1;
+        top: 1rem;
+        border-radius: 0 2rem 2rem 0;
+    }
+
+    .article-card-body {
+        margin: 15rem 1rem 1rem 1rem;
+    }
+
+    .blog-title {
+        line-height: 2rem;
+        margin: 1rem 0 0.5rem;
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+
+    .blog-description {
+        font-size: 0.9rem;
+    }
+
+    .article-card-profile {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .profile-img {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .article-card-profile-info {
+        margin-left: 1rem;
+    }
+
+    .profile-name {
+        font-size: 1rem;
+    }
+
+    .profile-followers {
+        font-size: 0.9rem;
+    }
+
+    .account-mgmt table#adminArticlesTable tbody td:nth-child(2) {
+        color: var(--bs-gray-700);
+        font-weight: 600;
+    }
+
+    .account-mgmt table#adminArticlesTable tbody td:nth-child(3) {
+        max-width: 200px;
+    }
+
+    #adminCardViewArticleContainer .card .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #adminCardViewArticleContainer .card .card-body > .d-flex {
+        flex-grow: 1;
+    }
+
+    @media (max-width: 768px) {
+      .article-card {
+        max-width: 90%;
+      }
+  }
+
+</style>
 <body>
-    <div class="container mt-4">
-        <h2>Article Management</h2>
-        <table id="articlesTable" class="table table-striped">
+
+    <!-- start: Sidebar -->
+    <?php include '../components/sidebar.php'; ?>
+    <!-- end: Sidebar -->
+
+    <!-- start: Main -->
+    <main class="bg-light account-mgmt">
+        <div class="px-3 py-3">
+            <!-- start: Navbar -->
+            <nav class="px-3 py-2 mb-3 border-bottom">
+                <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
+                <div class="col">
+                    <h3 class="fw-bolder me-auto text-muted">Manage Articles</h3>
+                </div>
+                <div class="dropdown">
+                    <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="me-2 d-none d-sm-block">
+                            <?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?> 
+                            <?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>
+                        </span>
+                        <img class="navbar-profile-image"
+                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                            alt="Image">
+                    </div>
+                    <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item rounded text-center py-2" id="logoutAccount" href="#">Log out</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- end: Navbar -->
+            <!-- Controls: responsive row -->
+            <div class="row align-items-center gy-2 mb-4">
+            <!-- Search box -->
+            <div class="col-12 col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control table-search" data-table="#adminArticlesTable" placeholder="Search for title, category, content, status">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+
+            <!-- Button group: Filter, Export, New Account -->
+            <div class="col-12 col-md-6">
+                <div class="d-flex flex-wrap justify-content-md-end gap-2">
+                    <!-- List Button -->
+                    <button id="listViewBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                        <i class="fa-solid fa-square"></i> List
+                    </button>
+
+                    <!-- Card Button -->
+                    <button id="cardViewBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                        <i class="fa-solid fa-square"></i> Card
+                    </button>
+
+                    <!-- Filter Button -->
+                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fas fa-filter me-1"></i> Filter
+                    </button>
+
+                    <!-- Export Dropdown -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#adminArticlesTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#adminArticlesTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#adminArticlesTable"><i class="fas fa-print me-1"></i> Print</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DataTable -->
+        <div class="table-responsive">
+        <table id="adminArticlesTable" class="table table-hover nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>Article ID</th>
-                    <th>Title</th>
+                    <th>ID</th>
+                    <th>Article Title</th>
+                    <th>Content</th>
                     <th>Author</th>
-                    <th>Status</th>
                     <th>Category</th>
+                    <th>Source URL</th>
+                    <th>Status</th>
+                    <th>Date Created</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Rows will be populated dynamically -->
+            <tbody id="admin-article-body">
+                <!-- Users will be dynamically inserted here -->
             </tbody>
         </table>
+        </div>
+        <!-- Card View Container -->
+        <div id="adminCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
+
+        <!-- custom footer placeholders -->
+        <div class="my-footer row">
+            <div class="col">
+                <div id="infoContainer" class="footer-block"></div>
+                <div id="paginateContainer" class="footer-block"></div>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <div id="lengthContainer" class="footer-block"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <form id="filterForm">
+                <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="mb-3">
+                    <label for="filterRole" class="form-label">Role</label>
+                    <select id="filterRole" class="form-select">
+                    <option value="">All</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="filterActive" class="form-label">Status</label>
+                    <select id="filterActive" class="form-select">
+                    <option value="">All</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
+                </div>
+            </form>
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Buttons extension + Bootstrap 5 styling -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+
+    <!-- Optional dependencies for CSV/Excel/PDF/print buttons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+    <!-- HTML5 export buttons -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="../assets/script/script.js"></script>
     <script src="../backend/javascript/admin_article_management.js"></script>
+
+    <?php include "../components/button_logout.php" ?>
+
 </body>
 </html>

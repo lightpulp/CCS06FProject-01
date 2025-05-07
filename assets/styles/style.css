@@ -575,6 +575,16 @@ a.sessionsLink:hover {
         background: #B2DFDB;
         color: var(--bs-success);
     }
+
+    .status-red {
+      background: #F3D4D1;
+      color: var(--brand-700);
+    }
+
+    .status-yellow {
+      background: #FFF3DD;
+      color: #694C1E;
+  }
     
     .status-user {
         background: #B3E5FC;

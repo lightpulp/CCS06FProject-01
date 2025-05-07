@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
 
-$sql = "SELECT a.article_id, a.title, u.user_name, a.status, c.category_name FROM articles a
+$sql = "SELECT a.article_id, a.title, a.content, u.user_name, a.source_url, a.status, c.category_name, a.created_at FROM articles a
         JOIN users u ON a.user_id = u.user_id
         JOIN categories c ON a.category_id = c.category_id
         WHERE a.status != 4";  // Exclude deleted articles

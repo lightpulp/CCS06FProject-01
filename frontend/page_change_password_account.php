@@ -1,6 +1,7 @@
 <?php
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
+include "../backend/phpscripts/check_role.php";
 ?>
 
 
@@ -28,65 +29,7 @@ include "../backend/phpscripts/account.php";
 <body>
 
     <!-- start: Sidebar -->
-    <div class="sidebar position-fixed top-0 bottom-0 bg-white border-end">
-        <div class="d-flex align-items-center p-3">
-            <a href="#" class="sidebar-logo text-uppercase fw-bold text-decoration-none text-brand fs-4">TUTUBAN</a>
-            <i class="sidebar-toggle ri-arrow-left-circle-line ms-auto fs-5 d-none d-md-block"></i>
-        </div>
-
-        <ul class="sidebar-menu p-3 m-0 mb-0">
-            <!-- User Overview Bar -->
-            <li class="sidebar-menu-item">
-                <a href="page_user_dashboard.php">
-                    <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
-                    User Overview
-                </a>
-            </li>
-            
-            <!-- My Articles Bar -->
-            <li class="sidebar-menu-item">
-                <a href="#">
-                    <i class="ri-newspaper-line sidebar-menu-item-icon"></i>
-                    My Articles
-                </a>
-            </li>
-
-            <!-- Explore Article Bar -->
-            <li class="sidebar-menu-item">
-                <a href="#">
-                    <i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i>
-                    Explore
-                </a>
-            </li>
-
-            <!-- Settings Bar -->
-            <li class="sidebar-menu-item has-dropdown">
-                <a href="#" id="settingBar">
-                    <i class="ri-settings-2-line sidebar-menu-item-icon"></i>
-                    Settings
-                    <i class="ri-arrow-down-s-line sidebar-menu-item-accordion ms-auto"></i>
-                </a>
-
-                <!-- Dropdown Menu: Settings -->
-                <ul class="sidebar-dropdown-menu">
-
-                   <!-- Settings: Profile Setting -->
-                    <li class="sidebar-dropdown-menu-item">
-                        <a href="page_user_account.php">
-                            Profile Setting
-                        </a>
-                    </li>
-
-                    <li class="sidebar-dropdown-menu-item active">
-                        <a href="page_change_password_account.php">
-                            Change Password
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="sidebar-overlay"></div>
+    <?php include '../components/sidebar.php'; ?>
     <!-- end: Sidebar -->
 
     <!-- start: Main -->
