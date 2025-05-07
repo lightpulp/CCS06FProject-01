@@ -1,12 +1,7 @@
 <?php
-// Access session data
-$user_id = $_SESSION['user_id'];
-//added the below session variables
-$user_name = $_SESSION['user_name'];
-$user_role = $_SESSION['role'];
+// THIS IS TO GET USER ACCOUNT DETAILS
 
-//connect to database to get the rest of the user's information
-include '../backend/phpscripts/config.php';
+include 'config.php';
 
 $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
@@ -16,8 +11,9 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $user_data = $result->fetch_assoc();
 } else {
-    // Handle the case where the user ID is not found.
-    echo "User not found"; //Or redirect
+    echo '<script>alert("Something is wrong, please try logging in again");</script>';
+    $_SESSION = array();
+    header("Location: ../index.php");
     exit();
 }
 $stmt->close();
