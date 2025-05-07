@@ -179,7 +179,7 @@ include "../backend/phpscripts/account.php";
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
-                            <form id="createArticleForm" method="POST">
+                            <form id="articleForm"">
                                 <!-- top row: 2 columns -->
                                 <div class="row align-stretch">
                                     <!-- left column -->
@@ -187,22 +187,27 @@ include "../backend/phpscripts/account.php";
                                         <!-- Title -->
                                         <div class="form-group mb-3">
                                             <label for="createArticleTitle" class="fw-semibold fs-7 mb-2 text-muted">Title</label>
-                                            <input type="text" name="createArticleTitle" id="createArticleTitle" class="form-control" placeholder="Enter your Title Here">
+                                            <input type="text" name="createArticleTitle" id="title" class="form-control" placeholder="Enter your Title Here">
                                         </div>
 
                                         <!-- Title -->
                                         <div class="form-group mb-3">
-                                            <label for="createArticleCategory" class="fw-semibold fs-7 mb-2 text-muted">Category</label>
-                                            <select id="createArticleCategory" name="createArticleCategory" class="form-select">
+                                            <label for="category" class="fw-semibold fs-7 mb-2 text-muted">Category</label>
+                                            <select id="category" name="createArticleCategory" class="form-select">
                                                 <option selected>Select Category</option>
                                             </select>
                                         </div>
 
                                         <!-- Source URL -->
                                         <div class="form-group mb-3">
-                                            <label for="createSourceURL" class="fw-semibold fs-7 mb-2 text-muted">Source URL</label>
-                                            <input type="text" name="createSourceURL" id="createSourceURL" class="form-control" placeholder="Enter your Source URL here">
+                                            <label for="source_url" class="fw-semibold fs-7 mb-2 text-muted">Source URL</label>
+                                            <input type="text" name="createSourceURL" id="source_url" class="form-control" placeholder="Enter your Source URL here">
                                         </div>
+										
+										<div class="mb-3 d-none">
+											<label for="date_published" class="form-label">Date Published</label>
+											<input type="date" class="form-control" id="date_published" required>
+										</div>
                                     </div>
                                     <!-- right column -->
                                     <div class="col-md-6 mb-2">
