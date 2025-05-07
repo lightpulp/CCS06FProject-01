@@ -19,12 +19,71 @@ include "../backend/phpscripts/account.php";
     <!-- start: Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Account Profile Setting</title>
+    <title>Create Article</title>
 </head>
 
+<style>
+ /* Custom file upload styling */
+        .custom-file-upload {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80%;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .row.align-stretch {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .custom-file-upload:hover {
+            background: #e9ecef;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-text {
+            font-weight: 500;
+            color: #495057;
+            font-size: 1.1rem;
+        }
+
+        .custom-file-upload i {
+            transition: transform 0.3s ease;
+            font-size: 40px;
+            color: var(--bs-gray-700);
+            margin-bottom: 10px;
+        }
+
+        .custom-file-upload:hover i {
+            transform: scale(1.1);
+            color: var(--bs-brand-color);
+        }
+
+        .file-selected {
+            border-color: #28a745;
+            background: #e7f1ff;
+        }
+
+        .file-selected i {
+            color: #28a745;
+        }
+
+        /* Hide the default input */
+        #file-upload {
+            display: none;
+        }
+</style>
 <body>
 
     <!-- start: Sidebar -->
@@ -71,7 +130,7 @@ include "../backend/phpscripts/account.php";
                 <ul class="sidebar-dropdown-menu">
 
                    <!-- Settings: Profile Setting -->
-                    <li class="sidebar-dropdown-menu-item active">
+                    <li class="sidebar-dropdown-menu-item">
                         <a href="page_user_account.php">
                             Profile Setting
                         </a>
@@ -96,8 +155,7 @@ include "../backend/phpscripts/account.php";
             <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
-                    <h3 class="fw-bolder me-auto text-muted">Settings</h3>
-                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Profile Setting</p>
+                    <h3 class="fw-bolder me-auto text-muted">Create Article</h3>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -120,96 +178,68 @@ include "../backend/phpscripts/account.php";
             <!-- start: Content -->
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-lg-10 col-xl-8">
-                        <div class="my-4">
-                            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link fs-7 active" id="home-tab" data-toggle="tab" href="page_user_account.php" role="tab" aria-controls="home" aria-selected="true">Profile</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link fs-7" id="profile-tab" data-toggle="tab" href="page_change_password_account.php" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
-                                </li>
-                            </ul>
-                            
-                                <div class="row mt-5 align-items-center">
-                                    <!-- Avatar Image -->
-                                    <div class="col-md-4 text-center mb-5">
-                                        <div class="avatar avatar-xl">
-                                            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="..." class="avatar-img rounded-circle">
+                    <div class="col-12 col-lg-10">
+                            <form id="articleForm"">
+                                <!-- top row: 2 columns -->
+                                <div class="row align-stretch">
+                                    <!-- left column -->
+                                    <div class="col-md-6">
+                                        <!-- Title -->
+                                        <div class="form-group mb-3">
+                                            <label for="createArticleTitle" class="fw-semibold fs-7 mb-2 text-muted">Title</label>
+                                            <input type="text" name="createArticleTitle" id="title" class="form-control" placeholder="Enter your Title Here">
+                                        </div>
+
+                                        <!-- Title -->
+                                        <div class="form-group mb-3">
+                                            <label for="category" class="fw-semibold fs-7 mb-2 text-muted">Category</label>
+                                            <select id="category" name="createArticleCategory" class="form-select">
+                                                <option selected>Select Category</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Source URL -->
+                                        <div class="form-group mb-3">
+                                            <label for="source_url" class="fw-semibold fs-7 mb-2 text-muted">Source URL</label>
+                                            <input type="text" name="createSourceURL" id="source_url" class="form-control" placeholder="Enter your Source URL here">
+                                        </div>
+										
+										<div class="mb-3 d-none">
+											<label for="date_published" class="form-label">Date Published</label>
+											<input type="date" class="form-control" id="date_published" required>
+										</div>
+                                    </div>
+                                    <!-- right column -->
+                                    <div class="col-md-6 mb-2">
+                                        <!-- File Upload Field -->
+                                        <label for="createArticleImage" class="fw-semibold fs-7 mb-2 text-muted">Image</label>
+                                        <div class="custom-file-upload position-relative">
+                                            <input type="file" id="file-upload" accept=".jpg,.jpeg,.png" required>
+                                            <div class="file-text">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <p>Click to Upload Image</p>
+                                            </div>
+
+                                            <!-- Cancel icon -->
+                                            <button type="button" class="cancel-upload d-none" aria-label="Cancel upload">
+                                                <i class="fas fa-times-circle"></i>
+                                            </button>
+                                            <div class="invalid-feedback mt-2">Please select a file.</div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-8">
-                                        <!-- Malaking Name -->
-                                        <div class="row align-items-center">
-                                            <div class="col-md-5">
-                                                <h4 class="mb-1 fw-semibold"><?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>, 
-                                                <?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?></h4>
-                                            </div>
-                                        </div>
-
-                                        <!-- Copypasta -->
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <p class="text-muted fs-7"> Makikita mo 🧐👀👁️👁️👍sa imagine 🤯😱🤔💭 mo sakses📈🪜🍾🙏🥇💯🏆🏅 ka eh💐🥳 , bigla😱😲kang sumakses eh🤑. peru step🪜🦵 by the step🦶pala bago ka sumakses👌🥳💐❤️‍🔥, peru☝️ yong ☝️na imagine 🫨🤔🧐mo biglang kang sumakses🥂📈📈 </p>
-                                            </div>
-                                        </div>
+                                </div>
+                                <!-- full-width content editor -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <label for="createArticleContent" class="fw-semibold fs-7 mb-2 text-muted">Content</label>
+                                    <textarea class="form-control" id="createArticleContent" name="createArticleContent" placeholder="Enter your content here" style="min-height: 200px;"></textarea>
                                     </div>
                                 </div>
                                 <hr class="my-4">
-                            <form id="saveAccForm" method="POST">
-                                <div class="row">
-                                    <!-- First Name -->
-                                    <div class="form-group col-md-6">
-                                        <label for="user_fname" class="fw-semibold fs-7 mb-2 text-muted">First Name</label>
-                                        <input type="text" name="user_fname" id="user_fname" class="form-control" placeholder="Enter your First Name" value="<?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?>">
-                                    </div>
-                                    
-                                    <!-- Last Name -->
-                                    <div class="form-group col-md-6">
-                                        <label for="user_lname" class="fw-semibold fs-7 mb-2 text-muted">Last Name</label>
-                                        <input type="text" name="user_lname" id="user_lname" class="form-control" placeholder="Enter your Last Name" value="<?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <!-- User Name -->
-                                    <div class="form-group col-md-6">
-                                        <label for="user_name" class="fw-semibold fs-7 mb-2 text-muted">Username</label>
-                                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter your User Name" value="<?php echo isset($user_data['user_name']) ? htmlspecialchars($user_data['user_name']) : ''; ?>">
-                                    </div>
-                                    
-                                    <!-- Email -->
-                                    <div class="form-group col-md-6">
-                                        <label class="fw-semibold fs-7 mb-2 text-muted">Email</label>
-                                        <input type="text" name="user_lname" id="user_lname" class="form-control" value="<?php echo isset($user_data['user_email']) ? htmlspecialchars($user_data['user_email']) : ''; ?>" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <!-- DOB -->
-                                    <div class="form-group col-md-2">
-                                        <label for="birthdate" class="fw-semibold fs-7 mb-2 text-muted">Birth Date</label>
-                                        <input type="date" name="birthdate" id="birthdate" class="form-control" value="<?php echo isset($user_data['birthdate']) ? htmlspecialchars($user_data['birthdate']) : ''; ?>">
-                                    </div>
-                                    
-                                    <!-- Address -->
-                                    <div class="form-group col-md-6">
-                                        <label for="address" class="fw-semibold fs-7 mb-2 text-muted">Address</label>
-                                        <input type="text" name="address" id="address" class="form-control" value="<?php echo isset($user_data['address']) ? htmlspecialchars($user_data['address']) : ''; ?>">
-                                    </div>
-
-                                    <!-- Contact Number -->
-                                    <div class="form-group col-md-4">
-                                        <label for="number" class="fw-semibold fs-7 mb-2 text-muted">Contact Number</label>
-                                        <input type="text" name="number" id="number" class="form-control" maxlength="11" value="<?php echo isset($user_data['number']) ? htmlspecialchars($user_data['number']) : ''; ?>">
-                                    </div>
-                                </div>
-                                <hr class="my-4">
-                                <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Changes</button>
+                                <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Submit Article</button>
                             </form>
-                        </div> <!-- /.card-body -->
-                    </div> <!-- /.col-12 -->
+                    </div> <!-- /.card-body -->
+                </div> <!-- /.col-12 -->
                 </div> <!-- .row -->
             </div> <!-- .container-fluid -->
              <!-- end: Content -->
@@ -235,16 +265,37 @@ include "../backend/phpscripts/account.php";
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+
     <!-- HTML5 export buttons -->
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    
+    <!-- Dropzone on CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+    
     <script src="../assets/script/script.js"></script>
-    <script src="../backend/javascript/save_account.js"></script>
     <!-- end: JS -->
 
     <script>
-      
+        // File upload input handling
+        const fileInput = document.querySelector("#file-upload");
+        const fileText = document.querySelector(".file-text");
+
+        fileInput.parentElement.addEventListener("click", () => fileInput.click());
+
+        fileInput.addEventListener("change", function () {
+            if (fileInput.files.length > 0) {
+                const fileName = fileInput.files[0].name;
+                fileText.innerHTML = `<i class="fas fa-check-circle"></i><br>${fileName}`;
+                fileInput.closest(".custom-file-upload").classList.add("file-selected");
+            } else {
+                fileText.innerHTML = `<i class="fas fa-cloud-upload-alt"></i><br>Click to Upload or drag & drop`;
+                fileInput.closest(".custom-file-upload").classList.remove("file-selected");
+            }
+        });
     </script>
+
     <?php include "../components/button_logout.php" ?>
 
 </body>

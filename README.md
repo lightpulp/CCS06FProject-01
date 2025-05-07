@@ -1,6 +1,3 @@
-@ -1,47 +1 @@
-
-
 ---
 
 # 🚂 TUTUBAN (CCS06 Final Project)

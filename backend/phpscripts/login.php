@@ -21,14 +21,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_name'] = $row['user_name'];
             $_SESSION['role'] = $row['role'];
 
-            echo "Login successful! Welcome, " . htmlspecialchars($row['user_name']);
-            header("Location: ../../frontend/page_user_dashboard.php");
-            exit();
+            if ($row['role'] == 1) { // IF ADMIN
+                header("Location: ../../frontend/page_admin_dashboard.php");
+                exit();
+            } else if ($row['role'] == 0){ // IF USER
+                header("Location: ../../frontend/page_user_dashboard.php");
+                exit();
+            }
+
         } else {
-            echo "Incorrect email or password.";
+            echo '
+                <script>
+                    alert("Incorrect login credentials");
+                    window.location.href = "../../frontend/page_login.php";
+                </script>
+            ';
+            exit;
         }
     } else {
-        echo "Incorrect email or password.";
+        echo '
+            <script>
+                alert("Incorrect login credentials");
+                window.location.href = "../../frontend/page_login.php";
+            </script>
+        ';
+        exit;
     }
 }
 ?>

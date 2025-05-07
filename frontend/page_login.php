@@ -15,8 +15,6 @@
 
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center py-5">
     <div class="row w-100 mx-auto shadow-lg rounded overflow-hidden" style="max-width: 1200px;">
-      
-    <!-- Login form panel -->
     <div class="col-md-6 p-5 d-flex flex-column justify-content-center form-side animate__animated animate__fadeInLeft bg-white">  
         <h5 class="text-brand-500 fw-bold">TUTUBAN</h5>
         <h2 class="mt-4 fw-bold">Login with Tutuban</h2>

@@ -8,7 +8,7 @@ include "../backend/phpscripts/account.php";
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- start: Icons -->
@@ -22,8 +22,9 @@ include "../backend/phpscripts/account.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>User Dashboard</title>
+    <title></title>
 </head>
+
 <body>
 
     <!-- start: Sidebar -->
@@ -35,7 +36,7 @@ include "../backend/phpscripts/account.php";
 
         <ul class="sidebar-menu p-3 m-0 mb-0">
             <!-- User Overview Bar -->
-            <li class="sidebar-menu-item active">
+            <li class="sidebar-menu-item">
                 <a href="page_user_dashboard.php">
                     <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
                     User Overview
@@ -95,8 +96,7 @@ include "../backend/phpscripts/account.php";
             <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
-                    <h3 class="fw-bolder me-auto text-muted">Dashboard</h3>
-                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Lorem Ipsum</p>
+                    <h3 class="fw-bolder me-auto text-muted">Create Article</h3>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -117,112 +117,69 @@ include "../backend/phpscripts/account.php";
             <!-- end: Navbar -->
 
             <!-- start: Content -->
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10">
+                    <form>
+                    <!-- top row: 2 columns -->
+                    <div class="row g-4">
+                        <!-- left column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input id="title" type="text" class="form-control rounded-pill" placeholder="Enter your Title Here">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select id="category" class="form-select rounded-pill">
+                                <option selected>Select Category</option>
+                                <!-- … -->
+                                </select>
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label for="source" class="form-label">Source URL</label>
+                                <input id="source" type="url" class="form-control rounded-pill" placeholder="Enter your Source URL HERE">
+                            </div>
+                        </div>
+                        <!-- right column -->
+                        <div class="col-md-6">
+                            <label class="form-label d-block">Image</label>
+                            <div class="border border-dashed rounded p-4 text-center" style="min-height: auto;">
+                                <div class="mb-2">
+                                <i class="bi bi-image fs-1 text-muted"></i>
+                                </div>
+                                <small class="text-muted">Drag and drop an image, or <a href="#">Browse</a><br>
+                                Minimum 800px width recommended. Max 10MB each.</small>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- start: Article Overview Cards -->
+                    <!-- full-width content editor -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                        <label class="form-label">Content</label>
+                        <textarea class="form-control" rows="6" placeholder="Enter your content here"></textarea>
+                        </div>
+                    </div>
 
-            <!-- Card: My Submissions -->
-            <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">My Submissions</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="ri-folder-add-line summary-icon bg-primary mb-2"></i>
-                                </div>
-                            </div>
+                    <!-- submit button, right aligned -->
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary px-4">Submit Article</button>
                         </div>
                     </div>
-                </div>
+                    </form>
 
-                <!-- Card: Pending Articles -->
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">Pending Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-regular fa-newspaper summary-icon bg-warning mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Card: Approved Articles -->
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">Approved Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-check-double summary-icon bg-success mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card: Fake Articles -->
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">Fake Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-xmark summary-icon bg-danger mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end: Article Overview Cards -->
-
-                <!-- start: Graph -->
-                <div class="row g-3 mt-2">
-                    <div class="col-12 col-md-7 col-xl-8">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white">
-                                Sales
-                            </div>
-                            <div class="card-body">
-                                <canvas id="sales-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--
-                    <div class="col-12 col-md-5 col-xl-4">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white">
-                                Visitors
-                            </div>
-                            <div class="card-body">
-                                <canvas id="visitors-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-                </div>
-                <!-- end: Graph -->
-            </div>
-            <!-- end: Content -->
+                    </div> <!-- /.card-body -->
+                </div> <!-- /.col-12 -->
+                </div> <!-- .row -->
+            </div> <!-- .container-fluid -->
+             <!-- end: Content -->
         </div>
+
     </main>
-    <!-- end: Main -->
 
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -246,50 +203,14 @@ include "../backend/phpscripts/account.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
+    <script src="../backend/javascript/save_account.js"></script>
     <!-- end: JS -->
 
     <script>
-          // start: Charts
-          const labels = [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-          ];
-
-          const salesChart = new Chart($('#sales-chart'), {
-              type: 'bar',
-              data: {
-                  labels: labels,
-                  datasets: [{
-                      backgroundColor: '#6610f2',
-                      data: [5, 10, 5, 2, 20, 30, 45],
-                  }]
-              },
-              options: {
-                  plugins: {
-                      legend: {
-                          display: false
-                      }
-                  }
-              }
-          })
-
-          const visitorsChart = new Chart($('#visitors-chart'), {
-              type: 'doughnut',
-              data: {
-                  labels: ['Children', 'Teenager', 'Parent'],
-                  datasets: [{
-                      backgroundColor: ['#6610f2', '#198754', '#ffc107'],
-                      data: [40, 60, 80],
-                  }]
-              }
-          });
-          // end: Charts
+      
     </script>
     <?php include "../components/button_logout.php" ?>
-</body>
 
+</body>
 </html>
+
