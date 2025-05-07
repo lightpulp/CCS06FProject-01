@@ -19,7 +19,6 @@
                 <h5 class="text-brand-500 fw-bold">TUTUBAN</h5>
                 <h2 class="mt-4 fw-bold">Register with Tutuban</h2>
                 <p class="text-muted opacity-50">Naiimagine mo sa sarili mo na sakses ka eh. Bigla kang sumakses eh.</p>
-
                 <form id="registerForm" method="POST">
                     
                     <!-- First Name -->
@@ -91,7 +90,6 @@
                     <div class="mb-3">
                     <p>Have an account? <a href="page_login.php" class="sessionsLink fw-bold">Sign In.</a></p>
                     </div>
-
                     <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Register Now</button>
                 </form>
             </div>
@@ -108,5 +106,7 @@
         
 </script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/script/script.js"></script>
 </body>
 </html>

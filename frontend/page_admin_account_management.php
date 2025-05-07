@@ -22,7 +22,7 @@ include "../backend/phpscripts/account.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>User Dashboard</title>
+    <title>Activity Logs</title>
 </head>
 <body>
 
@@ -34,27 +34,43 @@ include "../backend/phpscripts/account.php";
         </div>
 
         <ul class="sidebar-menu p-3 m-0 mb-0">
-            <!-- User Overview Bar -->
-            <li class="sidebar-menu-item active">
+            <!-- Dashboard Bar -->
+            <li class="sidebar-menu-item">
                 <a href="page_user_dashboard.php">
                     <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
-                    User Overview
+                    Dashboard
                 </a>
             </li>
             
-            <!-- My Articles Bar -->
+            <!-- Manage Articles Bar -->
             <li class="sidebar-menu-item">
                 <a href="#">
                     <i class="ri-newspaper-line sidebar-menu-item-icon"></i>
-                    My Articles
+                    Manage Articles
                 </a>
             </li>
 
-            <!-- Explore Article Bar -->
+            <!-- Reports Bar -->
             <li class="sidebar-menu-item">
                 <a href="#">
                     <i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i>
-                    Explore
+                    Reports
+                </a>
+            </li>
+
+            <!-- Activity Logs Bar -->
+            <li class="sidebar-menu-item">
+                <a href="page_admin_activity_log.php">
+                    <i class="ri-time-line sidebar-menu-item-icon"></i>
+                    Activity Logs
+                </a>
+            </li>
+
+            <!-- Account Management Bar -->
+            <li class="sidebar-menu-item active">
+                <a href="#">
+                    <i class="ri-group-line sidebar-menu-item-icon"></i>
+                    Account Management
                 </a>
             </li>
 
@@ -76,9 +92,10 @@ include "../backend/phpscripts/account.php";
                         </a>
                     </li>
 
+                    <!-- Settings: Category Management -->
                     <li class="sidebar-dropdown-menu-item">
                         <a href="page_change_password_account.php">
-                            Change Password
+                            Category Management
                         </a>
                     </li>
                 </ul>
@@ -89,14 +106,14 @@ include "../backend/phpscripts/account.php";
     <!-- end: Sidebar -->
 
     <!-- start: Main -->
-    <main class="bg-light">
+    <main class="bg-light account-mgmt">
         <div class="px-3 py-3">
             <!-- start: Navbar -->
             <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
-                    <h3 class="fw-bolder me-auto text-muted">Dashboard</h3>
-                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Lorem Ipsum</p>
+                    <h3 class="fw-bolder me-auto text-muted">Account Management</h3>
+                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Manage accounts information and roles</p>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -115,114 +132,112 @@ include "../backend/phpscripts/account.php";
                 </div>
             </nav>
             <!-- end: Navbar -->
-
-            <!-- start: Content -->
-
-            <!-- start: Article Overview Cards -->
-
-            <!-- Card: My Submissions -->
-            <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">My Submissions</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="ri-folder-add-line summary-icon bg-primary mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card: Pending Articles -->
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">Pending Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-regular fa-newspaper summary-icon bg-warning mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Card: Approved Articles -->
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">Approved Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-check-double summary-icon bg-success mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card: Fake Articles -->
-                <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <p class="h6 fw-bold text-body-tertiary mb-2">Fake Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fa-solid fa-xmark summary-icon bg-danger mb-2"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Controls: responsive row -->
+            <div class="row align-items-center gy-2 mb-4">
+            <!-- Search box -->
+            <div class="col-12 col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control table-search" data-table="#accountTable" placeholder="Search for id, account name, username etc.">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
-            <!-- end: Article Overview Cards -->
 
-                <!-- start: Graph -->
-                <div class="row g-3 mt-2">
-                    <div class="col-12 col-md-7 col-xl-8">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white">
-                                Sales
-                            </div>
-                            <div class="card-body">
-                                <canvas id="sales-chart"></canvas>
-                            </div>
-                        </div>
+            <!-- Button group: Filter, Export, New Account -->
+            <div class="col-12 col-md-6">
+                <div class="d-flex flex-wrap justify-content-md-end gap-2">
+                    <!-- Filter Button -->
+                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fas fa-filter me-1"></i> Filter
+                    </button>
+
+                    <!-- Export Dropdown -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#accountTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#accountTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#accountTable"><i class="fas fa-print me-1"></i> Print</a></li>
+                        </ul>
                     </div>
-                    
-                    <!--
-                    <div class="col-12 col-md-5 col-xl-4">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white">
-                                Visitors
-                            </div>
-                            <div class="card-body">
-                                <canvas id="visitors-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    -->
+
+                    <!-- New Account Button -->
+                    <button id="newAccountBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold">
+                        <i class="fas fa-user-plus me-1"></i> New Account
+                    </button>
                 </div>
-                <!-- end: Graph -->
             </div>
-            <!-- end: Content -->
+        </div>
+
+        <!-- DataTable -->
+        <div class="table-responsive">
+        <table id="accountTable" class="table table-hover nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Account Name</th>
+                    <th>Username</th>
+                    <th>Birth Date</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Role</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body">
+                <!-- Users will be dynamically inserted here -->
+            </tbody>
+        </table>
+        </div>
+        <!-- custom footer placeholders -->
+        <div class="my-footer row">
+            <div class="col">
+                <div id="infoContainer" class="footer-block"></div>
+                <div id="paginateContainer" class="footer-block"></div>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <div id="lengthContainer" class="footer-block"></div>
+            </div>
         </div>
     </main>
-    <!-- end: Main -->
+
+    <!-- Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <form id="filterForm">
+                <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="mb-3">
+                    <label for="filterRole" class="form-label">Role</label>
+                    <select id="filterRole" class="form-select">
+                    <option value="">All</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="filterActive" class="form-label">Status</label>
+                    <select id="filterActive" class="form-select">
+                    <option value="">All</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -246,50 +261,10 @@ include "../backend/phpscripts/account.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
-    <!-- end: JS -->
 
-    <script>
-          // start: Charts
-          const labels = [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-          ];
-
-          const salesChart = new Chart($('#sales-chart'), {
-              type: 'bar',
-              data: {
-                  labels: labels,
-                  datasets: [{
-                      backgroundColor: '#6610f2',
-                      data: [5, 10, 5, 2, 20, 30, 45],
-                  }]
-              },
-              options: {
-                  plugins: {
-                      legend: {
-                          display: false
-                      }
-                  }
-              }
-          })
-
-          const visitorsChart = new Chart($('#visitors-chart'), {
-              type: 'doughnut',
-              data: {
-                  labels: ['Children', 'Teenager', 'Parent'],
-                  datasets: [{
-                      backgroundColor: ['#6610f2', '#198754', '#ffc107'],
-                      data: [40, 60, 80],
-                  }]
-              }
-          });
-          // end: Charts
-    </script>
     <?php include "../components/button_logout.php" ?>
-</body>
+    <script src="../backend/javascript/admin_account_table.js"></script>
 
+</body>
 </html>
+

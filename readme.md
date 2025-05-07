@@ -1,6 +1,3 @@
-@ -1,47 +1 @@
-
-
 ---
 
 # 🚂 TUTUBAN (CCS06 Final Project)
@@ -26,8 +23,10 @@ It serves as a platform where users can submit articles for verification, and ad
 - **MySQL** (Database)
 
 ### 📦 Libraries and Tools
+- **Jquery**
 - **Chart.js** (Data visualization for reports)
 - **Ajax** (Smooth communication between frontend and backend)
+- **DataTAbles** (Display & filtering of data)
 
 ---
 
