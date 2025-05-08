@@ -34,6 +34,11 @@ $userRole = $_SESSION['role']; // 1 = admin, 0 = user
                     <i class="ri-dashboard-line sidebar-menu-item-icon"></i> User Overview
                 </a>
             </li>
+            <li class="sidebar-menu-item <?= $activePage == 'page_user_create_article.php' ? 'active' : '' ?>">
+                <a href="page_user_create_article.php">
+                    <i class="ri-newspaper-line sidebar-menu-item-icon"></i> Create Article
+                </a>
+            </li>
             <li class="sidebar-menu-item">
                 <a href="#"><i class="ri-newspaper-line sidebar-menu-item-icon"></i> My Articles</a>
             </li>

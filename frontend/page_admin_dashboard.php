@@ -26,8 +26,9 @@ include "../backend/phpscripts/check_role.php";
     <title>Dashboard</title>
 </head>
 <body>
-    <!-- Sidebar -->
-    <?php include '../components/sidebar.php'; ?>
+    <!-- start: Sidebar -->
+        <?php include '../components/sidebar.php'; ?>
+    <!-- end: Sidebar -->
 
     <!-- start: Main -->
     <main class="bg-light">

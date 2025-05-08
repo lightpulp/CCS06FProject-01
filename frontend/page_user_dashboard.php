@@ -25,7 +25,10 @@ include "../backend/phpscripts/account.php";
     <title>Dashboard</title>
 </head>
 <body>
+    
+    <!-- start: Sidebar -->
     <?php include '../components/sidebar.php'; ?>
+    <!-- end: Sidebar -->
 
     <!-- start: Main -->
     <main class="bg-light">

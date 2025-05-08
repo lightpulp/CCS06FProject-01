@@ -1,7 +1,6 @@
 <?php
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
-include "../backend/phpscripts/check_role.php";
 ?>
 
 

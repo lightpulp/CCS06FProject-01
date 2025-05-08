@@ -1,7 +1,6 @@
 <?php
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
-include "../backend/phpscripts/check_role.php";
 ?>
 
 
@@ -88,65 +87,7 @@ include "../backend/phpscripts/check_role.php";
 <body>
 
     <!-- start: Sidebar -->
-    <div class="sidebar position-fixed top-0 bottom-0 bg-white border-end">
-        <div class="d-flex align-items-center p-3">
-            <a href="#" class="sidebar-logo text-uppercase fw-bold text-decoration-none text-brand fs-4">TUTUBAN</a>
-            <i class="sidebar-toggle ri-arrow-left-circle-line ms-auto fs-5 d-none d-md-block"></i>
-        </div>
-
-        <ul class="sidebar-menu p-3 m-0 mb-0">
-            <!-- User Overview Bar -->
-            <li class="sidebar-menu-item">
-                <a href="page_user_dashboard.php">
-                    <i class="ri-dashboard-line sidebar-menu-item-icon"></i>
-                    User Overview
-                </a>
-            </li>
-            
-            <!-- My Articles Bar -->
-            <li class="sidebar-menu-item">
-                <a href="#">
-                    <i class="ri-newspaper-line sidebar-menu-item-icon"></i>
-                    My Articles
-                </a>
-            </li>
-
-            <!-- Explore Article Bar -->
-            <li class="sidebar-menu-item">
-                <a href="#">
-                    <i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i>
-                    Explore
-                </a>
-            </li>
-
-            <!-- Settings Bar -->
-            <li class="sidebar-menu-item has-dropdown">
-                <a href="#" id="settingBar">
-                    <i class="ri-settings-2-line sidebar-menu-item-icon"></i>
-                    Settings
-                    <i class="ri-arrow-down-s-line sidebar-menu-item-accordion ms-auto"></i>
-                </a>
-
-                <!-- Dropdown Menu: Settings -->
-                <ul class="sidebar-dropdown-menu">
-
-                   <!-- Settings: Profile Setting -->
-                    <li class="sidebar-dropdown-menu-item">
-                        <a href="page_user_account.php">
-                            Profile Setting
-                        </a>
-                    </li>
-
-                    <li class="sidebar-dropdown-menu-item">
-                        <a href="page_change_password_account.php">
-                            Change Password
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="sidebar-overlay"></div>
+        <?php include '../components/sidebar.php'; ?>
     <!-- end: Sidebar -->
 
     <!-- start: Main -->
@@ -205,7 +146,8 @@ include "../backend/phpscripts/check_role.php";
                                             <input type="text" name="createSourceURL" id="source_url" class="form-control" placeholder="Enter your Source URL here">
                                         </div>
 										
-										<div class="mb-3 d-none">
+                                        <!-- DATE PUBLISHED -->
+										<div class="form-group mb-3">
 											<label for="date_published" class="form-label">Date Published</label>
 											<input type="date" class="form-control" id="date_published" required>
 										</div>
@@ -215,17 +157,7 @@ include "../backend/phpscripts/check_role.php";
                                         <!-- File Upload Field -->
                                         <label for="createArticleImage" class="fw-semibold fs-7 mb-2 text-muted">Image</label>
                                         <div class="custom-file-upload position-relative">
-                                            <input type="file" id="file-upload" accept=".jpg,.jpeg,.png" required>
-                                            <div class="file-text">
-                                                <i class="fas fa-cloud-upload-alt"></i>
-                                                <p>Click to Upload Image</p>
-                                            </div>
 
-                                            <!-- Cancel icon -->
-                                            <button type="button" class="cancel-upload d-none" aria-label="Cancel upload">
-                                                <i class="fas fa-times-circle"></i>
-                                            </button>
-                                            <div class="invalid-feedback mt-2">Please select a file.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +165,7 @@ include "../backend/phpscripts/check_role.php";
                                 <div class="row">
                                     <div class="col-md-12">
                                     <label for="createArticleContent" class="fw-semibold fs-7 mb-2 text-muted">Content</label>
-                                    <textarea class="form-control" id="createArticleContent" name="createArticleContent" placeholder="Enter your content here" style="min-height: 200px;"></textarea>
+                                    <textarea class="form-control" id="content" name="createArticleContent" placeholder="Enter your content here" style="min-height: 200px;"></textarea>
                                     </div>
                                 </div>
                                 <hr class="my-4">
@@ -278,6 +210,17 @@ include "../backend/phpscripts/check_role.php";
     <script src="../assets/script/script.js"></script>
     <!-- end: JS -->
 
+    <script src="../backend/javascript/user_create_article.js"></script>
+
+
+    <?php include "../components/button_logout.php" ?>
+
+</body>
+
+
+
+<!---- ADD ONCE IMAGE UPLOADING IS WORKING
+
     <script>
         // File upload input handling
         const fileInput = document.querySelector("#file-upload");
@@ -297,8 +240,26 @@ include "../backend/phpscripts/check_role.php";
         });
     </script>
 
-    <?php include "../components/button_logout.php" ?>
 
-</body>
+
+    ----- PUT IN FORM IF IMG UPLOAD IS WORKING
+
+
+        <input type="file" id="file-upload" accept=".jpg,.jpeg,.png" required>
+    <div class="file-text">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Click to Upload Image</p>
+    </div>
+
+    -- Cancel icon --
+    <button type="button" class="cancel-upload d-none" aria-label="Cancel upload">
+        <i class="fas fa-times-circle"></i>
+    </button>
+    <div class="invalid-feedback mt-2">Please select a file.</div>
+
+
+---->
+
+
 </html>
 
