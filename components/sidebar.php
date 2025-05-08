@@ -28,7 +28,7 @@ $userRole = $_SESSION['role']; // 1 = admin, 0 = user
             <li class="sidebar-menu-item <?= $activePage == 'page_admin_account_management.php' ? 'active' : '' ?>">
                 <a href="page_admin_account_management.php"><i class="ri-group-line sidebar-menu-item-icon"></i> Account Management</a>
             </li>
-        <?php else: // User ?>
+            <?php else: // User ?>
             <li class="sidebar-menu-item <?= $activePage == 'page_user_dashboard.php' ? 'active' : '' ?>">
                 <a href="page_user_dashboard.php">
                     <i class="ri-dashboard-line sidebar-menu-item-icon"></i> User Overview
@@ -36,11 +36,13 @@ $userRole = $_SESSION['role']; // 1 = admin, 0 = user
             </li>
             <li class="sidebar-menu-item <?= $activePage == 'page_user_create_article.php' ? 'active' : '' ?>">
                 <a href="page_user_create_article.php">
-                    <i class="ri-newspaper-line sidebar-menu-item-icon"></i> Create Article
+                    <i class="ri-file-add-line sidebar-menu-item-icon"></i> Create Article
                 </a>
             </li>
-            <li class="sidebar-menu-item">
-                <a href="#"><i class="ri-newspaper-line sidebar-menu-item-icon"></i> My Articles</a>
+            <li class="sidebar-menu-item <?= $activePage == 'page_user_article_management.php' ? 'active' : '' ?>">
+                <a href="page_user_article_management.php">
+                    <i class="ri-newspaper-line sidebar-menu-item-icon"></i> Manage Articles
+                </a>
             </li>
             <li class="sidebar-menu-item">
                 <a href="#"><i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i> Explore</a>
