@@ -2,6 +2,7 @@
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
 include "../backend/phpscripts/check_role.php";
+include "../backend/phpscripts/admin_get_article_count.php";
 ?>
 
 
@@ -70,7 +71,7 @@ include "../backend/phpscripts/check_role.php";
                             <div class="row align-items-center">
                                 <div class="col">
                                     <p class="h6 fw-bold text-body-tertiary mb-2">My Submissions</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
+                                    <span class="h2 fw-semibold text-muted mb-0"><?php echo $article_counts['total']; ?></span>
                                 </div>
                                 <div class="col-auto">
                                     <i class="ri-folder-add-line summary-icon bg-primary mb-2"></i>
@@ -79,7 +80,6 @@ include "../backend/phpscripts/check_role.php";
                         </div>
                     </div>
                 </div>
-
                 <!-- Card: Pending Articles -->
                 <div class="col-12 col-sm-6 col-lg-3 mb-3">
                     <div class="card shadow-sm">
@@ -87,7 +87,7 @@ include "../backend/phpscripts/check_role.php";
                             <div class="row align-items-center">
                                 <div class="col">
                                     <p class="h6 fw-bold text-body-tertiary mb-2">Pending Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
+                                    <span class="h2 fw-semibold text-muted mb-0"><?php echo $article_counts['pending']; ?></span>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-regular fa-newspaper summary-icon bg-warning mb-2"></i>
@@ -104,7 +104,7 @@ include "../backend/phpscripts/check_role.php";
                             <div class="row align-items-center">
                                 <div class="col">
                                     <p class="h6 fw-bold text-body-tertiary mb-2">Approved Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
+                                    <span class="h2 fw-semibold text-muted mb-0"><?php echo $article_counts['approved']; ?></span>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-solid fa-check-double summary-icon bg-success mb-2"></i>
@@ -121,7 +121,7 @@ include "../backend/phpscripts/check_role.php";
                             <div class="row align-items-center">
                                 <div class="col">
                                     <p class="h6 fw-bold text-body-tertiary mb-2">Fake Articles</p>
-                                    <span class="h2 fw-semibold text-muted mb-0">186</span>
+                                    <span class="h2 fw-semibold text-muted mb-0"><?php echo $article_counts['fake']; ?></span>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-solid fa-xmark summary-icon bg-danger mb-2"></i>
