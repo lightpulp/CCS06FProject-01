@@ -66,6 +66,9 @@ $userRole = $_SESSION['role']; // 1 = admin, 0 = user
                     <li class="sidebar-dropdown-menu-item <?= $activePage == 'page_admin_categories.php' ? 'active' : '' ?>">
                         <a href="page_admin_categories.php">Category Management</a>
                     </li>
+                    <li class="sidebar-dropdown-menu-item <?= $activePage == 'page_admin_keywords.php' ? 'active' : '' ?>">
+                        <a href="page_admin_keywords.php">Keywords Management</a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </li>
