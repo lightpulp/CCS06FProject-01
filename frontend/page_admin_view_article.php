@@ -81,7 +81,7 @@ include "../backend/phpscripts/check_role.php";
                 <div class="row">
                     <!-- Main Article Content -->
                     <div class="col-12 col-md-8">
-                        <div class="my-1 ml-3 ms-3">
+                        <div class="my-1">
                             <div class="col-12">
                                 <div>
                                     <!-- Top row: category badge + save action -->
@@ -155,37 +155,38 @@ include "../backend/phpscripts/check_role.php";
 
                         <!-- Fake News Statistics Card -->
                         <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h6 class="text-muted">This article is</h6>
-                            <h3 class="fw-bold text-danger">75<span class="fs-5">%</span></h3>
-                            <span class="badge bg-danger">Fake</span>
-                            <hr>
-                            <div class="mb-3">
-                            <h6 class="text-muted mb-1">Total Words Analyzed</h6>
-                            <p class="fw-semibold mb-0">63</p>
+                            <div class="card-body">
+                                <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
+                                    <h6 class="text-muted fw-bold fs-5">This article is</h6>
+                                    <h3 class="fw-bold text-danger">75<span class="fs-5">%</span></h3>
+                                    <div class='rounded px-2 py-1 status-red text-center' style='max-width: 90px;'>Fake</div>
+                                </div>
+                                <div class="mb-3 pb-3 border-bottom">
+                                    <h6 class="text-muted mb-1 fw-bold fs-6">Total Words Analyzed</h6>
+                                    <p class="mb-0 text-muted fw-bolder fs-3">63</p>
+                                </div>
+                                <div class="mb-3 pb-3 border-bottom">
+                                    <h6 class="text-muted mb-1 fw-bold fs-6">Fake News Score</h6>
+                                    <p class="mb-0 text-muted fw-bolder fs-3">14</p>
+                                </div>
+                                <div>
+                                    <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
+                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">breaking</span>
+                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">conspiracy</span>
+                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">fake</span>
+                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">miracle</span>
+                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">dayaan</span>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                            <h6 class="text-muted mb-1">Fake News Score</h6>
-                            <p class="fw-semibold mb-0">14</p>
-                            </div>
-                            <div>
-                            <h6 class="text-muted mb-2">Flagged Keywords</h6>
-                            <span class="badge rounded-pill bg-light text-dark me-1 mb-1">breaking</span>
-                            <span class="badge rounded-pill bg-light text-dark me-1 mb-1">conspiracy</span>
-                            <span class="badge rounded-pill bg-light text-dark me-1 mb-1">fake</span>
-                            <span class="badge rounded-pill bg-light text-dark me-1 mb-1">miracle</span>
-                            <span class="badge rounded-pill bg-light text-dark me-1 mb-1">dayaan</span>
-                            </div>
-                        </div>
                         </div>
 
                         <!-- Approval Status Card -->
                         <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h6 class="text-muted mb-1">Approval Status</h6>
-                            <span class="badge bg-warning text-dark mb-2">Pending</span>
-                            <p class="small text-muted mb-3">The article has been tested for fake news detection.</p>
-                            <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#approvalModal">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center border-bottom">
+                            <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
+                            <div class='rounded px-4 py-2 status-yellow text-center mb-3 fw-bolder' style='max-width: 120px;'>Pending</div>
+                            <p class="small text-muted mb-3 fs-6">Would you like to change the approval status of this article?</p>
+                            <button class="btn btn-primary rounded fw-semibold py-3 w-100" data-bs-toggle="modal" data-bs-target="#approvalModal">
                             Change Status
                             </button>
                         </div>
