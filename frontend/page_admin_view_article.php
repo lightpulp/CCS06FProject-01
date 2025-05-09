@@ -27,12 +27,12 @@ include "../backend/phpscripts/check_role.php";
 </head>
 <style>
     .aspect-ratio-4-3 {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 3/4 = 75% */
-    overflow: hidden;
-    border-radius: 0.5rem; /* match Bootstrap's .rounded */
-}
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 3/4 = 75% */
+        overflow: hidden;
+        border-radius: 0.5rem; /* match Bootstrap's .rounded */
+    }
 
     .aspect-ratio-4-3 img {
         position: absolute;
@@ -42,6 +42,19 @@ include "../backend/phpscripts/check_role.php";
         height: 100%;
         object-fit: cover;
     }
+
+    #fakeNewsPercent {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+  @media (min-width: 768px) {
+    .position-md-sticky {
+      position: sticky;
+    }
+  }
 </style>
 <body>
 
@@ -158,7 +171,7 @@ include "../backend/phpscripts/check_role.php";
                             <div class="card-body">
                                 <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
                                     <h6 class="text-muted fw-bold fs-5">This article is</h6>
-                                    <h3 class="fw-bold text-danger">75<span class="fs-5">%</span></h3>
+                                    <div id="fakeNewsPercent" class="mb-2"></div>
                                     <div class='rounded px-2 py-1 status-red text-center' style='max-width: 90px;'>Fake</div>
                                 </div>
                                 <div class="mb-3 pb-3 border-bottom">
@@ -228,14 +241,6 @@ include "../backend/phpscripts/check_role.php";
             </div>
             </div>
 
-<style>
-  @media (min-width: 768px) {
-    .position-md-sticky {
-      position: sticky;
-    }
-  }
-</style>
-
     </main>
     <!-- Modal -->
     <div class="modal fade" id="articleImageModal" tabindex="-1" aria-labelledby="articleImageModalLabel" aria-hidden="true">
@@ -271,10 +276,43 @@ include "../backend/phpscripts/check_role.php";
     <!-- HTML5 export buttons -->
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
     <script src="../assets/script/script.js"></script>
+
+    <script>
+        $(document).ready(function () {
+        var percentage = 75; // Replace this with dynamic PHP if needed
+
+        var bar = new ProgressBar.Circle('#fakeNewsPercent', {
+            color: '#8B0000',
+            strokeWidth: 5,
+            trailWidth: 2,
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+            autoStyleContainer: false
+            },
+            from: { color: '#8B0000', width: 5 },
+            to: { color: '#8B0000', width: 5 },
+            step: function (state, circle) {
+            circle.setText(Math.round(circle.value() * 100) + '%');
+            }
+        });
+
+        // Force style overrides
+        bar.text.style.position = 'absolute';
+        bar.text.style.left = '50%';
+        bar.text.style.top = '50%';
+        bar.text.style.transform = 'translate(-50%, -50%)';
+        bar.text.style.fontFamily = '"Open Sans", sans-serif';
+        bar.text.style.fontSize = '1.2rem';
+        bar.text.style.fontWeight = 'bold';
+
+        bar.animate(percentage / 100);
+        });
+    </script>
     
     <?php include "../components/button_logout.php" ?>
-    <script src="../backend/javascript/admin_account_table.js"></script>
 
 
 </body>
