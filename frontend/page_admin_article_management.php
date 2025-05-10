@@ -25,126 +25,6 @@ include "../backend/phpscripts/check_role.php";
     <!-- end: CSS -->
     <title>Manage Article</title>
 </head>
-<style>
-    .min-w-0 { min-width: 0; }
-
-    /* clamp to 3 lines */
-    .multiline-truncate {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .article-card-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .article-card {
-        overflow: hidden;
-        box-shadow: 0px 2px 20px var(--bs-gray-300);
-        background: white;
-        border-radius: 0.5rem;
-        position: relative;
-        max-width: 350px;
-        margin: 1rem;
-        transition: 250ms all ease-in-out;
-    }
-
-    .article-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0px 2px 40px var(--bs-gray-300);
-    }
-
-    .banner-img {
-        position: absolute;
-        object-fit: cover;
-        height: 14rem;
-        width: 100%;
-    }
-
-    .article-category-tag {
-        font-size: 0.8rem;
-        font-weight: bold;
-        color: white;
-        background: var(--bs-brand-color);
-        padding: 0.5rem 1.3rem 0.5rem 1rem;
-        text-transform: uppercase;
-        position: absolute;
-        z-index: 1;
-        top: 1rem;
-        border-radius: 0 2rem 2rem 0;
-    }
-
-    .article-card-body {
-        margin: 15rem 1rem 1rem 1rem;
-    }
-
-    .blog-title {
-        line-height: 2rem;
-        margin: 1rem 0 0.5rem;
-        font-weight: 700;
-        font-size: 1.8rem;
-    }
-
-    .blog-description {
-        font-size: 0.9rem;
-    }
-
-    .article-card-profile {
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .profile-img {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-
-    .article-card-profile-info {
-        margin-left: 1rem;
-    }
-
-    .profile-name {
-        font-size: 1rem;
-    }
-
-    .profile-followers {
-        font-size: 0.9rem;
-    }
-
-    .account-mgmt table#adminArticlesTable tbody td:nth-child(2) {
-        color: var(--bs-gray-700);
-        font-weight: 600;
-    }
-
-    .account-mgmt table#adminArticlesTable tbody td:nth-child(3) {
-        max-width: 200px;
-    }
-
-    #adminCardViewArticleContainer .card .card-body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #adminCardViewArticleContainer .card .card-body > .d-flex {
-        flex-grow: 1;
-    }
-
-    @media (max-width: 768px) {
-      .article-card {
-        max-width: 90%;
-      }
-  }
-
-</style>
 <body>
 
     <!-- start: Sidebar -->
@@ -222,28 +102,27 @@ include "../backend/phpscripts/check_role.php";
 
         <!-- DataTable -->
         <div class="table-responsive">
-        <table id="adminArticlesTable" class="table table-hover nowrap" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Article Title</th>
-                    <th>Content</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                    <th>Source URL</th>
-                    <th>Status</th>
-                    <th>Date Created</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="admin-article-body">
-                <!-- Users will be dynamically inserted here -->
-            </tbody>
-        </table>
+            <table id="adminArticlesTable" class="table table-hover nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Article Title</th>
+                        <th>Content</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Source URL</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-article-body">
+                    <!-- Users will be dynamically inserted here -->
+                </tbody>
+            </table>
         </div>
         <!-- Card View Container -->
-        <div id="adminCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
-
+        <div id="exploreCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
         <!-- custom footer placeholders -->
         <div class="my-footer row">
             <div class="col">
@@ -314,7 +193,28 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
     <script src="../backend/javascript/admin_article_management.js"></script>
+    <script>
+        function toggleOptionsMenu(icon) {
+        const menu = icon.nextElementSibling;
 
+        // Close any other open menus
+        document.querySelectorAll('.card-options-menu').forEach(el => {
+            if (el !== menu) el.classList.add('d-none');
+        });
+
+            // Toggle the current one
+            menu.classList.toggle('d-none');
+        }
+
+        // Optional: Click outside to close any open menu
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.card-options')) {
+                document.querySelectorAll('.card-options-menu').forEach(menu => {
+                    menu.classList.add('d-none');
+                });
+            }
+        });
+    </script>
     <?php include "../components/button_logout.php" ?>
 
 </body>
