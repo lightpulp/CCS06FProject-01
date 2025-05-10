@@ -22,126 +22,10 @@ include "../backend/phpscripts/account.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Manage Article</title>
+    <title>My Articles</title>
 </head>
 <style>
-    .min-w-0 { min-width: 0; }
 
-    /* clamp to 3 lines */
-    .multiline-truncate {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .article-card-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .article-card {
-        overflow: hidden;
-        box-shadow: 0px 2px 20px var(--bs-gray-300);
-        background: white;
-        border-radius: 0.5rem;
-        position: relative;
-        max-width: 350px;
-        margin: 1rem;
-        transition: 250ms all ease-in-out;
-    }
-
-    .article-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0px 2px 40px var(--bs-gray-300);
-    }
-
-    .banner-img {
-        position: absolute;
-        object-fit: cover;
-        height: 14rem;
-        width: 100%;
-    }
-
-    .article-category-tag {
-        font-size: 0.8rem;
-        font-weight: bold;
-        color: white;
-        background: var(--bs-brand-color);
-        padding: 0.5rem 1.3rem 0.5rem 1rem;
-        text-transform: uppercase;
-        position: absolute;
-        z-index: 1;
-        top: 1rem;
-        border-radius: 0 2rem 2rem 0;
-    }
-
-    .article-card-body {
-        margin: 15rem 1rem 1rem 1rem;
-    }
-
-    .blog-title {
-        line-height: 2rem;
-        margin: 1rem 0 0.5rem;
-        font-weight: 700;
-        font-size: 1.8rem;
-    }
-
-    .blog-description {
-        font-size: 0.9rem;
-    }
-
-    .article-card-profile {
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .profile-img {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-
-    .article-card-profile-info {
-        margin-left: 1rem;
-    }
-
-    .profile-name {
-        font-size: 1rem;
-    }
-
-    .profile-followers {
-        font-size: 0.9rem;
-    }
-
-    .account-mgmt table#adminArticlesTable tbody td:nth-child(2) {
-        color: var(--bs-gray-700);
-        font-weight: 600;
-    }
-
-    .account-mgmt table#adminArticlesTable tbody td:nth-child(3) {
-        max-width: 200px;
-    }
-
-    #adminCardViewArticleContainer .card .card-body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #adminCardViewArticleContainer .card .card-body > .d-flex {
-        flex-grow: 1;
-    }
-
-    @media (max-width: 768px) {
-      .article-card {
-        max-width: 90%;
-      }
-  }
 
 </style>
 <body>
@@ -157,7 +41,7 @@ include "../backend/phpscripts/account.php";
             <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
-                    <h3 class="fw-bolder me-auto text-muted">Manage Articles</h3>
+                    <h3 class="fw-bolder me-auto text-muted">My Articles</h3>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
