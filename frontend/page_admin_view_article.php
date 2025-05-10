@@ -164,48 +164,52 @@ include "../backend/phpscripts/check_role.php";
 
                     <!-- Sidebar: Article Statistics & Approval -->
                     <div class="col-12 col-md-4 mt-4 mt-md-0">
-                    <div class="position-md-sticky" style="top: 1rem;">
+                        <div class="position-md-sticky" style="top: 1rem;">
 
-                        <!-- Fake News Statistics Card -->
-                        <div class="card mb-4 shadow-sm">
-                            <div class="card-body">
-                                <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
-                                    <h6 class="text-muted fw-bold fs-5">This article is</h6>
-                                    <div id="fakeNewsPercent" class="mb-2"></div>
-                                    <div class='rounded px-2 py-1 status-red text-center' style='max-width: 90px;'>Fake</div>
-                                </div>
-                                <div class="mb-3 pb-3 border-bottom">
-                                    <h6 class="text-muted mb-1 fw-bold fs-6">Total Words Analyzed</h6>
-                                    <p class="mb-0 text-muted fw-bolder fs-3">63</p>
-                                </div>
-                                <div class="mb-3 pb-3 border-bottom">
-                                    <h6 class="text-muted mb-1 fw-bold fs-6">Fake News Score</h6>
-                                    <p class="mb-0 text-muted fw-bolder fs-3">14</p>
-                                </div>
-                                <div>
-                                    <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
-                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">breaking</span>
-                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">conspiracy</span>
-                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">fake</span>
-                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">miracle</span>
-                                    <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">dayaan</span>
+                            <!-- Fake News Statistics Card -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
+                                        <h6 class="text-muted fw-bold fs-5">This article is</h6>
+                                        <div id="fakeNewsPercent" class="mb-2"></div>
+                                        <div class='rounded px-2 py-1 status-red text-center' style='max-width: 90px;'>Fake</div>
+                                    </div>
+                                    <div class="mb-3 pb-3 border-bottom">
+                                        <h6 class="text-muted mb-1 fw-bold fs-6">Total Words Analyzed</h6>
+                                        <p class="mb-0 text-muted fw-bolder fs-3">63</p>
+                                    </div>
+                                    <div class="mb-3 pb-3 border-bottom">
+                                        <h6 class="text-muted mb-1 fw-bold fs-6">Fake News Score</h6>
+                                        <p class="mb-0 text-muted fw-bolder fs-3">14</p>
+                                    </div>
+                                    <div>
+                                        <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
+                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">breaking</span>
+                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">conspiracy</span>
+                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">fake</span>
+                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">miracle</span>
+                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">dayaan</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Approval Status Card -->
-                        <div class="card shadow-sm">
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center border-bottom">
-                            <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
-                            <div class='rounded px-4 py-2 status-yellow text-center mb-3 fw-bolder' style='max-width: 120px;'>Pending</div>
-                            <p class="small text-muted mb-3 fs-6">Would you like to change the approval status of this article?</p>
-                            <button class="btn btn-primary rounded fw-semibold py-3 w-100" data-bs-toggle="modal" data-bs-target="#approvalModal">
-                            Change Status
-                            </button>
-                        </div>
-                        </div>
+                            <!-- Approval Status Card -->
+                            <div class="card shadow-sm">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center border-bottom">
+                                    <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
+                                    <div class='rounded px-4 py-2 status-yellow text-center mb-3 fw-bolder' style='max-width: 120px;'>Pending</div>
+                                    <div class="w-100" style="max-width: 300px;">
+                                    <p class="small text-muted mb-3 fs-6 text-center text-break">
+                                        Would you like to change the approval status of this article?
+                                    </p>
+                                    </div>
+                                    <button class="btn btn-primary rounded fw-semibold py-3 w-100" data-bs-toggle="modal" data-bs-target="#approvalModal">
+                                    Change Status
+                                    </button>
+                                </div>
+                            </div>
 
-                    </div>
+                        </div>
                     </div>
 
                 </div>
@@ -281,7 +285,7 @@ include "../backend/phpscripts/check_role.php";
 
     <script>
         $(document).ready(function () {
-        var percentage = 75; // Replace this with dynamic PHP if needed
+        var percentage = 45; // Replace this with dynamic PHP if needed
 
         var bar = new ProgressBar.Circle('#fakeNewsPercent', {
             color: '#8B0000',
