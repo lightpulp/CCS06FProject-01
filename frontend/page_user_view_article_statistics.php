@@ -22,7 +22,7 @@ include "../backend/phpscripts/account.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>View Article</title>
+    <title>View Article Statistics</title>
 </head>
 <body>
 
