@@ -113,7 +113,7 @@ $(document).ready(function(){
 
 
     if(window.innerWidth < 768) {
-        $('.sidebar').addClass('collapsed')
+        $('.sidebar').addClass('collapsed');
     }
 
     // Auto-expand the current section
@@ -128,6 +128,7 @@ $(document).ready(function(){
                 $('.sidebar-overlay').addClass('d-none');
                 $('.sidebar-dropdown-menu').slideUp('fast');
                 $('.sidebar-menu-item.has-dropdown, .sidebar-dropdown-menu-item.has-dropdown').removeClass('focused');
+                $('#exploreCardViewArticleContainer').removeClass('mx-5');
             }
         } else {
             // ✅ EXPAND SIDEBAR WHEN SCREEN > 768px
@@ -136,6 +137,7 @@ $(document).ready(function(){
                 $('.sidebar-overlay').addClass('d-none');
                 $('.sidebar-dropdown-menu-item.active').closest('.sidebar-dropdown-menu').slideDown('fast');
                 $('.sidebar-dropdown-menu-item.active').closest('.has-dropdown').addClass('focused');
+                $('#exploreCardViewArticleContainer').addClass('mx-5');
             }
         }
         // Trigger it once on load to apply the correct state
