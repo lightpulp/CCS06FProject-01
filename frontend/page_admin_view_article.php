@@ -22,40 +22,9 @@ include "../backend/phpscripts/check_role.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
-    <!-- end: CSS -->
+    <!-- end: CSS --> 
     <title>View Article</title>
 </head>
-<style>
-    .aspect-ratio-4-3 {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%; /* 3/4 = 75% */
-        overflow: hidden;
-        border-radius: 0.5rem; /* match Bootstrap's .rounded */
-    }
-
-    .aspect-ratio-4-3 img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    #fakeNewsPercent {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-  @media (min-width: 768px) {
-    .position-md-sticky {
-      position: sticky;
-    }
-  }
-</style>
 <body>
 
     <!-- start: Sidebar -->
