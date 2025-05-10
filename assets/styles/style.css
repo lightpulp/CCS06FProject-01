@@ -673,6 +673,189 @@ a.sessionsLink:hover {
         border-color: var(--bs-brand-color);
     }
 /* End: ### page_admin_account_management.php ### */
+
+/* Start: ### page_admin_article_management.php ### */
+/* Start: ### page_user_article_management.php ### */
+    .min-w-0 { min-width: 0; }
+
+    /* clamp to 3 lines */
+    .multiline-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card-banner {
+        position: relative;
+    }
+
+    .card-options {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .card-options i {
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        color: var(--bs-body-bg);
+        transition: ease-in-out 0.2s;
+    }
+
+    .card-options-menu {
+        position: absolute;
+        top: 2.5rem;
+        right: 0;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        overflow: hidden;
+        min-width: 120px;
+        z-index: 5;
+        padding: 0.3rem 0;
+    }
+
+    .card-options-menu .dropdown-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        color: #333;
+        display: block;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .card-options-menu .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .card-options-menu .text-danger {
+        color: #dc3545 !important;
+    }
+
+    .article-card-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .article-card {
+        overflow: hidden;
+        box-shadow: 0px 2px 20px var(--bs-gray-300);
+        background: white;
+        border-radius: 0.5rem;
+        position: relative;
+        max-width: 350px;
+        margin: 1rem;
+        transition: 250ms all ease-in-out;
+    }
+
+    .article-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 2px 40px var(--bs-gray-300);
+    }
+
+    .banner-img {
+        position: absolute;
+        object-fit: cover;
+        height: 14rem;
+        width: 100%;
+    }
+
+    .article-category-tag {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: white;
+        background: var(--bs-brand-color);
+        padding: 0.5rem 1.3rem 0.5rem 1rem;
+        text-transform: uppercase;
+        position: absolute;
+        z-index: 1;
+        top: 1rem;
+        border-radius: 0 2rem 2rem 0;
+    }
+
+    .article-card-body {
+        margin: 15rem 1rem 1rem 1rem;
+    }
+
+    .articleViewLink {
+      text-decoration: none;
+      color: var(--bs-gray-800);
+      transition: 250ms all ease-in-out;
+    }
+
+    .articleViewLink:hover {
+      color: var(--bs-brand-color);
+    }
+
+    .blog-title {
+        line-height: 2rem;
+        margin: 1rem 0 0.5rem;
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+
+    .blog-description {
+        font-size: 0.9rem;
+    }
+
+    .article-card-profile {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .profile-img {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .article-card-profile-info {
+        margin-left: 1rem;
+    }
+
+    .profile-name {
+        font-size: 1rem;
+    }
+
+    .profile-followers {
+        font-size: 0.9rem;
+    }
+
+    .account-mgmt table#adminArticlesTable tbody td:nth-child(2) {
+        color: var(--bs-gray-700);
+        font-weight: 600;
+    }
+
+    .account-mgmt table#adminArticlesTable tbody td:nth-child(3) {
+        max-width: 200px;
+    }
+
+    #adminCardViewArticleContainer .card .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #adminCardViewArticleContainer .card .card-body > .d-flex {
+        flex-grow: 1;
+    }
+
+    @media (max-width: 768px) {
+      .article-card {
+        max-width: 90%;
+      }
+  }
+/* End: ### page_admin_article_management.php ### */
+/* End: ### page_user_article_management.php ### */
+
 /* Start: ### page_user_account.php ### */
   /* Start: Main */
   /* start: Container Fluid */
