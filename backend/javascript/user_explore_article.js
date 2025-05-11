@@ -50,15 +50,15 @@ $(document).ready(function () {
                                             </h2>
 
                                             <!-- Author & date -->
-                                            <p class="text-muted mb-4">
+                                            <p class='text-muted mb-4'>
                                                 By <strong>${author}</strong> &nbsp;|&nbsp; ${date}
                                             </p>
 
                                             <!-- Featured image with 4:3 aspect ratio -->
-                                            <div class="aspect-ratio-4-3 mb-4" role="button" data-bs-toggle="modal" data-bs-target="#articleImageModal">
+                                            <div class='aspect-ratio-4-3 mb-4'>
                                                 <img
                                                     src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
-                                                    alt="Article image"
+                                                    alt='Article image'
                                                 />
                                             </div>
 
