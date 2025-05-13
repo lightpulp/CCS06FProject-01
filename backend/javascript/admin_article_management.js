@@ -135,7 +135,7 @@ $(document).ready(function () {
                         
                         `<a href='#' class='link-warning' onclick='editArticle(${article.article_id})'><i class='fa-solid fa-pen-to-square fs-5'></i></a>
                         <a href='#' class='link-danger' onclick='deleteArticle(${article.article_id})'><i class='fa-solid fa-trash fs-5 mx-2'></i></a>
-                        <a href='#' class='link-secondary' onclick=''><i class='fa-solid fa-eye fs-5'></i></a>`
+                        <a href='page_admin_view_article_statistics.php?id=${article.article_id}' class='link-secondary' onclick=''><i class='fa-solid fa-eye fs-5'></i></a>`
                 ]);
             });
 
