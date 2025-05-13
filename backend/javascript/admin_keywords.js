@@ -1,6 +1,4 @@
 $(document).ready(function(){
-
-
     ////////////////////////////////////////////
     //  START: DATATABLES EXPORT AND SEARCH   //
     ////////////////////////////////////////////
@@ -10,23 +8,6 @@ $(document).ready(function(){
         const tableSelector = $(this).data('table');
         const table = $(tableSelector).DataTable();
         table.search(this.value).draw();
-        
-        if (!$('#adminCardViewArticleContainer').hasClass('d-none')) {
-            renderCards();
-        }
-    });
-    
-    // dynamically reference
-    $('.export-btn').on('click', function(e) {
-        e.preventDefault();
-        const type = $(this).data('type');
-        const tableSelector = $(this).data('table');
-        const table = $(tableSelector).DataTable();
-
-        const buttonIndex = { csv: 0, excel: 1, print: 2 }[type];
-        if (table && buttonIndex !== undefined) {
-            table.button(buttonIndex).trigger();
-        }
     });
 
     //////////////////////////////////////////
@@ -36,17 +17,27 @@ $(document).ready(function(){
     $('#fakeKeywordModal').on('shown.bs.modal', function () {
         $('#fakeWord').trigger('focus');
       });
-      
-      var keywordTable = $.fn.dataTable.isDataTable('#fakeKeywordTable')
-        ? $('#fakeKeywordTable').DataTable()
-        : $('#fakeKeywordTable').DataTable({
-            dom: 'lfrtip',
-            pageLength: 10,
-            ordering: true,
-            order: [[0, 'desc']],
-            responsive: true,
-            language: { paginate: { previous: '<', next: '>' } }
-        });
+
+    var keywordTable = $.fn.dataTable.isDataTable('#fakeKeywordTable') 
+      ? $('#fakeKeywordTable').DataTable() 
+      : $('#fakeKeywordTable').DataTable({
+          dom: 'lfrtip',
+          lengthChange: true,
+          lengthMenu: [[10,20,50,100],[10,20,50,100]],
+          pageLength: 10,
+          ordering: true,
+          order: [[0, 'desc']],
+          responsive: true,
+          language: { paginate: { previous: '<', next: '>' } },
+          initComplete: function() {
+              $('#fakeKeywordTable_info').appendTo('#infoContainer');
+              $('#fakeKeywordTable_length').appendTo('#lengthContainer');
+              $('#fakeKeywordTable_paginate').appendTo('#paginateContainer');
+          },
+          drawCallback: function() {
+              $('#fakeKeywordTable_paginate').appendTo('#paginateContainer');
+          }
+      });
       
       function loadFakeKeywords() {
         $.ajax({
