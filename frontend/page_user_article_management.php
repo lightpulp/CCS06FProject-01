@@ -25,7 +25,14 @@ include "../backend/phpscripts/account.php";
     <title>My Articles</title>
 </head>
 <style>
+    #userCardViewArticleContainer a {
+        text-decoration: none;
+        color: var(--bg-gray-800);
+    }
 
+    .account-mgmt table#userArticlesTable tbody td:nth-child(3) {
+        max-width: 200px;
+    }
 
 </style>
 <body>
@@ -87,25 +94,13 @@ include "../backend/phpscripts/account.php";
                     <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
                         <i class="fas fa-filter me-1"></i> Filter
                     </button>
-
-                    <!-- Export Dropdown -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
-                            <i class="fas fa-download me-1"></i> Export
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#adminArticlesTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
-                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#adminArticlesTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
-                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#adminArticlesTable"><i class="fas fa-print me-1"></i> Print</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- DataTable -->
         <div class="table-responsive">
-        <table id="adminArticlesTable" class="table table-hover nowrap" style="width:100%">
+        <table id="userArticlesTable" class="table table-hover nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -125,7 +120,7 @@ include "../backend/phpscripts/account.php";
         </table>
         </div>
         <!-- Card View Container -->
-        <div id="adminCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
+        <div id="userCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
 
         <!-- custom footer placeholders -->
         <div class="my-footer row">
