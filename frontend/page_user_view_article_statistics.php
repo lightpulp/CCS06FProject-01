@@ -1,8 +1,68 @@
 <?php
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
-?>
+include "../backend/phpscripts/config.php";
 
+// Get article ID from URL and validate
+$article_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Fetch article details with category name
+$sql = "SELECT a.*, u.user_name, u.user_fname, u.user_lname, c.category_name 
+        FROM articles a
+        JOIN users u ON a.user_id = u.user_id
+        JOIN categories c ON a.category_id = c.category_id
+        WHERE a.article_id = ? AND a.user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $article_id, $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+$article = $result->fetch_assoc();
+
+/*
+if (!$article) {
+    // Article not found or doesn't belong to user
+    header("Location: page_user_article_management.php");
+    exit();
+}
+*/
+
+// Format date
+$formatted_date = date('M j, Y', strtotime($article['created_at']));
+
+// Determine status display
+$status_display = '';
+$status_class = '';
+switch ($article['status']) {
+    case 1:
+        $status_display = 'Pending';
+        $status_class = 'status-yellow';
+        break;
+    case 2:
+        $status_display = 'Approved';
+        $status_class = 'status-active';
+        break;
+    case 3:
+        $status_display = 'Fake';
+        $status_class = 'status-red';
+        break;
+    case 4:
+        $status_display = 'Deleted';
+        $status_class = 'status-inactive';
+        break;
+    default:
+        $status_display = 'Unknown';
+        $status_class = 'status-inactive';
+}
+
+// Process flagged words if they exist
+$flagged_words = [];
+if (!empty($article['f_words'])) {
+    $flagged_words = json_decode($article['f_words'], true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        $flagged_words = explode(',', $article['f_words']);
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +98,7 @@ include "../backend/phpscripts/account.php";
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
                     <h3 class="fw-bolder me-auto text-muted">View Article</h3>
-                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Manage accounts information and roles</p>
+                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">View article details and statistics</p>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -67,19 +127,20 @@ include "../backend/phpscripts/account.php";
                                 <div>
                                     <!-- Top row: category badge + save action -->
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">SPORTS</span>
-                                        <a href="#" class="text-decoration-none text-muted">
+                                        <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6"><?php echo htmlspecialchars($article['category_name']); ?></span>
+                                        <a href="page_user_article_management.php" class="text-decoration-none text-muted">
+                                            <i class="fas fa-arrow-left me-1"></i> Back to Articles
                                         </a>
                                     </div>
 
                                     <!-- Headline -->
                                     <h2 class="card-title fw-bold mb-2">
-                                        Obiena finishes 5th in Shanghai Diamond League, Duplantis on top again
+                                        <?php echo htmlspecialchars($article['title']); ?>
                                     </h2>
 
                                     <!-- Author & date -->
                                     <p class="text-muted mb-4">
-                                        By <strong>John Doe</strong> &nbsp;|&nbsp; Jan 13, 2025
+                                        By <strong><?php echo htmlspecialchars($article['user_fname'] . ' ' . $article['user_lname']); ?></strong> &nbsp;|&nbsp; <?php echo $formatted_date; ?>
                                     </p>
 
                                     <!-- Featured image with 4:3 aspect ratio -->
@@ -91,40 +152,17 @@ include "../backend/phpscripts/account.php";
                                     </div>
 
                                     <!-- Body text -->
-                                    <p class="card-text mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut lacus eros. Cras pretium rhoncus sagittis.
-                                        Ut aliquet augue a mauris elementum, eu tempus risus luctus. Suspendisse eget hendrerit sapien. Morbi dignissim velit leo, 
-                                        in consequat lectus consequat a. Sed non facilisis lectus. Etiam efficitur ex vel mi faucibus egestas. Morbi ac erat non elit 
-                                        sollicitudin lobortis. Suspendisse convallis justo sit amet laoreet mattis. Suspendisse convallis neque ac mi malesuada iaculis. 
-                                        Maecenas placerat, felis non sodales suscipit, ligula sem efficitur urna, semper tristique mi turpis et nulla. Nullam consequat 
-                                        neque sed est rhoncus dapibus. Donec vestibulum lorem at est finibus, et placerat nisi tempor. Nullam rhoncus dapibus ante ut finibus. 
-                                        Curabitur lacinia porttitor urna, eget aliquam diam aliquam sed.
-
-
-                                    </p>
-                                    <p class="card-text mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut lacus eros. Cras pretium rhoncus sagittis.
-                                        Ut aliquet augue a mauris elementum, eu tempus risus luctus. Suspendisse eget hendrerit sapien. Morbi dignissim velit leo, 
-                                        in consequat lectus consequat a. Sed non facilisis lectus. Etiam efficitur ex vel mi faucibus egestas. Morbi ac erat non elit 
-                                        sollicitudin lobortis. Suspendisse convallis justo sit amet laoreet mattis. Suspendisse convallis neque ac mi malesuada iaculis. 
-                                        Maecenas placerat, felis non sodales suscipit, ligula sem efficitur urna, semper tristique mi turpis et nulla. Nullam consequat 
-                                        neque sed est rhoncus dapibus. Donec vestibulum lorem at est finibus, et placerat nisi tempor. Nullam rhoncus dapibus ante ut finibus. 
-                                        Curabitur lacinia porttitor urna, eget aliquam diam aliquam sed.
-                                    </p>
-                                    <p class="card-text mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut lacus eros. Cras pretium rhoncus sagittis.
-                                        Ut aliquet augue a mauris elementum, eu tempus risus luctus. Suspendisse eget hendrerit sapien. Morbi dignissim velit leo, 
-                                        in consequat lectus consequat a. Sed non facilisis lectus. Etiam efficitur ex vel mi faucibus egestas. Morbi ac erat non elit 
-                                        sollicitudin lobortis. Suspendisse convallis justo sit amet laoreet mattis. Suspendisse convallis neque ac mi malesuada iaculis. 
-                                        Maecenas placerat, felis non sodales suscipit, ligula sem efficitur urna, semper tristique mi turpis et nulla. Nullam consequat 
-                                        neque sed est rhoncus dapibus. Donec vestibulum lorem at est finibus, et placerat nisi tempor. Nullam rhoncus dapibus ante ut finibus. 
-                                        Curabitur lacinia porttitor urna, eget aliquam diam aliquam sed.
-                                    </p>
+                                    <div class="card-text mb-4">
+                                        <?php echo $article['content']; ?>
+                                    </div>
+                                    
                                     <!-- Source footer -->
+                                    <?php if (!empty($article['source_url'])): ?>
                                     <p class="mb-0">
                                         <strong>Source:</strong>
-                                        <a href="https://rappler.com/sports/pole-vault-results-ej-obiena-shanghai-diamond-league-may-3-2025/" target="_blank" rel="noopener">rappler.com</a>
+                                        <a href="<?php echo htmlspecialchars($article['source_url']); ?>" target="_blank" rel="noopener"><?php echo parse_url($article['source_url'], PHP_URL_HOST); ?></a>
                                     </p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -140,23 +178,25 @@ include "../backend/phpscripts/account.php";
                                     <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
                                         <h6 class="text-muted fw-bold fs-5">This article is</h6>
                                         <div id="fakeNewsPercent" class="mb-2"></div>
-                                        <div class='rounded px-2 py-1 status-red text-center' style='max-width: 90px;'>Fake</div>
+                                        <div class='rounded px-2 py-1 <?php echo $status_class; ?> text-center' style='max-width: 90px;'><?php echo $status_display; ?></div>
                                     </div>
                                     <div class="mb-3 pb-3 border-bottom">
                                         <h6 class="text-muted mb-1 fw-bold fs-6">Total Words Analyzed</h6>
-                                        <p class="mb-0 text-muted fw-bolder fs-3">63</p>
+                                        <p class="mb-0 text-muted fw-bolder fs-3"><?php echo !empty($article['total_words']) ? htmlspecialchars($article['total_words']) : 'N/A'; ?></p>
                                     </div>
                                     <div class="mb-3 pb-3 border-bottom">
                                         <h6 class="text-muted mb-1 fw-bold fs-6">Fake News Score</h6>
-                                        <p class="mb-0 text-muted fw-bolder fs-3">14</p>
+                                        <p class="mb-0 text-muted fw-bolder fs-3"><?php echo !empty($article['f_score']) ? htmlspecialchars($article['f_score']) : 'N/A'; ?></p>
                                     </div>
                                     <div>
                                         <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
-                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">breaking</span>
-                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">conspiracy</span>
-                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">fake</span>
-                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">miracle</span>
-                                        <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">dayaan</span>
+                                        <?php if (!empty($flagged_words)): ?>
+                                            <?php foreach ($flagged_words as $word): ?>
+                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold"><?php echo htmlspecialchars(trim($word)); ?></span>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <p class="text-muted small">No flagged keywords found</p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -165,13 +205,21 @@ include "../backend/phpscripts/account.php";
                             <div class="card shadow-sm p-4">
                                 <div class="d-flex flex-column justify-content-center align-items-center border-bottom mb-2">
                                     <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
-                                    <div class='rounded px-4 py-2 status-yellow text-center mb-3 fw-bolder' style='max-width: 120px;'>Pending</div>
+                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder' style='max-width: 120px;'><?php echo $status_display; ?></div>
                                 </div>
                                 <div class="mb-3 border-bottom">
-                                        <h6 class="text-muted fw-bold fs-6">Reason</h6>
-                                        <p class="small text-muted mb-3 fs-7">
-                                            Your article is under the pending state and waiting for approval. Dito yung message btw.
-                                        </p>
+                                    <h6 class="text-muted fw-bold fs-6">Reason</h6>
+                                    <p class="small text-muted mb-3 fs-7">
+                                        <?php if ($article['status'] == 1): ?>
+                                            Your article is under review and waiting for approval.
+                                        <?php elseif ($article['status'] == 2): ?>
+                                            Your article has been approved and published.
+                                        <?php elseif ($article['status'] == 3): ?>
+                                            Your article has been flagged as potentially containing misinformation.
+                                        <?php else: ?>
+                                            Status information not available.
+                                        <?php endif; ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -197,61 +245,46 @@ include "../backend/phpscripts/account.php";
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core DataTables -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
-    <!-- Buttons extension + Bootstrap 5 styling -->
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
-
-    <!-- Optional dependencies for CSV/Excel/PDF/print buttons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-
-    <!-- HTML5 export buttons -->
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
     <script src="../assets/script/script.js"></script>
 
     <script>
         $(document).ready(function () {
-        var percentage = 45; // Replace this with dynamic PHP if needed
+            var percentage = <?php echo !empty($article['percentage']) ? $article['percentage'] : 0; ?>;
+            
+            // Only initialize the progress bar if the element exists
+            if ($('#fakeNewsPercent').length) {
+                var bar = new ProgressBar.Circle('#fakeNewsPercent', {
+                    color: percentage > 50 ? '#8B0000' : '#28a745', // Red for high percentage, green for low
+                    strokeWidth: 5,
+                    trailWidth: 2,
+                    easing: 'easeInOut',
+                    duration: 1400,
+                    text: {
+                        autoStyleContainer: false
+                    },
+                    from: { color: percentage > 50 ? '#8B0000' : '#28a745', width: 5 },
+                    to: { color: percentage > 50 ? '#8B0000' : '#28a745', width: 5 },
+                    step: function (state, circle) {
+                        circle.setText(Math.round(circle.value() * 100) + '%');
+                    }
+                });
 
-        var bar = new ProgressBar.Circle('#fakeNewsPercent', {
-            color: '#8B0000',
-            strokeWidth: 5,
-            trailWidth: 2,
-            easing: 'easeInOut',
-            duration: 1400,
-            text: {
-            autoStyleContainer: false
-            },
-            from: { color: '#8B0000', width: 5 },
-            to: { color: '#8B0000', width: 5 },
-            step: function (state, circle) {
-            circle.setText(Math.round(circle.value() * 100) + '%');
+                // Force style overrides
+                bar.text.style.position = 'absolute';
+                bar.text.style.left = '50%';
+                bar.text.style.top = '50%';
+                bar.text.style.transform = 'translate(-50%, -50%)';
+                bar.text.style.fontFamily = '"Open Sans", sans-serif';
+                bar.text.style.fontSize = '1.2rem';
+                bar.text.style.fontWeight = 'bold';
+
+                bar.animate(percentage / 100);
             }
-        });
-
-        // Force style overrides
-        bar.text.style.position = 'absolute';
-        bar.text.style.left = '50%';
-        bar.text.style.top = '50%';
-        bar.text.style.transform = 'translate(-50%, -50%)';
-        bar.text.style.fontFamily = '"Open Sans", sans-serif';
-        bar.text.style.fontSize = '1.2rem';
-        bar.text.style.fontWeight = 'bold';
-
-        bar.animate(percentage / 100);
         });
     </script>
     
     <?php include "../components/button_logout.php" ?>
-
 
 </body>
 </html>
