@@ -117,7 +117,7 @@ include "../backend/phpscripts/check_role.php";
                     </tr>
                 </thead>
                 <tbody id="admin-article-body">
-                    <!-- Users will be dynamically inserted here -->
+                    <!-- Article will be dynamically inserted here -->
                 </tbody>
             </table>
         </div>
