@@ -7,7 +7,7 @@ $('#registerForm').on('submit', function(e) {
     const user_passCheck = $('#regConfirmPassword').val();
     const email = $('#user_email').val();
     const number = $('#number').val();
-
+    
     if (user_pass !== user_passCheck) {
         alert("Passwords do not match.");
         x++;
