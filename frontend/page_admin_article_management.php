@@ -122,7 +122,7 @@ include "../backend/phpscripts/check_role.php";
             </table>
         </div>
         <!-- Card View Container -->
-        <div id="exploreCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
+        <div id="adminCardViewArticleContainer" class="article-card-wrapper row g-4 d-none"></div>
         <!-- custom footer placeholders -->
         <div class="my-footer row">
             <div class="col">
