@@ -20,7 +20,7 @@
         <h2 class="mt-4 fw-bold">Login with Tutuban</h2>
         <p class="text-muted opacity-50">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
         
-        <form action="../backend/phpscripts/login.php" method="POST">
+        <form action="../backend/phpscripts/login.php" method="POST" autocomplete="off">
           
             <div class="mb-3">
                 <label for="username" class="form-label fw-bold">Email</label>
