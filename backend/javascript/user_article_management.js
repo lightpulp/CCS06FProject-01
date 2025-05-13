@@ -36,31 +36,31 @@ $(document).ready(function () {
             const plainContent = $('<div>').html(contentHTML).text();
             // … build the same `card` string you already have …
             const card = `
-                <div class='article-card'>
-                    <div class='card-banner'>
-                        <p class='article-category-tag'>${category}</p>
-                        <img class='banner-img' src='https://images.unsplash.com/photo-1610792472618-8900baee6882?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt=''>
-                    </div>
-                    <div class='article-card-body'>
-                        <h2 class='blog-title'>${title}</h2>
-                        <p class='blog-description text-muted multiline-truncate'>${plainContent}</p>
-    
-                        <div class='article-card-profile'>
-                        <img class='profile-img' src='https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60' alt=''>
-                        <div class='article-card-profile-info'>
-                            <h3 class='profile-name'>${author}</h3>
-                            <p class='profile-followers'>Created At: ${date}</p>
+                    <div class='article-card'>
+                        <div class='card-banner'>
+                            <p class='article-category-tag'>${category}</p>
+                            <img class='banner-img' src='https://images.unsplash.com/photo-1610792472618-8900baee6882?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt=''>
                         </div>
+                        <div class='article-card-body'>
+                            <h2 class='blog-title'>${title}</h2>
+                            <p class='blog-description text-muted multiline-truncate'>${plainContent}</p>
+        
+                            <div class='article-card-profile'>
+                            <img class='profile-img' src='https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60' alt=''>
+                            <div class='article-card-profile-info'>
+                                <h3 class='profile-name'>${author}</h3>
+                                <p class='profile-followers'>Created At: ${date}</p>
+                            </div>
+                            </div>
+        
+                            <div class='article-card-status mt-2'>
+                            <div class='article-card-profile-info'>
+                                <h3 class='profile-name d-inline-block mb-0 me-2'>Status:</h3>
+                                <div class='rounded px-3 py-2 text-center d-inline-block'>${status}</div>
+                            </div>
+                            </div>
                         </div>
-    
-                        <div class='article-card-status mt-2'>
-                        <div class='article-card-profile-info'>
-                            <h3 class='profile-name d-inline-block mb-0 me-2'>Status:</h3>
-                            <div class='rounded px-3 py-2 text-center d-inline-block'>${status}</div>
-                        </div>
-                        </div>
-                    </div>
-                </div>`;
+                    </div>`;
             container.append(card);
             });
             // if you want to show a "no results" message:
