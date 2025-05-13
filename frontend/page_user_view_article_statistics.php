@@ -221,7 +221,19 @@ if (!empty($article['f_words'])) {
                                         <?php endif; ?>
                                     </p>
                                 </div>
+
+                                <!-- If Article is not showing -->
+                                <?php if ($article['status'] != 2): // Only show if NOT published ?>
+                                <!-- Edit Article -->
+                                <div class="mb-3 border-bottom">
+                                    <h6 class="text-muted fw-bold fs-6">Edit Article</h6>
+                                    <a href="page_user_edit_article.php?id=<?php echo $article['article_id']; ?>" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Edit Article</a>
+                                </div>
+                                <?php endif; ?>
+
                             </div>
+
+                            
                         </div>
                     </div>
 
