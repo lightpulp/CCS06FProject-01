@@ -82,7 +82,7 @@ if (!empty($article['f_words'])) {
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>View Article Statistics</title>
+    <title><?php echo htmlspecialchars($article['title']); ?></title>
 </head>
 <body>
 
@@ -153,7 +153,7 @@ if (!empty($article['f_words'])) {
 
                                     <!-- Body text -->
                                     <div class="card-text mb-4">
-                                        <?php echo $article['content']; ?>
+                                        <?php echo nl2br(htmlspecialchars($article['content'], ENT_QUOTES|ENT_SUBSTITUTE)); ?>
                                     </div>
                                     
                                     <!-- Source footer -->
@@ -191,12 +191,14 @@ if (!empty($article['f_words'])) {
                                     <div>
                                         <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
                                         <?php if (!empty($flagged_words)): ?>
-                                            <?php foreach ($flagged_words as $word): ?>
-                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold"><?php echo htmlspecialchars(trim($word)); ?></span>
+                                            <?php foreach ($flagged_words as $keyword => $score): ?>
+                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">
+                                                <?php echo htmlspecialchars($keyword); ?>
+                                                </span>
                                             <?php endforeach; ?>
-                                        <?php else: ?>
+                                            <?php else: ?>
                                             <p class="text-muted small">No flagged keywords found</p>
-                                        <?php endif; ?>
+                                            <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +229,7 @@ if (!empty($article['f_words'])) {
                                 <!-- Edit Article -->
                                 <div class="mb-3 border-bottom">
                                     <h6 class="text-muted fw-bold fs-6">Edit Article</h6>
-                                    <a href="page_user_edit_article.php?id=<?php echo $article['article_id']; ?>" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Edit Article</a>
+                                    <a href="page_user_edit_article.php?id=<?php echo $article['article_id']; ?>" class="btn btn-primary w-100 mt-3 primaryBtnAnimate fw-semibold py-2 rounded">Edit Article</a>
                                 </div>
                                 <?php endif; ?>
 
