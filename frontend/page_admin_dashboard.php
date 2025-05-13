@@ -1,7 +1,8 @@
 <?php
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
-include "../backend/phpscripts/user_get_article_count.php";
+include "../backend/phpscripts/check_role.php";
+include "../backend/phpscripts/admin_get_article_count.php";
 ?>
 
 
@@ -26,9 +27,8 @@ include "../backend/phpscripts/user_get_article_count.php";
     <title>Dashboard</title>
 </head>
 <body>
-    
     <!-- start: Sidebar -->
-    <?php include '../components/sidebar.php'; ?>
+        <?php include '../components/sidebar.php'; ?>
     <!-- end: Sidebar -->
 
     <!-- start: Main -->

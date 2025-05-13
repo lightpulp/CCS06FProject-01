@@ -22,7 +22,7 @@ include "../backend/phpscripts/account.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Account Profile Setting</title>
+    <title>Change Password</title>
 </head>
 
 <body>
@@ -39,7 +39,7 @@ include "../backend/phpscripts/account.php";
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
                     <h3 class="fw-bolder me-auto text-muted">Settings</h3>
-                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Profile Setting</p>
+                    <p class="h6 fst-normal text-body-tertiary mb-2 webPageDesc">Change Password</p>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -66,10 +66,10 @@ include "../backend/phpscripts/account.php";
                         <div class="my-4">
                             <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link fs-7 active" id="home-tab" data-toggle="tab" href="page_user_account.php" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+                                    <a class="nav-link fs-7" id="home-tab" data-toggle="tab" href="page_user_account.php" role="tab" aria-controls="home" aria-selected="true">Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link fs-7" id="profile-tab" data-toggle="tab" href="page_change_password_account.php" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
+                                    <a class="nav-link fs-7 active" id="profile-tab" data-toggle="tab" href="page_change_password_account.php" role="tab" aria-controls="profile" aria-selected="false">Change Password</a>
                                 </li>
                             </ul>
                             
@@ -99,54 +99,25 @@ include "../backend/phpscripts/account.php";
                                     </div>
                                 </div>
                                 <hr class="my-4">
-                            <form id="saveAccForm" method="POST">
-                                <div class="row">
-                                    <!-- First Name -->
-                                    <div class="form-group col-md-6">
-                                        <label for="user_fname" class="fw-semibold fs-7 mb-2 text-muted">First Name</label>
-                                        <input type="text" name="user_fname" id="user_fname" class="form-control" placeholder="Enter your First Name" value="<?php echo isset($user_data['user_fname']) ? htmlspecialchars($user_data['user_fname']) : ''; ?>">
-                                    </div>
-                                    
-                                    <!-- Last Name -->
-                                    <div class="form-group col-md-6">
-                                        <label for="user_lname" class="fw-semibold fs-7 mb-2 text-muted">Last Name</label>
-                                        <input type="text" name="user_lname" id="user_lname" class="form-control" placeholder="Enter your Last Name" value="<?php echo isset($user_data['user_lname']) ? htmlspecialchars($user_data['user_lname']) : ''; ?>">
-                                    </div>
+                            <form id="savePassForm" method="POST">
+                                <!-- First Name -->
+                                <div class="form-group col-md-12">
+                                    <label for="user_pass" class="fw-semibold fs-7 mb-2 text-muted">Old Password</label>
+                                    <input type="password" class="form-control py-2" placeholder="Enter your old password here" name="user_pass" id="user_pass" required>
+                                </div>
+                                
+                                <!-- Last Name -->
+                                <div class="form-group col-md-12">
+                                    <label for="new_pass" class="fw-semibold fs-7 mb-2 text-muted">New Password</label>
+                                    <input type="password" class="form-control py-2" placeholder="Enter your new password here" name="new_pass" id="new_pass" required>
                                 </div>
 
-                                <div class="row">
-                                    <!-- User Name -->
-                                    <div class="form-group col-md-6">
-                                        <label for="user_name" class="fw-semibold fs-7 mb-2 text-muted">Username</label>
-                                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter your User Name" value="<?php echo isset($user_data['user_name']) ? htmlspecialchars($user_data['user_name']) : ''; ?>">
-                                    </div>
-                                    
-                                    <!-- Email -->
-                                    <div class="form-group col-md-6">
-                                        <label class="fw-semibold fs-7 mb-2 text-muted">Email</label>
-                                        <input type="text" name="user_lname" id="user_lname" class="form-control" value="<?php echo isset($user_data['user_email']) ? htmlspecialchars($user_data['user_email']) : ''; ?>" disabled>
-                                    </div>
+                                <!-- Last Name -->
+                                <div class="form-group col-md-12">
+                                    <label for="new_passCheck" class="fw-semibold fs-7 mb-2 text-muted">Confirm New Password</label>
+                                    <input type="password" class="form-control py-2" placeholder="Confirm your new password here" name="new_passCheck" id="new_passCheck" required>
                                 </div>
 
-                                <div class="row">
-                                    <!-- DOB -->
-                                    <div class="form-group col-md-2">
-                                        <label for="birthdate" class="fw-semibold fs-7 mb-2 text-muted">Birth Date</label>
-                                        <input type="date" name="birthdate" id="birthdate" class="form-control" value="<?php echo isset($user_data['birthdate']) ? htmlspecialchars($user_data['birthdate']) : ''; ?>">
-                                    </div>
-                                    
-                                    <!-- Address -->
-                                    <div class="form-group col-md-6">
-                                        <label for="address" class="fw-semibold fs-7 mb-2 text-muted">Address</label>
-                                        <input type="text" name="address" id="address" class="form-control" value="<?php echo isset($user_data['address']) ? htmlspecialchars($user_data['address']) : ''; ?>">
-                                    </div>
-
-                                    <!-- Contact Number -->
-                                    <div class="form-group col-md-4">
-                                        <label for="number" class="fw-semibold fs-7 mb-2 text-muted">Contact Number</label>
-                                        <input type="text" name="number" id="number" class="form-control" maxlength="11" value="<?php echo isset($user_data['number']) ? htmlspecialchars($user_data['number']) : ''; ?>">
-                                    </div>
-                                </div>
                                 <hr class="my-4">
                                 <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Changes</button>
                             </form>
@@ -181,7 +152,7 @@ include "../backend/phpscripts/account.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
-    <script src="../backend/javascript/save_account.js"></script>
+    <script src="../backend/javascript/save_password.js"></script>
     <!-- end: JS -->
 
     <script>
