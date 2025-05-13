@@ -915,6 +915,17 @@ a.sessionsLink:hover {
     border-radius: 50% !important;
   }
 
+  a.table-title-link {
+    text-decoration: none;
+    color: var(--bs-gray-700);
+    font-weight: 700;
+    transition: color ease-in-out 0.2s;
+  }
+
+  a.table-title-link:hover {
+    color: var(--bs-brand-color);
+  }
+
   /* end: Container Fluid */
   /* end: Main */
 /* End: ### page_user_account.php ### */
