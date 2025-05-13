@@ -34,42 +34,46 @@ $(document).ready(function () {
             const [article_id, title, contentHTML, author, category, link, status, date, actions] = rowData;
             const plainContent = $('<div>').html(contentHTML).text();
             // … build the same `card` string you already have …
-            const card = `
-                            <a href='page_user_view_explore_article.php' class="user-view-explore">
-                                <div class="my-1 py-3 border-bottom">
-                                    <div class="col-12">
-                                        <div>
-                                            <!-- Top row: category badge + save action -->
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">${category}</span>
-                                            </div>
+            
+            
+const card = `
+    <a href='page_user_view_explore_article.php?article_id=${article_id}' class="user-view-explore">
+        <div class="my-1 py-3 border-bottom">
+            <div class="col-12">
+                <div>
+                    <!-- Top row: category badge + save action -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">${category}</span>
+                    </div>
 
-                                            <!-- Headline -->
-                                            <h2 class="card-title fw-bold mb-2">
-                                                ${title}
-                                            </h2>
+                    <!-- Headline -->
+                    <h2 class="card-title fw-bold mb-2">
+                        ${title}
+                    </h2>
 
-                                            <!-- Author & date -->
-                                            <p class='text-muted mb-4'>
-                                                By <strong>${author}</strong> &nbsp;|&nbsp; ${date}
-                                            </p>
+                    <!-- Author & date -->
+                    <p class='text-muted mb-4'>
+                        By <strong>${author}</strong> &nbsp;|&nbsp; ${date}
+                    </p>
 
-                                            <!-- Featured image with 4:3 aspect ratio -->
-                                            <div class='aspect-ratio-4-3 mb-4'>
-                                                <img
-                                                    src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
-                                                    alt='Article image'
-                                                />
-                                            </div>
+                    <!-- Featured image with 4:3 aspect ratio -->
+                    <div class='aspect-ratio-4-3 mb-4'>
+                        <img
+                            src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
+                            alt='Article image'
+                        />
+                    </div>
 
-                                            <!-- Body text -->
-                                            <p class="card-text text-muted mb-4 multiline-truncate">
-                                                ${plainContent}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>`;
+                    <!-- Body text -->
+                    <p class="card-text text-muted mb-4 multiline-truncate">
+                        ${plainContent}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>`;
+
+
             container.append(card);
             });
             // if you want to show a "no results" message:

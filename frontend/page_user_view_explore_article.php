@@ -1,6 +1,34 @@
 <?php
 include "../backend/phpscripts/session.php";
 include "../backend/phpscripts/account.php";
+include "../backend/phpscripts/config.php";
+
+// Get article ID from URL and validate
+$article_id = isset($_GET['article_id']) ? intval($_GET['article_id']) : 0;
+
+if ($article_id <= 0) {
+    die("Invalid article ID");
+}
+
+// Fetch article details with category name
+$sql = "SELECT a.*, u.user_name, u.user_fname, u.user_lname, c.category_name 
+        FROM articles a
+        JOIN users u ON a.user_id = u.user_id
+        JOIN categories c ON a.category_id = c.category_id
+        WHERE a.article_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $article_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    die("Article not found");
+}
+
+$article = $result->fetch_assoc();
+
+// Format the date if needed
+$formatted_date = date('M j, Y', strtotime($article['created_at']));
 ?>
 
 
@@ -81,223 +109,96 @@ include "../backend/phpscripts/account.php";
             <!-- Updated Article View Page Layout -->
             <div class="container-fluid">
                 <div class="row">
+
+
+
                     <!-- Main Article Content -->
-                    <div class="col-12 col-md-8">
-                        <div class="my-1">
-                            <div class="col-12">
-                                <div>
-                                    <!-- Top row: category badge + save action -->
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">SPORTS</span>
-                                        <a href="#" class="text-decoration-none text-muted">
-                                        </a>
-                                    </div>
+<div class="col-12 col-md-8">
+    <div class="my-1">
+        <div class="col-12">
+            <div>
+                <!-- Top row: category badge + save action -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">
+                        <?php echo htmlspecialchars($article['category_name']); ?>
+                    </span>
+                    <a href="#" class="text-decoration-none text-muted">
+                        <!-- Save button can go here -->
+                    </a>
+                </div>
 
-                                    <!-- Headline -->
-                                    <h2 class="card-title fw-bold mb-2">
-                                        Obiena finishes 5th in Shanghai Diamond League, Duplantis on top again
-                                    </h2>
+                <!-- Headline -->
+                <h2 class="card-title fw-bold mb-2">
+                    <?php echo htmlspecialchars($article['title']); ?>
+                </h2>
 
-                                    <!-- Author & date -->
-                                    <p class="text-muted mb-4">
-                                        By <strong>John Doe</strong> &nbsp;|&nbsp; Jan 13, 2025
-                                    </p>
+                <!-- Author & date -->
+                <p class="text-muted mb-4">
+                    By <strong><?php echo htmlspecialchars($article['user_name']); ?></strong> 
+                    &nbsp;|&nbsp; <?php echo $formatted_date; ?>
+                </p>
 
-                                    <!-- Featured image with 4:3 aspect ratio -->
-                                    <div class="aspect-ratio-4-3 mb-4" role="button" data-bs-toggle="modal" data-bs-target="#articleImageModal">
-                                        <img
-                                            src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
-                                            alt="Article image"
-                                        />
-                                    </div>
+                <!-- Featured image with 4:3 aspect ratio -->
+                <div class="aspect-ratio-4-3 mb-4" role="button" data-bs-toggle="modal" data-bs-target="#articleImageModal">
+                    <img
+                        src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
+                        alt="Article image"
+                    />
+                </div>
 
-                                    <!-- Body text -->
-                                    <p class="card-text mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut lacus eros. Cras pretium rhoncus sagittis.
-                                        Ut aliquet augue a mauris elementum, eu tempus risus luctus. Suspendisse eget hendrerit sapien. Morbi dignissim velit leo, 
-                                        in consequat lectus consequat a. Sed non facilisis lectus. Etiam efficitur ex vel mi faucibus egestas. Morbi ac erat non elit 
-                                        sollicitudin lobortis. Suspendisse convallis justo sit amet laoreet mattis. Suspendisse convallis neque ac mi malesuada iaculis. 
-                                        Maecenas placerat, felis non sodales suscipit, ligula sem efficitur urna, semper tristique mi turpis et nulla. Nullam consequat 
-                                        neque sed est rhoncus dapibus. Donec vestibulum lorem at est finibus, et placerat nisi tempor. Nullam rhoncus dapibus ante ut finibus. 
-                                        Curabitur lacinia porttitor urna, eget aliquam diam aliquam sed.
+                <!-- Body text -->
+                <div class="card-text mb-4">
+                    <?php echo $article['content']; // Note: This is HTML content ?>
+                </div>
 
-
-                                    </p>
-                                    <p class="card-text mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut lacus eros. Cras pretium rhoncus sagittis.
-                                        Ut aliquet augue a mauris elementum, eu tempus risus luctus. Suspendisse eget hendrerit sapien. Morbi dignissim velit leo, 
-                                        in consequat lectus consequat a. Sed non facilisis lectus. Etiam efficitur ex vel mi faucibus egestas. Morbi ac erat non elit 
-                                        sollicitudin lobortis. Suspendisse convallis justo sit amet laoreet mattis. Suspendisse convallis neque ac mi malesuada iaculis. 
-                                        Maecenas placerat, felis non sodales suscipit, ligula sem efficitur urna, semper tristique mi turpis et nulla. Nullam consequat 
-                                        neque sed est rhoncus dapibus. Donec vestibulum lorem at est finibus, et placerat nisi tempor. Nullam rhoncus dapibus ante ut finibus. 
-                                        Curabitur lacinia porttitor urna, eget aliquam diam aliquam sed.
-                                    </p>
-                                    <p class="card-text mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut lacus eros. Cras pretium rhoncus sagittis.
-                                        Ut aliquet augue a mauris elementum, eu tempus risus luctus. Suspendisse eget hendrerit sapien. Morbi dignissim velit leo, 
-                                        in consequat lectus consequat a. Sed non facilisis lectus. Etiam efficitur ex vel mi faucibus egestas. Morbi ac erat non elit 
-                                        sollicitudin lobortis. Suspendisse convallis justo sit amet laoreet mattis. Suspendisse convallis neque ac mi malesuada iaculis. 
-                                        Maecenas placerat, felis non sodales suscipit, ligula sem efficitur urna, semper tristique mi turpis et nulla. Nullam consequat 
-                                        neque sed est rhoncus dapibus. Donec vestibulum lorem at est finibus, et placerat nisi tempor. Nullam rhoncus dapibus ante ut finibus. 
-                                        Curabitur lacinia porttitor urna, eget aliquam diam aliquam sed.
-                                    </p>
-                                    <!-- Source footer -->
-                                    <p class="mb-0">
-                                        <strong>Source:</strong>
-                                        <a href="https://rappler.com/sports/pole-vault-results-ej-obiena-shanghai-diamond-league-may-3-2025/" target="_blank" rel="noopener">rappler.com</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Source footer -->
+                <?php if (!empty($article['source_url'])): ?>
+                <p class="mb-0">
+                    <strong>Source:</strong>
+                    <a href="<?php echo htmlspecialchars($article['source_url']); ?>" target="_blank" rel="noopener">
+                        <?php echo parse_url($article['source_url'], PHP_URL_HOST); ?>
+                    </a>
+                </p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>                    
 
                     <!-- Sidebar: Article Statistics & Approval + Comments -->
                     <div class="col-12 col-md-4 mt-4 mt-md-0">
                         <div class="sticky-sidebar">
-                            <!-- Comments Card -->
-                            <div class="card mb-4 shadow-sm">
-                                <div class="px-3 py-3">
 
-                                    <!-- 1) Header -->
-                                    <h5 class="fw-bold mb-3">Comments</h5>
+<!-- Comments Card -->
+<div class="card mb-4 shadow-sm">
+    <div class="px-3 py-3">
+        <!-- 1) Header -->
+        <h5 class="fw-bold mb-3">Comments</h5>
 
-                                        <!-- 2) New-comment composer -->
-                                        <div class="mb-4 p-3 border rounded">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f" class="rounded-circle" alt="Jane Doe">
-                                                </div>
-                                                
-                                                <?php echo htmlspecialchars($user_data['user_name']); ?>
-                                            </div>
-                                            <textarea class="form-control mb-2 comment-auto-resize" rows="1" placeholder="Add a comment…"></textarea>
-                                            <div class="d-flex justify-content-end">
-                                                <button class="btn btn-primary px-3 py-2 fw-semibold">Comment</button>
-                                            </div>
-                                        </div>
+        <!-- 2) New-comment composer -->
+        <div class="mb-4 p-3 border rounded comment-form">
+            <div class="d-flex align-items-center mb-2">
+                <div class="me-1">
+                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f" class="rounded-circle" alt="<?php echo htmlspecialchars($user_data['user_name']); ?>">
+                </div>
+                <?php echo htmlspecialchars($user_data['user_name']); ?>
+            </div>
+            <textarea class="form-control mb-2 comment-auto-resize" rows="1" placeholder="Add a comment…"></textarea>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary px-3 py-2 fw-semibold">Comment</button>
+            </div>
+        </div>
 
-                                    <!-- 3) List of existing comments (scrollable if too tall) -->
-                                    <div class="comments-list px-3">
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                Ruby-chan! 😍 🍭 Haiiii~ 🥰 Nani ga suki? ❤️ Choko minto 🍫🌿 yori mo a-na-ta♡ 😘 Ayumu-chan! 😍🎀 Haiii~ 🥰 Nani ga suki? ❤️ Sutoroberii fureibaa 🍓 yori mo a-na-ta♡ 😘 Shiki-chan! 😍🧪 haiiii~ 🥰 Nani ga suki?❤️ Kukkii & kuriimu 🍪 yori mo a-na-ta♡ 😘 Minna nani ga suki? 😍 Mochiron daisuki AiScReam 🍨 ( ≧ ▽ ≦ )( ≧ ▽ ≦ )
-                                            </p>
-                                            <hr>
-                                        </div>
+        <!-- 3) List of existing comments (scrollable if too tall) -->
+        <div class="comments-list px-3">
+            <!-- Comments will be loaded here via AJAX -->
+        </div>
+    </div>
+</div>
 
-                                        <!-- …more comments… -->
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                what haffen🗣bella👩⁉️why you crying😢😢again🔄⁉️...i know‼️🧐🤔 vamfire🧛‍♂️🔥right➡️⁉️ vampire🧛‍♂️🔥will feyt to me🤯🤯
-                                            </p>
-                                            <hr>
-                                        </div>
 
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                wow😮🤳🏻naay nasunog 😜😜🔥🤳🏻👀wowowowowwow wow😱😱 wow adtong adtoon nu🚶🏻‍♀️🤳🏻 halauh uy ka nindott✨💖 sa kalayoooo🔥😩😻 halahh ka hayag
-                                            </p>
-                                            <hr>
-                                        </div>
 
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                Ruby-chan! 😍 🍭 Haiiii~ 🥰 Nani ga suki? ❤️ Choko minto 🍫🌿 yori mo a-na-ta♡ 😘 Ayumu-chan! 😍🎀 Haiii~ 🥰 Nani ga suki? ❤️ Sutoroberii fureibaa 🍓 yori mo a-na-ta♡ 😘 Shiki-chan! 😍🧪 haiiii~ 🥰 Nani ga suki?❤️ Kukkii & kuriimu 🍪 yori mo a-na-ta♡ 😘 Minna nani ga suki? 😍 Mochiron daisuki AiScReam 🍨 ( ≧ ▽ ≦ )( ≧ ▽ ≦ )
-                                            </p>
-                                            <hr>
-                                        </div>
 
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                Ruby-chan! 😍 🍭 Haiiii~ 🥰 Nani ga suki? ❤️ Choko minto 🍫🌿 yori mo a-na-ta♡ 😘 Ayumu-chan! 😍🎀 Haiii~ 🥰 Nani ga suki? ❤️ Sutoroberii fureibaa 🍓 yori mo a-na-ta♡ 😘 Shiki-chan! 😍🧪 haiiii~ 🥰 Nani ga suki?❤️ Kukkii & kuriimu 🍪 yori mo a-na-ta♡ 😘 Minna nani ga suki? 😍 Mochiron daisuki AiScReam 🍨 ( ≧ ▽ ≦ )( ≧ ▽ ≦ )
-                                            </p>
-                                            <hr>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                Ruby-chan! 😍 🍭 Haiiii~ 🥰 Nani ga suki? ❤️ Choko minto 🍫🌿 yori mo a-na-ta♡ 😘 Ayumu-chan! 😍🎀 Haiii~ 🥰 Nani ga suki? ❤️ Sutoroberii fureibaa 🍓 yori mo a-na-ta♡ 😘 Shiki-chan! 😍🧪 haiiii~ 🥰 Nani ga suki?❤️ Kukkii & kuriimu 🍪 yori mo a-na-ta♡ 😘 Minna nani ga suki? 😍 Mochiron daisuki AiScReam 🍨 ( ≧ ▽ ≦ )( ≧ ▽ ≦ )
-                                            </p>
-                                            <hr>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                Ruby-chan! 😍 🍭 Haiiii~ 🥰 Nani ga suki? ❤️ Choko minto 🍫🌿 yori mo a-na-ta♡ 😘 Ayumu-chan! 😍🎀 Haiii~ 🥰 Nani ga suki? ❤️ Sutoroberii fureibaa 🍓 yori mo a-na-ta♡ 😘 Shiki-chan! 😍🧪 haiiii~ 🥰 Nani ga suki?❤️ Kukkii & kuriimu 🍪 yori mo a-na-ta♡ 😘 Minna nani ga suki? 😍 Mochiron daisuki AiScReam 🍨 ( ≧ ▽ ≦ )( ≧ ▽ ≦ )
-                                            </p>
-                                            <hr>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-1">
-                                                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="rounded-circle me-2" alt="Jane Doe">
-                                                </div>
-                                                Other User
-                                                <small class="text-muted ms-auto">5 min ago</small>
-                                            </div>
-                                            <p class="mb-2 text-muted">
-                                                Ruby-chan! 😍 🍭 Haiiii~ 🥰 Nani ga suki? ❤️ Choko minto 🍫🌿 yori mo a-na-ta♡ 😘 Ayumu-chan! 😍🎀 Haiii~ 🥰 Nani ga suki? ❤️ Sutoroberii fureibaa 🍓 yori mo a-na-ta♡ 😘 Shiki-chan! 😍🧪 haiiii~ 🥰 Nani ga suki?❤️ Kukkii & kuriimu 🍪 yori mo a-na-ta♡ 😘 Minna nani ga suki? 😍 Mochiron daisuki AiScReam 🍨 ( ≧ ▽ ≦ )( ≧ ▽ ≦ )
-                                            </p>
-                                            <hr>
-                                        </div>
-
-                                        <!-- 4) Load more button -->
-                                        <div class="text-center">
-                                            <button class="btn btn-primary px-3 py-2 fw-semibold">Load More</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -355,6 +256,9 @@ include "../backend/phpscripts/account.php";
         });
     </script>
     <?php include "../components/button_logout.php" ?>
+
+<script src="../backend/javascript/user_view_explore_article.js"></script>
+
 
 
 </body>
