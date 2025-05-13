@@ -140,8 +140,6 @@ $(document).ready(function(){
                 $('#exploreCardViewArticleContainer').addClass('mx-5');
             }
         }
-        // Trigger it once on load to apply the correct state
-        $(window).trigger('resize');
     });
 
     //////////////////////////////////////////
