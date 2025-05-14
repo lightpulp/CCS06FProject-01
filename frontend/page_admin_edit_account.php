@@ -133,7 +133,8 @@ if (!$user) {
                                     <!-- Role -->
                                     <div class="form-group mb-3">
                                         <label for="role" class="fw-semibold fs-7 mb-2 text-muted">Role</label>
-                                        <select name="role" id="role" class="form-select">
+                                        <select name="role" id="role" class="form-select" 
+                                            <?php echo ($user['user_email'] === '1@1') ? 'disabled' : ''; ?>>
                                             <option value="0" <?php echo $user['role'] == 0 ? 'selected' : ''; ?>>User</option>
                                             <option value="1" <?php echo $user['role'] == 1 ? 'selected' : ''; ?>>Admin</option>
                                         </select>
