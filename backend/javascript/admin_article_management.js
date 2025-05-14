@@ -125,12 +125,12 @@ $(document).ready(function () {
                     }
                     adminArticles.row.add([
                         article.article_id,
-                        article.title,
+                        `<a href='page_admin_view_article_statistics.php?id=${article.article_id}' class='table-title-link'>${article.title}</a>`,
                         `<div class='multiline-truncate' title='${article.content}'>${article.content}</div>`,
                         article.user_name,
                         article.category_name,
                         `<a href='${article.source_url}' class='link-secondary'>Link</a>`,
-                        `<div class='rounded px-2 py-1 ${statusClass} text-center' style='max-width: 90px;'>${status}</div>`,
+                        `<div class='rounded px-2 py-1 ${statusClass} text-center'>${status}</div>`,
                         article.created_at,
                         
                         `<a href='#' class='link-warning' onclick='editArticle(${article.article_id})'><i class='fa-solid fa-pen-to-square fs-5'></i></a>
