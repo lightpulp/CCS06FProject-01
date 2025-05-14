@@ -98,35 +98,16 @@ const card = `
 
     function loadexploreArticlesTable() {
         $.ajax({
-            url: '../backend/phpscripts/admin_article_management.php',
+            url: '../backend/phpscripts/user_explore_articles.php',
             type: 'GET',
             success: function(data) {
-                const adminArticleData = JSON.parse(data);
+                const exploreArticleData = JSON.parse(data);
                 
                 // Clear and repopulate DataTable
                 exploreArticles.clear();
-        
-                adminArticleData.forEach(article => {
-                    let status = '';
-                    let statusClass = '';
-                    switch (article.status) {
-                        case '1':
-                            status = 'Pending';
-                            statusClass = 'status-yellow';
-                            break;
-                        case '2':
-                            status = 'Approved';
-                            statusClass = 'status-active';
-                            break;
-                        case '3':
-                            status = 'Fake';
-                            statusClass = 'status-red';
-                            break;
-                        case '4':
-                            status = 'Deleted';
-                            statusClass = 'status-inactive';
-                            break;
-                    }
+                exploreArticleData.forEach(article => {
+                    let status = 'Approved';
+                    let statusClass = 'status-active';
                     exploreArticles.row.add([
                         article.article_id,
                         article.title,
