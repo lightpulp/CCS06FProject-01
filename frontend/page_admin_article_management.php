@@ -25,6 +25,12 @@ include "../backend/phpscripts/check_role.php";
     <!-- end: CSS -->
     <title>Manage Article</title>
 </head>
+<style>
+    #adminCardViewArticleContainer a {
+        text-decoration: none;
+        color: var(--bg-gray-800);
+    }
+</style>
 <body>
 
     <!-- start: Sidebar -->
