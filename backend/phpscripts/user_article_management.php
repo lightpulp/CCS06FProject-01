@@ -10,7 +10,7 @@ $sql = "SELECT a.article_id, a.title, a.content, u.user_name, a.source_url, a.st
         JOIN categories c ON a.category_id = c.category_id
         WHERE a.status != 4 AND a.user_id = $user_id";  // Exclude deleted articles
 
-$result = mysqli_query($conn, query: $sql);
+$result = mysqli_query($conn, $sql);
 
 $articles = [];
 
