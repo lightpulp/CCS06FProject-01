@@ -81,17 +81,17 @@ include "../backend/phpscripts/account.php";
             <div class="col-12 col-md-6">
                 <div class="d-flex flex-wrap justify-content-md-end gap-2">
                     <!-- List Button -->
-                    <button id="listViewBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                    <button id="listViewUserArticleBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
                         <i class="fa-solid fa-square"></i> List
                     </button>
 
                     <!-- Card Button -->
-                    <button id="cardViewBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                    <button id="cardViewUserArticleBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
                         <i class="fa-solid fa-square"></i> Card
                     </button>
 
                     <!-- Filter Button -->
-                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
+                    <button id="filterUserArticleBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterUserArticleModal">
                         <i class="fas fa-filter me-1"></i> Filter
                     </button>
                 </div>
@@ -114,7 +114,7 @@ include "../backend/phpscripts/account.php";
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="admin-article-body">
+            <tbody id="user-article-body">
                 <!-- Articles will be dynamically inserted here -->
             </tbody>
         </table>
@@ -135,31 +135,27 @@ include "../backend/phpscripts/account.php";
     </main>
 
     <!-- Filter Modal -->
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal fade" id="filterUserArticleModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <form id="filterForm">
+            <form id="filterUserArticleForm">
                 <div class="modal-header">
                 <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <div class="mb-3">
-                    <label for="filterRole" class="form-label">Role</label>
-                    <select id="filterRole" class="form-select">
-                    <option value="">All</option>
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="filterActive" class="form-label">Status</label>
-                    <select id="filterActive" class="form-select">
-                    <option value="">All</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label for="filterUserArticleCategory" class="form-label">Category</label>
+                        <select id="filterUserArticleCategory" class="form-select">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="filterUserArticleStatus" class="form-label">Status</label>
+                        <select id="filterUserArticleStatus" class="form-select">
+                            <option value="">All</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                 <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
