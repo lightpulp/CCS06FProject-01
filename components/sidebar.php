@@ -74,4 +74,4 @@ $userRole = $_SESSION['role']; // 1 = admin, 0 = user
         </li>
     </ul>
 </div>
-<div class="sidebar-overlay"></div>
+<div class="sidebar-overlay d-none"></div>
