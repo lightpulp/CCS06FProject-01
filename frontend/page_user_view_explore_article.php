@@ -109,96 +109,89 @@ $formatted_date = date('M j, Y', strtotime($article['created_at']));
             <!-- Updated Article View Page Layout -->
             <div class="container-fluid">
                 <div class="row">
-
-
-
                     <!-- Main Article Content -->
-<div class="col-12 col-md-8">
-    <div class="my-1">
-        <div class="col-12">
-            <div>
-                <!-- Top row: category badge + save action -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">
-                        <?php echo htmlspecialchars($article['category_name']); ?>
-                    </span>
-                    <a href="#" class="text-decoration-none text-muted">
-                        <!-- Save button can go here -->
-                    </a>
-                </div>
+                    <div class="col-12 col-md-8">
+                        <div class="my-1">
+                            <div class="col-12">
+                                <div>
+                                    <!-- Top row: category badge + save action -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge bg-brand-500 py-2 px-3 fw-bold fs-6">
+                                            <?php echo htmlspecialchars($article['category_name']); ?>
+                                        </span>
+                                        <a href="#" class="text-decoration-none text-muted">
+                                            <!-- Save button can go here -->
+                                        </a>
+                                    </div>
 
-                <!-- Headline -->
-                <h2 class="card-title fw-bold mb-2">
-                    <?php echo htmlspecialchars($article['title']); ?>
-                </h2>
+                                    <!-- Headline -->
+                                    <h2 class="card-title fw-bold mb-2">
+                                        <?php echo htmlspecialchars($article['title']); ?>
+                                    </h2>
 
-                <!-- Author & date -->
-                <p class="text-muted mb-4">
-                    By <strong><?php echo htmlspecialchars($article['user_name']); ?></strong> 
-                    &nbsp;|&nbsp; <?php echo $formatted_date; ?>
-                </p>
+                                    <!-- Author & date -->
+                                    <p class="text-muted mb-4">
+                                        By <strong><?php echo htmlspecialchars($article['user_name']); ?></strong> 
+                                        &nbsp;|&nbsp; <?php echo $formatted_date; ?>
+                                    </p>
 
-                <!-- Featured image with 4:3 aspect ratio -->
-                <div class="aspect-ratio-4-3 mb-4" role="button" data-bs-toggle="modal" data-bs-target="#articleImageModal">
-                    <img
-                        src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
-                        alt="Article image"
-                    />
-                </div>
+                                    <!-- Featured image with 4:3 aspect ratio -->
+                                    <div class="aspect-ratio-4-3 mb-4" role="button" data-bs-toggle="modal" data-bs-target="#articleImageModal">
+                                        <img
+                                            src="https://images.unsplash.com/photo-1610792472618-8900baee6882"
+                                            alt="Article image"
+                                        />
+                                    </div>
 
-                <!-- Body text -->
-                <div class="card-text mb-4">
-                    <?php echo $article['content']; // Note: This is HTML content ?>
-                </div>
+                                    <!-- Body text -->
+                                    <div class="card-text mb-4">
+                                        <?php echo nl2br(htmlspecialchars($article['content'], ENT_QUOTES|ENT_SUBSTITUTE)); ?>
+                                    </div>
 
-                <!-- Source footer -->
-                <?php if (!empty($article['source_url'])): ?>
-                <p class="mb-0">
-                    <strong>Source:</strong>
-                    <a href="<?php echo htmlspecialchars($article['source_url']); ?>" target="_blank" rel="noopener">
-                        <?php echo parse_url($article['source_url'], PHP_URL_HOST); ?>
-                    </a>
-                </p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>                    
+                                    <!-- Source footer -->
+                                    <?php if (!empty($article['source_url'])): ?>
+                                    <p class="mb-0">
+                                        <strong>Source:</strong>
+                                        <a href="<?php echo htmlspecialchars($article['source_url']); ?>" target="_blank" rel="noopener">
+                                            <?php echo parse_url($article['source_url'], PHP_URL_HOST); ?>
+                                        </a>
+                                    </p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
 
                     <!-- Sidebar: Article Statistics & Approval + Comments -->
                     <div class="col-12 col-md-4 mt-4 mt-md-0">
                         <div class="sticky-sidebar">
 
-<!-- Comments Card -->
-<div class="card mb-4 shadow-sm">
-    <div class="px-3 py-3">
-        <!-- 1) Header -->
-        <h5 class="fw-bold mb-3">Comments</h5>
+                            <!-- Comments Card -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="px-3 py-3">
+                                    <!-- 1) Header -->
+                                    <h5 class="fw-bold mb-3">Comments</h5>
 
-        <!-- 2) New-comment composer -->
-        <div class="mb-4 p-3 border rounded comment-form">
-            <div class="d-flex align-items-center mb-2">
-                <div class="me-1">
-                    <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f" class="rounded-circle" alt="<?php echo htmlspecialchars($user_data['user_name']); ?>">
-                </div>
-                <?php echo htmlspecialchars($user_data['user_name']); ?>
-            </div>
-            <textarea class="form-control mb-2 comment-auto-resize" rows="1" placeholder="Add a comment…"></textarea>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary px-3 py-2 fw-semibold">Comment</button>
-            </div>
-        </div>
+                                    <!-- 2) New-comment composer -->
+                                    <div class="mb-4 p-3 border rounded comment-form">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="me-1">
+                                                <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f" class="rounded-circle" alt="<?php echo htmlspecialchars($user_data['user_name']); ?>">
+                                            </div>
+                                            <?php echo htmlspecialchars($user_data['user_name']); ?>
+                                        </div>
+                                        <textarea class="form-control mb-2 comment-auto-resize" rows="1" placeholder="Add a comment…"></textarea>
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-primary px-3 py-2 fw-semibold">Comment</button>
+                                        </div>
+                                    </div>
 
-        <!-- 3) List of existing comments (scrollable if too tall) -->
-        <div class="comments-list px-3">
-            <!-- Comments will be loaded here via AJAX -->
-        </div>
-    </div>
-</div>
-
-
-
-
+                                    <!-- 3) List of existing comments (scrollable if too tall) -->
+                                    <div class="comments-list px-3">
+                                        <!-- Comments will be loaded here via AJAX -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
