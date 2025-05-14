@@ -214,10 +214,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
                                     <div>
                                         <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
                                         <?php if (!empty($flagged_words)): ?>
-                                            <?php foreach ($flagged_words as $word): ?>
-                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold"><?php echo htmlspecialchars(trim($word)); ?></span>
+                                            <?php foreach ($flagged_words as $keyword => $score): ?>
+                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">
+                                                <?php echo htmlspecialchars($keyword); ?>
+                                                </span>
                                             <?php endforeach; ?>
-                                        <?php else: ?>
+                                            <?php else: ?>
                                             <p class="text-muted small">No flagged keywords found</p>
                                         <?php endif; ?>
                                     </div>
@@ -228,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
                             <div class="card shadow-sm p-4">
                                 <div class="d-flex flex-column justify-content-center align-items-center border-bottom mb-2">
                                     <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
-                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder' style='max-width: 120px;'><?php echo $status_display; ?></div>
+                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder'><?php echo $status_display; ?></div>
                                 </div>
 
                                 
