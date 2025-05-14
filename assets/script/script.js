@@ -112,8 +112,9 @@ $(document).ready(function(){
     });
 
 
-    if(window.innerWidth < 768) {
+    if (window.innerWidth < 768) {
         $('.sidebar').addClass('collapsed');
+        $('.sidebar-overlay').addClass('d-none');
     }
 
     // Auto-expand the current section
