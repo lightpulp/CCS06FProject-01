@@ -121,7 +121,7 @@ include "../backend/phpscripts/account.php";
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
-                            <form id="articleForm">
+                            <form id="articleForm" autocomplete="off">
                                 <!-- top row: 2 columns -->
                                 <div class="row align-stretch">
                                     <!-- left column -->
