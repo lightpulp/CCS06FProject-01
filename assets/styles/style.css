@@ -1043,7 +1043,9 @@ a.sessionsLink:hover {
     /* Start: page_admin_account_management.php */
       .account-mgmt .btn-group,
       .account-mgmt #filterAccountBtn,
-      .account-mgmt #newAccountBtn {
+      .account-mgmt #newAccountBtn,
+      #cardViewBtn,
+      #listViewBtn {
           width: 100%;
       }
       .account-mgmt .btn-group .btn,
