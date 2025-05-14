@@ -87,29 +87,33 @@ include "../backend/phpscripts/check_role.php";
                         </ul>
                     </div>
 
-                    <!-- New Account Button -->
-                    <button id="newAccountBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold">
-                        <i class="fas fa-user-plus me-1"></i> New Account
-                    </button>
+                    <!-- Clean Logs Button -->
+                    <div class="dropdown d-inline-block">
+                        <button id="cleanLogsBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-plus me-1"></i> Clean Logs
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item clean-logs-option" data-days="10">Delete past 10 days</a></li>
+                            <li><a class="dropdown-item clean-logs-option" data-days="30">Delete past 30 days</a></li>
+                            <li><a class="dropdown-item clean-logs-option" data-days="90">Delete past 90 days</a></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
 
         <!-- DataTable -->
         <div class="table-responsive">
-        <table id="accountTable" class="table table-hover nowrap" style="width:100%">
+        <table id="logTable" class="table table-hover nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Account Name</th>
-                    <th>Username</th>
-                    <th>Birth Date</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Contact Number</th>
-                    <th>Role</th>
-                    <th>Active</th>
-                    <th>Actions</th>
+                    <th>Log Id</th>
+                    <th>Timestamp</th>
+                    <th>Edited By</th>
+                    <th>Action</th>
+                    <th>Details</th>
+                    <th>Page</th>
                 </tr>
             </thead>
             <tbody id="user-table-body">
@@ -128,9 +132,6 @@ include "../backend/phpscripts/check_role.php";
             </div>
         </div>
     </main>
-
-
-
 
     <!-- Filter Modal -->
     <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
@@ -191,7 +192,7 @@ include "../backend/phpscripts/check_role.php";
     <script src="../assets/script/script.js"></script>
     
     <?php include "../components/button_logout.php" ?>
-    <script src="../backend/javascript/admin_account_table.js"></script>
+    <script src="../backend/javascript/admin_activity_log.js"></script>
 
 
 </body>
