@@ -1,8 +1,6 @@
 $(document).ready(function () {
-    // at the top of your $(document).ready…
+    $('#listViewUserArticleBtn').hide();
     // Initialize DataTable
-    $('#listViewBtn').hide();
-    loadUserArticlesTable();
     var userArticles = $.fn.dataTable.isDataTable('#userArticlesTable') 
         ? $('#userArticlesTable').DataTable() 
         : $('#userArticlesTable').DataTable({
@@ -28,9 +26,7 @@ $(document).ready(function () {
                 $('#userArticlesTable_paginate').appendTo('#paginateContainer');
             }
         });
-        
-
-        
+    loadUserArticlesTable();
 
     function renderUserCards() {
         const container = $('#userCardViewArticleContainer');
@@ -78,9 +74,9 @@ $(document).ready(function () {
         }
     }
         
-        $('#cardViewBtn').on('click', function () {
+        $('#cardViewUserArticleBtn').on('click', function () {
             $('#userArticlesTable_wrapper').hide();
-            $('#listViewBtn').show();
+            $('#listViewUserArticleBtn').show();
             $(this).hide();
             $('#userCardViewArticleContainer').removeClass('d-none');
             renderUserCards();
@@ -91,17 +87,18 @@ $(document).ready(function () {
             renderUserCards();
             }
         });
+
     function loadUserArticlesTable() {
         $.ajax({
             url: '../backend/phpscripts/user_article_management.php',
             type: 'GET',
             success: function(data) {
-                const adminArticleData = JSON.parse(data);
+                const userArticleData = JSON.parse(data);
                 
                 // Clear and repopulate DataTable
                 userArticles.clear();
         
-                adminArticleData.forEach(article => {
+                userArticleData.forEach(article => {
                     let status = '';
                     let statusClass = '';
                     switch (article.status) {
@@ -139,16 +136,46 @@ $(document).ready(function () {
             });
 
             userArticles.draw();
+
+            // 2) now that we have the full list, build the two select-lists *once*
+            const categories = [...new Set(userArticleData.map(a => a.category_name))].sort();
+            const statuses   = [...new Set(userArticleData.map(a => {
+                switch(a.status){
+                case '1': return 'Pending';
+                case '2': return 'Approved';
+                case '3': return 'Fake';
+                case '4': return 'Deleted';
+                }
+            }))].sort();
+
+            const catSel = $('#filterUserArticleCategory').empty().append('<option value="">All</option>');
+            categories.forEach(cat => catSel.append(`<option>${cat}</option>`));
+
+            const statSel = $('#filterUserArticleStatus').empty().append('<option value="">All</option>');
+            statuses.forEach(st => statSel.append(`<option>${st}</option>`));
             },
             error: function() {
               alert('There was an error retrieving the articles.');
             }
         });
     }
+
+    $('#filterUserArticleForm').on('submit', function(e){
+    e.preventDefault();
+    const cat  = $('#filterUserArticleCategory').val();
+    const stat = $('#filterUserArticleStatus').val();
+
+    userArticles
+        .column(4).search(cat)
+        .column(6).search(stat)
+        .draw();
+
+    $('#filterUserArticleModal').modal('hide');
+    });
       
-      $('#listViewBtn').on('click', function () {
+      $('#listViewUserArticleBtn').on('click', function () {
         $(this).hide();
-        $('#cardViewBtn').show();
+        $('#cardViewUserArticleBtn').show();
         $('#userCardViewArticleContainer').addClass('d-none');
         $('#userArticlesTable_wrapper').show();
       });
