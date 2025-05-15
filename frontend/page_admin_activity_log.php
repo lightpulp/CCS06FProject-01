@@ -62,7 +62,7 @@ include "../backend/phpscripts/check_role.php";
             <!-- Search box -->
             <div class="col-12 col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control table-search" data-table="#accountTable" placeholder="Search for id, account name, username etc.">
+                    <input type="text" class="form-control table-search" data-table="#logTable" placeholder="Search for id, account name, username etc.">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
@@ -81,9 +81,9 @@ include "../backend/phpscripts/check_role.php";
                             <i class="fas fa-download me-1"></i> Export
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#accountTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
-                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#accountTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
-                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#accountTable"><i class="fas fa-print me-1"></i> Print</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#logTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#logTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#logTable"><i class="fas fa-print me-1"></i> Print</a></li>
                         </ul>
                     </div>
 
