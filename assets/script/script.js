@@ -329,7 +329,8 @@ $(document).ready(function(){
             drawCallback: function() {
                 $('#categoryTable_paginate').appendTo('#paginateContainer');
             }
-        });
+    });
+    loadCategories();
 
     function loadCategories() {
         $.ajax({
@@ -351,16 +352,14 @@ $(document).ready(function(){
                     </a>`
                 ]);
             });
-
             categoryTable.draw();
             },
             error: function() {
               alert('There was an error adding the category.');
             }
-          });
+        });
     }
 
-    loadCategories();
     $('#categoryForm').on('submit', function(e) {
         e.preventDefault();
         const categoryName = $('#categoryName').val().trim();
@@ -384,7 +383,7 @@ $(document).ready(function(){
             alert('There was an error adding the category.');
           }
         });
-      });
+    });
 
     $(document).on('click', '#delete-category-btn', function() {
         var id = $(this).data('id');
