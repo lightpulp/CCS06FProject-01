@@ -151,7 +151,6 @@ include "../backend/phpscripts/check_role.php";
     <script src="../assets/script/script.js"></script>
 
     <?php include "../components/button_logout.php" ?>
-    <script src="../backend/javascript/admin_categories.js"></script>
 
 </body>
 </html>
