@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>View Article Statistics</title>
+    <title><?php echo htmlspecialchars($article['title']); ?></title>
 </head>
 <body>
 
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
 
                                     <!-- Body text -->
                                     <div class="card-text mb-4">
-                                        <?php echo $article['content']; ?>
+                                        <?php echo nl2br(htmlspecialchars($article['content'], ENT_QUOTES|ENT_SUBSTITUTE)); ?>
                                     </div>
                                     
                                     <!-- Source footer -->
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
                                     <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
                                         <h6 class="text-muted fw-bold fs-5">This article is</h6>
                                         <div id="fakeNewsPercent" class="mb-2"></div>
-                                        <div class='rounded px-2 py-1 <?php echo $status_class; ?> text-center' style='max-width: 90px;'><?php echo $status_display; ?></div>
+                                        <h6 class="text-muted fw-bold fs-5">Fake</h6>
                                     </div>
                                     <div class="mb-3 pb-3 border-bottom">
                                         <h6 class="text-muted mb-1 fw-bold fs-6">Total Words Analyzed</h6>
