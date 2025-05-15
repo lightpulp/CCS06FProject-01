@@ -89,15 +89,16 @@ $escaped = htmlspecialchars($raw, ENT_QUOTES|ENT_SUBSTITUTE);
 
 // 3) if you have any flagged words, build a regex of them
 if (!empty($flagged_words)) {
+
     // pull out just the keywords
     $words   = array_map('preg_quote', array_keys($flagged_words));
+    
     // \b on either side to only match whole words, i modifier for case-insensitivity
     $pattern = '/\b(' . implode('|', $words) . ')\b/i';
 
     // 4) replace each occurrence with a span
     $escaped = preg_replace(
       $pattern,
-      // here we use Bootstrap’s light-red utility; you can swap this for your own CSS class
       '<span class="keyword-highlight">$1</span>',
       $escaped
     );
@@ -124,14 +125,6 @@ if (!empty($flagged_words)) {
     <!-- end: CSS -->
     <title><?php echo htmlspecialchars($article['title']); ?></title>
 </head>
-<style>
-
-  .keyword-highlight {
-    background-color: rgba(220,53,69,0.2);
-    padding: 0 0.25rem;
-    border-radius: 0.25rem;
-  }
-</style>
 <body>
 
     <!-- start: Sidebar -->

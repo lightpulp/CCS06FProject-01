@@ -107,13 +107,6 @@ if (!empty($flagged_words)) {
     <!-- end: CSS -->
     <title><?php echo htmlspecialchars($article['title']); ?></title>
 </head>
-<style>
-    .keyword-highlight {
-        background-color: rgba(220,53,69,0.2);
-        padding: 0 0.25rem;
-        border-radius: 0.25rem;
-    }
-</style>
 <body>
 
     <!-- start: Sidebar -->
