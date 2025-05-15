@@ -11,9 +11,10 @@ while ($row = $result->fetch_assoc()) {
     $roleClass = $row['role'] == 1 ? 'status-admin' : 'status-user';
     $roleText = $row['role'] == 1 ? 'Admin' : 'User';
 
-    // Placeholder for active status
-    $activeClass = 'status-active';
-    $activeText = 'Active';
+    //Determine active status
+    $activeClass = $row['active'] == 1 ? 'status-active' : 'status-inactive';
+    $activeText = $row['active'] == 1 ? 'Active' : 'Inactive';
+
 
     $data[] = [
         $row['user_id'],
@@ -33,18 +34,6 @@ while ($row = $result->fetch_assoc()) {
 }
 
 echo json_encode(["data" => $data]);
-
-    /*
-
-
-        //Determine active status
-        $activeClass = $row['active'] == 1 ? 'status-active' : 'status-inactive';
-        $activeText = $row['active'] == 1 ? 'Active' : 'Inactive';
-
-
-
-    */
-
 ?>
 
 
