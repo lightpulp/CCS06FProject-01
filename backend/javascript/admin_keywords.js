@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     $('#fakeKeywordModal').on('shown.bs.modal', function () {
         $('#fakeWord').trigger('focus');
-      });
+    });
 
     var keywordTable = $.fn.dataTable.isDataTable('#fakeKeywordTable') 
       ? $('#fakeKeywordTable').DataTable() 

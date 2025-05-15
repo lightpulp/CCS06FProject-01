@@ -2,9 +2,9 @@ $(document).ready(function(){
     ///////////////////////////////////////////////
     // Start: admin_activity_logs.js             //
     ///////////////////////////////////////////////
-    var accountTable = $.fn.dataTable.isDataTable('#accountTable') 
-        ? $('#accountTable').DataTable() 
-        : $('#accountTable').DataTable({
+    var logTable = $.fn.dataTable.isDataTable('#logTable') 
+        ? $('#logTable').DataTable() 
+        : $('#logTable').DataTable({
             dom: 'Blfrtip',
             buttons: [
                 { extend: 'csv',   className: 'd-none' },
@@ -19,32 +19,21 @@ $(document).ready(function(){
             responsive: true,
             language: { paginate: { previous: '<', next: '>' } },
             initComplete: function() {
-                $('#accountTable_info').appendTo('#infoContainer');
-                $('#accountTable_length').appendTo('#lengthContainer');
-                $('#accountTable_paginate').appendTo('#paginateContainer');
+                $('#logTable_info').appendTo('#infoContainer');
+                $('#logTable_length').appendTo('#lengthContainer');
+                $('#logTable_paginate').appendTo('#paginateContainer');
             },
             drawCallback: function() {
-                $('#accountTable_paginate').appendTo('#paginateContainer');
+                $('#logTable_paginate').appendTo('#paginateContainer');
             }
         });
-
-
-    // filter modal
-    $('#filterForm').submit(function(e){
-        e.preventDefault();
-        accountTable
-        .column(7).search($('#filterRole').val())
-        .column(8).search($('#filterActive').val())
-        .draw();
-        $('#filterModal').modal('hide');
-    });
 
     // new account
     $('#newUserBtn').click(function(){
         window.location.href = 'page_admin_account_new.php';
     });
 
-    function loadUsers() {
+    function loadLogs() {
         const table = $('#logTable').DataTable();
     
         $.getJSON("../backend/phpscripts/admin_activity_log.php", function(response) {
@@ -52,7 +41,51 @@ $(document).ready(function(){
         });
     }
 
-    loadUsers();
+    $(function(){
+        const logTable = $('#logTable').DataTable(/* … your existing init … */);
+
+        let allLogs = [];
+        $.getJSON('../backend/phpscripts/admin_activity_log.php', resp => {
+            allLogs = resp.data;
+            logTable.clear().rows.add(allLogs).draw();
+
+            // populate Action dropdown
+            const actions = [...new Set(allLogs.map(r => r[3]))].sort();
+            const actSel  = $('#filterLogAction').empty().append('<option value="">All</option>');
+            actions.forEach(a => actSel.append(`<option>${a}</option>`));
+        });
+
+        // custom date-range + action filter
+        $.fn.dataTable.ext.search.push((settings, row) => {
+            if (settings.nTable.id !== 'logTable') return true;
+
+            const startDate = $('#filterLogStart').val();
+            const endDate   = $('#filterLogEnd').val();
+            const actionVal = $('#filterLogAction').val();
+
+            const tsRow = row[1];
+            const rowDate = tsRow.slice(0, 10);
+            const rowAction = row[3];
+
+            // exclude if before start
+            if (startDate && rowDate < startDate) return false;
+            // exclude if after  end
+            if (endDate   && rowDate > endDate)   return false;
+            // exclude if action filter set and mismatched
+            if (actionVal && rowAction !== actionVal) return false;
+
+            return true;
+        });
+
+        // re-draw on filter submit
+        $('#filterActivityLogForm').on('submit', e => {
+            e.preventDefault();
+            logTable.draw();
+            $('#filterActivityLogModal').modal('hide');
+        });
+    });
+
+    loadLogs();
     ///////////////////////////////////////////////
     //   End: admin_activity_logs.js             //
     ///////////////////////////////////////////////
