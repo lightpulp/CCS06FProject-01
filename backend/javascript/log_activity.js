@@ -12,8 +12,6 @@ $(document).ready(function() {
     //////////////////// MGA HINDI PA NACOCOMMIT /////////////////////
 
 
-
-
     ////////////////////////////// ADMIN ////////////////////////////// 
 
     ////////page_admin_article_management.php////////
@@ -72,7 +70,7 @@ $(document).ready(function() {
     // ADD ID IN SAVE CHANGES BUTTON
     $('#changeAccBtn').click(function() {
         $.post('../backend/phpscripts/log_activity.php', {
-            action: 'Update',
+            action: 'UPDATE',
             details: 'Changed account details'
         });
     });
