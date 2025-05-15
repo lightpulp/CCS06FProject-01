@@ -2,9 +2,9 @@ $(document).ready(function(){
     ///////////////////////////////////////////////
     // Start: admin_activity_logs.js             //
     ///////////////////////////////////////////////
-    var accountTable = $.fn.dataTable.isDataTable('#accountTable') 
-        ? $('#accountTable').DataTable() 
-        : $('#accountTable').DataTable({
+    var logTable = $.fn.dataTable.isDataTable('#logTable') 
+        ? $('#logTable').DataTable() 
+        : $('#logTable').DataTable({
             dom: 'Blfrtip',
             buttons: [
                 { extend: 'csv',   className: 'd-none' },
@@ -19,12 +19,12 @@ $(document).ready(function(){
             responsive: true,
             language: { paginate: { previous: '<', next: '>' } },
             initComplete: function() {
-                $('#accountTable_info').appendTo('#infoContainer');
-                $('#accountTable_length').appendTo('#lengthContainer');
-                $('#accountTable_paginate').appendTo('#paginateContainer');
+                $('#logTable_info').appendTo('#infoContainer');
+                $('#logTable_length').appendTo('#lengthContainer');
+                $('#logTable_paginate').appendTo('#paginateContainer');
             },
             drawCallback: function() {
-                $('#accountTable_paginate').appendTo('#paginateContainer');
+                $('#logTable_paginate').appendTo('#paginateContainer');
             }
         });
 
@@ -32,7 +32,7 @@ $(document).ready(function(){
     // filter modal
     $('#filterForm').submit(function(e){
         e.preventDefault();
-        accountTable
+        logTable
         .column(7).search($('#filterRole').val())
         .column(8).search($('#filterActive').val())
         .draw();
