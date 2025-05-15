@@ -151,7 +151,9 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
     <?php include "../components/button_logout.php" ?>
+    <script>
 
+    </script>
     <script src="../backend/javascript/log_activity.js"></script>
 </body>
 </html>
