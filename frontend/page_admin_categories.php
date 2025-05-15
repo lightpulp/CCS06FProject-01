@@ -121,7 +121,7 @@ include "../backend/phpscripts/check_role.php";
             </div>
             </div>
             <div class="modal-footer">
-            <button type="submit" class="btn btn-primary py-2 rounded">Submit Category</button>
+            <button id="submitCategoryBtn" type="submit" class="btn btn-primary py-2 rounded">Submit Category</button>
             </div>
         </form>
         </div>
@@ -152,8 +152,7 @@ include "../backend/phpscripts/check_role.php";
     <script src="../assets/script/script.js"></script>
     <?php include "../components/button_logout.php" ?>
 
-    <script>
-
+    <script src="../backend/javascript/admin_categories.js">
     </script>
     <script src="../backend/javascript/log_activity.js"></script>
 </body>
