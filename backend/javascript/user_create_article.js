@@ -13,31 +13,57 @@ $(document).ready(function () {
     });
 
     // Handle article submission
-    $('#articleForm').submit(function (e) {
-        e.preventDefault();
+    $("#createArticleForm").validate({
+        rules: {
+            createArticleTitle: {
+               required: true
+            },
+           createArticleCategory: {
+                required: true
+            },
+            createSourceURL: {
+                required: true
+            },
+            createDatePublished: {
+                required: true,
+            },
+            createArticleContent: {
+                required: true,
+            },
+        },
+        messages: {
+            createArticleTitle: "Please enter your title.",
+            createArticleCategory: "Please Select a Category.",
+            createSourceURL: "Please enter your source URL.",
+            createDatePublished: "Please enter your published date.",
+            createArticleContent: "Please put your article content.",
+        },
+        submitHandler: function (form, e) {
+            e.preventDefault();
 
-        const articleData = {
-            title: $('#title').val(),
-            content: $('#content').val(),
-            source_url: $('#source_url').val(),
-            category_id: $('#category').val(),
-            date_published: $('#date_published').val()
-        };
+            const articleData = {
+                title: $('#title').val(),
+                content: $('#content').val(),
+                source_url: $('#source_url').val(),
+                category_id: $('#category').val(),
+                date_published: $('#date_published').val()
+            };
 
-        $.ajax({
-            url: '../backend/phpscripts/user_create_article.php',
-            type: 'POST',
-            data: JSON.stringify(articleData),
-            contentType: 'application/json',
-            success: function (response) {
-                const res = JSON.parse(response);
-                if (res.success) {
-                    alert('Article submitted successfully!');
-                    $('#articleForm')[0].reset();
-                } else {
-                    alert('Error: ' + res.error);
+            $.ajax({
+                url: '../backend/phpscripts/user_create_article.php',
+                type: 'POST',
+                data: JSON.stringify(articleData),
+                contentType: 'application/json',
+                success: function (response) {
+                    const res = JSON.parse(response);
+                    if (res.success) {
+                        alert('Article submitted successfully!');
+                        $('#createArticleForm')[0].reset();
+                    } else {
+                        alert('Error: ' + res.error);
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 });
