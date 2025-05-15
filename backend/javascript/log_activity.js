@@ -7,12 +7,7 @@ $(document).ready(function() {
             action: 'CREATE',
             details: 'Admin created a new category'
         });
-    });    
-
-    //////////////////// MGA HINDI PA NACOCOMMIT /////////////////////
-
-
-
+    });
 
     ////////////////////////////// ADMIN ////////////////////////////// 
 
@@ -72,7 +67,7 @@ $(document).ready(function() {
     // ADD ID IN SAVE CHANGES BUTTON
     $('#changeAccBtn').click(function() {
         $.post('../backend/phpscripts/log_activity.php', {
-            action: 'Update',
+            action: 'UPDATE',
             details: 'Changed account details'
         });
     });
