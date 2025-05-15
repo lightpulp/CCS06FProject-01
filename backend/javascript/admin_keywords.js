@@ -91,6 +91,11 @@ $(document).ready(function(){
             data: { id },
             success: loadFakeKeywords
           });
+
+          $.post('../backend/phpscripts/log_activity.php', {
+              action: 'DELETE',
+              details: 'Deleted keyword'
+          });
         }
       });      
 });

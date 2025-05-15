@@ -69,7 +69,7 @@ include "../backend/phpscripts/check_role.php";
 
             <div class="col-12 col-md-6">
                 <div class="d-flex flex-wrap justify-content-md-end gap-2">
-                    <button class="btn btn-primary px-3 py-2 rounded fw-semibold" data-bs-toggle="modal" data-bs-target="#fakeKeywordModal">
+                    <button id="addKeywordBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold" data-bs-toggle="modal" data-bs-target="#fakeKeywordModal">
                         <i class="fa-solid fa-plus"></i> Add Keyword
                     </button>
                 </div>
@@ -148,6 +148,7 @@ include "../backend/phpscripts/check_role.php";
 
     <?php include "../components/button_logout.php" ?>
     <script src="../backend/javascript/admin_keywords.js"></script>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 </html>

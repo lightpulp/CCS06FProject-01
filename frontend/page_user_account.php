@@ -148,7 +148,7 @@ include "../backend/phpscripts/account.php";
                                     </div>
                                 </div>
                                 <hr class="my-4">
-                                <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Changes</button>
+                                <button id="changeAccBtn" type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Changes</button>
                             </form>
                         </div> <!-- /.card-body -->
                     </div> <!-- /.col-12 -->
@@ -188,6 +188,7 @@ include "../backend/phpscripts/account.php";
       
     </script>
     <?php include "../components/button_logout.php" ?>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 </html>

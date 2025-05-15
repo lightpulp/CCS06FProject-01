@@ -78,7 +78,7 @@ include "../backend/phpscripts/check_role.php";
 
                     <!-- Export Dropdown -->
                     <div class="btn-group">
-                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
+                        <button type="button" id="exportAccountsBtn" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
                             <i class="fas fa-download me-1"></i> Export
                         </button>
                         <ul class="dropdown-menu">
@@ -294,6 +294,7 @@ include "../backend/phpscripts/check_role.php";
     <script>
     </script>
     <?php include "../components/button_logout.php" ?>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 </html>

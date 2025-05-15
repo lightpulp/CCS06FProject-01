@@ -251,6 +251,7 @@ $formatted_date = date('M j, Y', strtotime($article['created_at']));
     <?php include "../components/button_logout.php" ?>
 
     <script src="../backend/javascript/user_view_explore_article.js"></script>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 
 
