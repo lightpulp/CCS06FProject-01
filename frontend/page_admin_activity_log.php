@@ -23,7 +23,7 @@ include "../backend/phpscripts/check_role.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Account Management</title>
+    <title>Activity Logs</title>
 </head>
 <body>
 
