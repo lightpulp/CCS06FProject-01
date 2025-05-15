@@ -143,7 +143,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                             </div>
                             
                             <hr class="my-4">
-                            <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Article</button>
+                            <button type="submit" id="adminEditArticleBtn" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Article</button>
                             <a href="page_admin_article_management.php" class="btn btn-secondary w-100 mt-3">Cancel</a>
                         </form>
                     </div>
@@ -222,5 +222,6 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
     </script>
     
     <?php include "../components/button_logout.php" ?>
+    <script src="../backend/javascript/log_activity.js"></script>
 </body>
 </html>

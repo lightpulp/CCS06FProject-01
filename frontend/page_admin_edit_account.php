@@ -155,7 +155,7 @@ if (!$user) {
                             <hr class="my-4">
                             <div class="d-flex justify-content-between">
                                 <a href="page_admin_account_management.php" class="btn btn-secondary my-auto py-3 rounded">Cancel</a>
-                                <button type="submit" class="btn btn-primary primaryBtnAnimate px-3 fw-semibold rounded">Update Account</button>
+                                <button type="submit" id="adminChangeAccBtn" class="btn btn-primary primaryBtnAnimate px-3 fw-semibold rounded">Update Account</button>
                             </div>
                         </form>
                     </div>
@@ -174,5 +174,6 @@ if (!$user) {
     </script>
     
     <?php include "../components/button_logout.php" ?>
+    <script src="../backend/javascript/log_activity.js"></script>
 </body>
 </html>

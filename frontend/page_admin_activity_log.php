@@ -192,6 +192,7 @@ include "../backend/phpscripts/check_role.php";
     
     <?php include "../components/button_logout.php" ?>
     <script src="../backend/javascript/admin_activity_log.js"></script>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 </html>

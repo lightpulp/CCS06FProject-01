@@ -7,7 +7,9 @@ $(document).ready(function() {
             action: 'CREATE',
             details: 'Admin created a new category'
         });
-    });
+    });    
+
+    //////////////////// MGA HINDI PA NACOCOMMIT /////////////////////
 
     ////////////////////////////// ADMIN ////////////////////////////// 
 
@@ -19,6 +21,8 @@ $(document).ready(function() {
             details: 'Exported articles'
         });
     });
+    //OKS NA
+    //MERON PA PERO KASAMA NA SA ISANG JAVASCIPRT SA PAGE_ADMIN_ARICLTE_MANAGEMENT.PHP UN
 
     ////////page_admin_activity_log.php////////
     // BAKA MAY PROBLEM DITO,, DOUBLE CHECK !!!!!!
@@ -29,6 +33,7 @@ $(document).ready(function() {
             details: 'Cleaned logs'
         });
     });
+    //OKS NA
 
 
     ////////page_admin_account_management.php////////
@@ -39,6 +44,7 @@ $(document).ready(function() {
             details: 'Admin create new Account'
         });
     });
+    //OKS NA
 
     
     ////////page_admin_account_management.php////////
@@ -49,6 +55,7 @@ $(document).ready(function() {
             details: 'Exported user accounts'
         });
     });
+    //OKS NARIN
 
     
     ////////page_admin_keywords.php////////
@@ -59,9 +66,29 @@ $(document).ready(function() {
             details: 'Created new keyword'
         });
     });
+    //OKS NA
 
+    /// MERON DIN SA ADMIN_KEYWORDS.JS PERO KASAMA NA SA ONCLICK
+    // OKS NARIN
+
+
+    ////////page_user_edit_article.php////////
+    $('#adminEditArticleBtn').click(function() {    
+        $.post('../backend/phpscripts/log_activity.php', {
+            action: 'UPDATE',
+            details: 'Admin edited an article'
+        });
+    });
+
+    ////////page_user_edit_article.php////////
+    $('#adminChangeAccBtn').click(function() {
+        $.post('../backend/phpscripts/log_activity.php', {
+            action: 'UPDATE',
+            details: 'Admin changed account details'
+        });
+    });
+    
     ////////////////////////////// USER & ADMIN //////////////////////////////
-
 
     ////////page_user_account.php////////
     // ADD ID IN SAVE CHANGES BUTTON
@@ -71,6 +98,7 @@ $(document).ready(function() {
             details: 'Changed account details'
         });
     });
+    // OKS NARIN
 
     ////////page_change_password_accounts.php////////
     $('#changePassBtn').click(function() {    
@@ -79,9 +107,40 @@ $(document).ready(function() {
             details: 'User changed password'
         });
     });
+    //OKS NARIN
 
 
     ////////////////////////////// USER //////////////////////////////
+
+    ////////page_user_password_accounts.php////////
+    $('#commentArticle').click(function() {    
+        $.post('../backend/phpscripts/log_activity.php', {
+            action: 'CREATE',
+            details: 'User commented on an article'
+        });
+    });
+
+
+    
+    ////////page_user_create_article.php////////
+    $('#createArticleBtn').click(function() {    
+        $.post('../backend/phpscripts/log_activity.php', {
+            action: 'CREATE',
+            details: 'User created an article'
+        });
+    });
+
+
+    ////////page_user_edit_article.php////////
+    $('#usrEditArticleBtn').click(function() {    
+        $.post('../backend/phpscripts/log_activity.php', {
+            action: 'UPDATE',
+            details: 'User edited an article'
+        });
+    });
+
+    
+    
 
 
 

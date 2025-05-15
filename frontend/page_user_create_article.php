@@ -175,7 +175,7 @@ include "../backend/phpscripts/account.php";
                                     </div>
                                 </div>
                                 <hr class="my-4">
-                                <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Submit Article</button>
+                                <button id="createArticleBtn" type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Submit Article</button>
                             </form>
                     </div> <!-- /.card-body -->
                 </div> <!-- /.col-12 -->
@@ -221,6 +221,7 @@ include "../backend/phpscripts/account.php";
 
 
     <?php include "../components/button_logout.php" ?>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 

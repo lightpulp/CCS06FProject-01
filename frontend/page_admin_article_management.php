@@ -93,7 +93,7 @@ include "../backend/phpscripts/check_role.php";
 
                     <!-- Export Dropdown -->
                     <div class="btn-group">
-                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
+                        <button type="button" id="exportArticlesBtn" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
                             <i class="fas fa-download me-1"></i> Export
                         </button>
                         <ul class="dropdown-menu">
@@ -172,6 +172,26 @@ include "../backend/phpscripts/check_role.php";
         </div>
     </div>
 
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteArticleModal" tabindex="-1" aria-labelledby="deleteArticleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteArticleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this article?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -194,7 +214,7 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
-    <script src="../backend/javascript/admin_article_management.js"></script>
+    <script src="../backend/javascript/admin_article_management.js"></script>z
     <script>
         function toggleOptionsMenu(icon) {
         const menu = icon.nextElementSibling;
@@ -217,7 +237,34 @@ include "../backend/phpscripts/check_role.php";
             }
         });
     </script>
+
+
+    <script>
+    let deleteId = null;
+
+    function prepareDelete(articleId) {
+        deleteId = articleId;
+    }
+
+    $('#confirmDeleteBtn').click(function () {
+        if (deleteId !== null) {
+            $.post('../backend/phpscripts/delete_article.php', { id: deleteId }, function(response) {
+                // Optional: check success from response
+                location.reload(); // refresh to update the article list
+            }).fail(function(xhr) {
+                console.error("Delete failed:", xhr.responseText);
+            });
+
+            $.post('../backend/phpscripts/log_activity.php', {
+                action: 'DELETE',
+                details: 'Deleted article'
+            });
+            }
+    }); 
+    </script>
+
     <?php include "../components/button_logout.php" ?>
 
+    <script src="../backend/javascript/log_activity.js"></script>
 </body>
 </html>

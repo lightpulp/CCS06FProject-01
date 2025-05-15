@@ -28,8 +28,7 @@ while ($row = $result->fetch_assoc()) {
 
         "<div class='rounded p-1 {$activeClass} text-center' style='max-width: 80px;'>{$activeText}</div>",
         
-        "<a href='page_admin_edit_account.php?id=$row[user_id]' class='link-warning'><i class='fa-solid fa-pen-to-square fs-5 mx-1'></i></a>
-         <a href='#' class='link-danger'><i class='fa-solid fa-trash fs-5'></i></a>"
+        "<a href='page_admin_edit_account.php?id=$row[user_id]' class='link-warning'><i class='fa-solid fa-pen-to-square fs-5 mx-1'></i></a>"
     ];
 }
 

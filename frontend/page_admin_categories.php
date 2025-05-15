@@ -121,7 +121,7 @@ include "../backend/phpscripts/check_role.php";
             </div>
             </div>
             <div class="modal-footer">
-            <button type="submit" id="submitCategoryBtn" class="btn btn-primary py-2 rounded">Submit Category</button>
+            <button type="submit" class="btn btn-primary py-2 rounded">Submit Category</button>
             </div>
         </form>
         </div>
@@ -151,6 +151,7 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
     <?php include "../components/button_logout.php" ?>
+
     <script>
 
     </script>
