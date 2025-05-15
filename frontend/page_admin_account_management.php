@@ -236,12 +236,6 @@ include "../backend/phpscripts/check_role.php";
 
                     <!-- Address -->
                     <div class="form-group col-md-12">
-                        <label for="userAddress" class="fw-semibold fs-7 mb-2 text-muted">Address</label>
-                        <input type="text" name="address" id="userAddress" class="form-control" placeholder="Enter your Address.">
-                    </div>
-
-                    <!-- Address -->
-                    <div class="form-group col-md-12">
                         <label for="userNumber" class="fw-semibold fs-7 mb-2 text-muted">Phone Number</label>
                         <input type="text" name="number" id="userNumber" class="form-control" placeholder="09xxxxxxxxx">
                     </div>
@@ -298,96 +292,6 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#newAccountBtn').on('click', function () {
-                $('#createUserModal').modal('show');
-            });
-
-              // initialize validation
-            $('#createUserForm').validate({
-                errorElement: 'div',
-                errorClass: 'invalid-feedback',
-                highlight(el) {
-                    $(el).addClass('is-invalid').removeClass('is-valid');
-                },
-                unhighlight(el) {
-                    $(el).addClass('is-valid').removeClass('is-invalid');
-                },
-                // << add this block >>
-                errorPlacement(error, element) {
-                    // if the element is wrapped by .input-group, insert after the group
-                    if (element.parent('.input-group').length) {
-                    error.insertAfter(element.parent());
-                    } else {
-                    error.insertAfter(element);
-                    }
-                },
-                // validation rules
-                rules: {
-                    user_fname: { required: true },
-                    user_lname: { required: true },
-                    user_name:  { required: true },
-                    user_pass:  { required: true },
-                    confirm_password: { required: true, equalTo: '#userPassword' },
-                    user_email: { required: true, email: true },
-                    birthdate:  { date: true },
-                    address:    { required: true },
-                    number: { 
-                        required: true, 
-                        digits: true, 
-                        minlength: 11, 
-                        maxlength: 11 
-                        },
-                    role:       { required: true },
-                    active:     { required: true }
-                },
-
-                // optional custom messages
-                messages: {
-                    confirm_password: {
-                        equalTo: 'Passwords must match.'
-                    },
-                    number: {
-                        minlength: 'Enter an 11-digit phone number, e.g. 09171234567',
-                        maxlength: 'Enter an 11-digit phone number, e.g. 09171234567'
-                    }
-                },
-                submitHandler: function (form, e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: '../backend/phpscripts/admin_create_user.php',
-                        type: 'POST',
-                        data: $(form).serialize(),
-                        dataType: 'json',
-                        success: function(response) {
-                        if (response.success) {
-                            $('#createUserModal').modal('hide');
-                            $('#createUserForm')[0].reset();
-                            if (typeof loadUsers === 'function') loadUsers();
-                            alert(response.message);
-                        } else {
-                            alert(response.message);
-                        }
-                        },
-                        error: function(xhr, status, error) {
-                        console.error(error);
-                        alert('An unexpected error occurred.');
-                        }
-                    });
-                }
-            });
-
-            // 2) reset on close
-            $('#createUserModal').on('hidden.bs.modal', function(){
-                $('#createUserForm')[0].reset();
-                validator.resetForm();
-                $('#createUserForm').find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
-            });
-
-            $('#createUserModal').on('shown.bs.modal', function () {
-                $('#userFname').trigger('focus');
-            });
-        });
     </script>
     <?php include "../components/button_logout.php" ?>
 
