@@ -50,7 +50,7 @@ $formatted_date = date('M j, Y', strtotime($article['created_at']));
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Explore Article</title>
+    <title><?php echo htmlspecialchars($article['title']); ?></title>
 </head>
 <style>
         /* make the sidebar sticky + scrollable */
@@ -182,7 +182,7 @@ $formatted_date = date('M j, Y', strtotime($article['created_at']));
                                         </div>
                                         <textarea class="form-control mb-2 comment-auto-resize" rows="1" placeholder="Add a comment…"></textarea>
                                         <div class="d-flex justify-content-end">
-                                            <button class="btn btn-primary px-3 py-2 fw-semibold">Comment</button>
+                                            <button class="btn btn-primary px-3 py-2 fw-semibold" id="commentArticle">Comment</button>
                                         </div>
                                     </div>
 
@@ -250,7 +250,7 @@ $formatted_date = date('M j, Y', strtotime($article['created_at']));
     </script>
     <?php include "../components/button_logout.php" ?>
 
-<script src="../backend/javascript/user_view_explore_article.js"></script>
+    <script src="../backend/javascript/user_view_explore_article.js"></script>
 
 
 
