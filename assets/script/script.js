@@ -201,6 +201,104 @@ $(document).ready(function(){
     }
 
     loadUsers();
+
+    $('#newAccountBtn').on('click', function () {
+        $('#createUserModal').modal('show');
+    });
+
+        // initialize validation
+    $('#createUserForm').validate({
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        highlight(el) {
+            $(el).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight(el) {
+            $(el).addClass('is-valid').removeClass('is-invalid');
+        },
+        // << add this block >>
+        errorPlacement(error, element) {
+            if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+            } else {
+            error.insertAfter(element);
+            }
+        },
+        // validation rules
+        rules: {
+            user_fname: { required: true },
+            user_lname: { required: true },
+            user_name:  { required: true },
+            user_pass:  { required: true },
+            confirm_password: { required: true, equalTo: '#userPassword' },
+            user_email: { required: true, email: true },
+            birthdate:  { date: true },
+            address:    { required: true },
+            number: { 
+                required: true, 
+                digits: true, 
+                minlength: 11, 
+                maxlength: 11 
+                },
+            role:       { required: true },
+            active:     { required: true }
+        },
+
+        // optional custom messages
+        messages: {
+            confirm_password: {
+                equalTo: 'Passwords must match.'
+            },
+            number: {
+                minlength: 'Enter an 11-digit phone number, e.g. 09171234567',
+                maxlength: 'Enter an 11-digit phone number, e.g. 09171234567'
+            }
+        },
+        submitHandler: function(form) {
+            // serialize *that* form
+            const data = $(form).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '../backend/phpscripts/admin_create_user.php',
+                data: data,
+                dataType: 'json'
+            })
+            .done(function(res) {
+                if (res.success) {
+                    alert(res.message);
+                    $('#createUserModal').modal('hide');
+                    loadUsers();
+                } else {
+                    alert('Error: ' + res.message);
+                }
+                })
+                .fail(function(xhr, status, err) {
+                alert('AJAX failed: ' + status + ' — ' + err);
+            });
+        }
+    });
+
+    // 2) reset on close
+    $('#createUserModal').on('hidden.bs.modal', function(){
+        const $form = $('#createUserForm');
+        // a) HTML reset
+
+        $form[0].reset();
+        // b) Reset jQuery Validate
+        if ($form.data('validator')) {
+            $form.validate().resetForm(); // clears internal error tracking
+        }
+
+        // c) Remove all Bootstrap validation classes and feedback messages manually
+        $form.find('.form-control, .form-select')
+            .removeClass('is-valid is-invalid');
+
+        $form.find('.invalid-feedback').remove(); // also remove error <div>s from DOM
+    });
+
+    $('#createUserModal').on('shown.bs.modal', function () {
+        $('#userFname').trigger('focus');
+    });
     ///////////////////////////////////////////////
     //   End: page_admin_account_management.php  //
     ///////////////////////////////////////////////
