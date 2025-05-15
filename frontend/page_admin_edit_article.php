@@ -137,7 +137,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                             
                             <hr class="my-4">
                             <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Save Article</button>
-                            <a href="page_user_article_management.php" class="btn btn-secondary w-100 mt-3">Cancel</a>
+                            <a href="page_admin_article_management.php" class="btn btn-secondary w-100 mt-3">Cancel</a>
                         </form>
                     </div>
                 </div>
