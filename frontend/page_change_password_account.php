@@ -24,7 +24,13 @@ include "../backend/phpscripts/account.php";
     <!-- end: CSS -->
     <title>Change Password</title>
 </head>
-
+<style>
+    #savePassForm label.error {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #FB667A;
+    }
+</style>
 <body>
 
     <!-- start: Sidebar -->
@@ -100,22 +106,22 @@ include "../backend/phpscripts/account.php";
                                 </div>
                                 <hr class="my-4">
                             <form id="savePassForm" method="POST">
-                                <!-- First Name -->
+                                <!-- Old Password -->
                                 <div class="form-group col-md-12">
                                     <label for="user_pass" class="fw-semibold fs-7 mb-2 text-muted">Old Password</label>
-                                    <input type="password" class="form-control py-2" placeholder="Enter your old password here" name="user_pass" id="user_pass" required>
+                                    <input type="password" class="form-control py-2" placeholder="Enter your old password here" name="user_pass" id="user_pass">
                                 </div>
                                 
-                                <!-- Last Name -->
+                                <!-- New Password -->
                                 <div class="form-group col-md-12">
                                     <label for="new_pass" class="fw-semibold fs-7 mb-2 text-muted">New Password</label>
-                                    <input type="password" class="form-control py-2" placeholder="Enter your new password here" name="new_pass" id="new_pass" required>
+                                    <input type="password" class="form-control py-2" placeholder="Enter your new password here" name="new_pass" id="new_pass">
                                 </div>
 
-                                <!-- Last Name -->
+                                <!-- Confirm New Password -->
                                 <div class="form-group col-md-12">
                                     <label for="new_passCheck" class="fw-semibold fs-7 mb-2 text-muted">Confirm New Password</label>
-                                    <input type="password" class="form-control py-2" placeholder="Confirm your new password here" name="new_passCheck" id="new_passCheck" required>
+                                    <input type="password" class="form-control py-2" placeholder="Confirm your new password here" name="new_passCheck" id="new_passCheck">
                                 </div>
 
                                 <hr class="my-4">
@@ -132,6 +138,7 @@ include "../backend/phpscripts/account.php";
 
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
