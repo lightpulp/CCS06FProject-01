@@ -19,9 +19,6 @@ $userRole = $_SESSION['role']; // 1 = admin, 0 = user
             <li class="sidebar-menu-item <?= $activePage == 'page_admin_article_management.php' ? 'active' : '' ?>">
                 <a href="page_admin_article_management.php"><i class="ri-newspaper-line sidebar-menu-item-icon"></i> Manage Articles</a>
             </li>
-            <li class="sidebar-menu-item">
-                <a href="#"><i class="ri-bar-chart-2-line sidebar-menu-item-icon"></i> Reports</a>
-            </li>
             <li class="sidebar-menu-item <?= $activePage == 'page_admin_activity_log.php' ? 'active' : '' ?>">
                 <a href="page_admin_activity_log.php"><i class="ri-time-line sidebar-menu-item-icon"></i> Activity Logs</a>
             </li>
