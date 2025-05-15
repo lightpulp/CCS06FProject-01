@@ -62,6 +62,29 @@ if (!empty($article['f_words'])) {
         $flagged_words = explode(',', $article['f_words']);
     }
 }
+
+// 1) grab the raw text
+$raw = $article['content'];
+
+// 2) escape it so nothing dangerous comes out
+$escaped = htmlspecialchars($raw, ENT_QUOTES|ENT_SUBSTITUTE);
+
+// 3) if you have any flagged words, build a regex of them
+if (!empty($flagged_words)) {
+
+    // pull out just the keywords
+    $words   = array_map('preg_quote', array_keys($flagged_words));
+    
+    // \b on either side to only match whole words, i modifier for case-insensitivity
+    $pattern = '/\b(' . implode('|', $words) . ')\b/i';
+
+    // 4) replace each occurrence with a span
+    $escaped = preg_replace(
+      $pattern,
+      '<span class="keyword-highlight">$1</span>',
+      $escaped
+    );
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +105,7 @@ if (!empty($article['f_words'])) {
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>View Article Statistics</title>
+    <title><?php echo htmlspecialchars($article['title']); ?></title>
 </head>
 <body>
 
@@ -153,7 +176,7 @@ if (!empty($article['f_words'])) {
 
                                     <!-- Body text -->
                                     <div class="card-text mb-4">
-                                        <?php echo $article['content']; ?>
+                                        <?= nl2br($escaped) ?>
                                     </div>
                                     
                                     <!-- Source footer -->
@@ -178,7 +201,7 @@ if (!empty($article['f_words'])) {
                                     <div class="pb-3 mb-3 d-flex flex-column justify-content-center align-items-center border-bottom">
                                         <h6 class="text-muted fw-bold fs-5">This article is</h6>
                                         <div id="fakeNewsPercent" class="mb-2"></div>
-                                        <div class='rounded px-2 py-1 <?php echo $status_class; ?> text-center' style='max-width: 90px;'><?php echo $status_display; ?></div>
+                                        <h6 class="text-muted fw-bold fs-5">Fake</h6>
                                     </div>
                                     <div class="mb-3 pb-3 border-bottom">
                                         <h6 class="text-muted mb-1 fw-bold fs-6">Total Words Analyzed</h6>
@@ -191,10 +214,12 @@ if (!empty($article['f_words'])) {
                                     <div>
                                         <h6 class="text-muted mb-1 fw-bold fs-6 mb-3">Flagged Keywords</h6>
                                         <?php if (!empty($flagged_words)): ?>
-                                            <?php foreach ($flagged_words as $word): ?>
-                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold"><?php echo htmlspecialchars(trim($word)); ?></span>
+                                            <?php foreach ($flagged_words as $keyword => $score): ?>
+                                                <span class="badge rounded-pill bg-brand-500 text-white px-3 py-2 me-1 mb-1 fs-7 fw-semibold">
+                                                <?php echo htmlspecialchars($keyword); ?>
+                                                </span>
                                             <?php endforeach; ?>
-                                        <?php else: ?>
+                                            <?php else: ?>
                                             <p class="text-muted small">No flagged keywords found</p>
                                         <?php endif; ?>
                                     </div>
@@ -205,7 +230,7 @@ if (!empty($article['f_words'])) {
                             <div class="card shadow-sm p-4">
                                 <div class="d-flex flex-column justify-content-center align-items-center border-bottom mb-2">
                                     <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
-                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder' style='max-width: 120px;'><?php echo $status_display; ?></div>
+                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder'><?php echo $status_display; ?></div>
                                 </div>
                                 <div class="mb-3 border-bottom">
                                     <h6 class="text-muted fw-bold fs-6">Reason</h6>
@@ -227,7 +252,7 @@ if (!empty($article['f_words'])) {
                                 <!-- Edit Article -->
                                 <div class="mb-3 border-bottom">
                                     <h6 class="text-muted fw-bold fs-6">Edit Article</h6>
-                                    <a href="page_user_edit_article.php?id=<?php echo $article['article_id']; ?>" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Edit Article</a>
+                                    <a href="page_user_edit_article.php?id=<?php echo $article['article_id']; ?>" class="btn btn-primary w-100 mt-3 primaryBtnAnimate fw-semibold py-2 rounded">Edit Article</a>
                                 </div>
                                 <?php endif; ?>
 

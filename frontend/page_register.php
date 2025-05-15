@@ -19,24 +19,24 @@
                 <h5 class="text-brand-500 fw-bold">TUTUBAN</h5>
                 <h2 class="mt-4 fw-bold">Register with Tutuban</h2>
                 <p class="text-muted opacity-50">Naiimagine mo sa sarili mo na sakses ka eh. Bigla kang sumakses eh.</p>
-                <form id="registerForm" method="POST">
+                <form id="registerForm" method="POST" autocomplete="off">
                     
                     <!-- First Name -->
                     <div class="mb-3">
-                    <label class="form-label fw-bold">First Name</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your first name here" name="user_fname" id="user_fname">
+                        <label class="form-label fw-bold">First Name</label>
+                        <input type="text" class="form-control py-2" placeholder="Enter your first name here" name="user_fname" id="user_fname">
                     </div>
 
                     <!-- Last Name -->
                     <div class="mb-3">
-                    <label class="form-label fw-bold">Last Name</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your last name here" name="user_lname" id="user_lname">
+                        <label class="form-label fw-bold">Last Name</label>
+                        <input type="text" class="form-control py-2" placeholder="Enter your last name here" name="user_lname" id="user_lname">
                     </div>
 
                     <!-- UserName -->
                     <div class="mb-3">
-                    <label class="form-label fw-bold">Username</label>
-                    <input type="text" class="form-control py-2" placeholder="Enter your username here" name="user_name" id="user_name">
+                        <label class="form-label fw-bold">Username</label>
+                        <input type="text" class="form-control py-2" placeholder="Enter your username here" name="user_name" id="user_name">
                     </div>
 
                     <!-- Email -->
@@ -102,11 +102,8 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../backend/javascript/register.js">
-        
-</script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/script/script.js"></script>
 </body>
 </html>

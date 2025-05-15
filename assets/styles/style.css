@@ -182,6 +182,11 @@
   .rounded-circle {
     border-radius: 50% !important;
   }
+  .keyword-highlight {
+        background-color: rgba(220,53,69,0.2);
+        padding: 0 0.25rem;
+        border-radius: 0.25rem;
+  }
 
 
   /* start: Sidebar */
@@ -915,6 +920,17 @@ a.sessionsLink:hover {
     border-radius: 50% !important;
   }
 
+  a.table-title-link {
+    text-decoration: none;
+    color: var(--bs-gray-700);
+    font-weight: 700;
+    transition: color ease-in-out 0.2s;
+  }
+
+  a.table-title-link:hover {
+    color: var(--bs-brand-color);
+  }
+
   /* end: Container Fluid */
   /* end: Main */
 /* End: ### page_user_account.php ### */
@@ -1030,9 +1046,8 @@ a.sessionsLink:hover {
     /* End: page_login.php */
 
     /* Start: page_admin_account_management.php */
-      .account-mgmt .btn-group,
-      .account-mgmt #filterAccountBtn,
-      .account-mgmt #newAccountBtn {
+      #cardViewBtn,
+      #listViewBtn {
           width: 100%;
       }
       .account-mgmt .btn-group .btn,

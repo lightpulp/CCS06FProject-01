@@ -22,7 +22,7 @@ $(document).ready(function () {
                                 <strong>${comment.user_name}</strong>
                                 <small class="text-muted ms-auto">${time}</small>
                             </div>
-                            <p class="mb-2 text-muted">${comment.comment}</p>
+                            <p class="mb-2 text-muted">${comment.comment.replace(/\n/g, '<br>')}</p>
                             <hr>
                         </div>
                     `);
@@ -31,7 +31,7 @@ $(document).ready(function () {
         });
     }
 
-    $('.btn:contains("Comment")').click(function () {
+    $('#commentArticle').click(function () {
         const textarea = $('.comment-auto-resize');
         const comment = textarea.val().trim();
 

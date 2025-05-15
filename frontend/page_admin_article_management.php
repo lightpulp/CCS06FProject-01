@@ -25,6 +25,12 @@ include "../backend/phpscripts/check_role.php";
     <!-- end: CSS -->
     <title>Manage Article</title>
 </head>
+<style>
+    #adminCardViewArticleContainer a {
+        text-decoration: none;
+        color: var(--bg-gray-800);
+    }
+</style>
 <body>
 
     <!-- start: Sidebar -->
@@ -71,23 +77,23 @@ include "../backend/phpscripts/check_role.php";
             <div class="col-12 col-md-6">
                 <div class="d-flex flex-wrap justify-content-md-end gap-2">
                     <!-- List Button -->
-                    <button id="listViewBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                    <button id="listViewAdminArticleBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
                         <i class="fa-solid fa-square"></i> List
                     </button>
 
                     <!-- Card Button -->
-                    <button id="cardViewBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
+                    <button id="cardViewAdminArticleBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
                         <i class="fa-solid fa-square"></i> Card
                     </button>
 
                     <!-- Filter Button -->
-                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
+                    <button id="filterAdminArticleBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterAdminArticleModal">
                         <i class="fas fa-filter me-1"></i> Filter
                     </button>
 
                     <!-- Export Dropdown -->
                     <div class="btn-group">
-                        <button type="button" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
+                        <button type="button" id="exportArticlesBtn" class="btn btn-outline-secondary dropdown-toggle px-4 py-2 fw-semibold" data-bs-toggle="dropdown">
                             <i class="fas fa-download me-1"></i> Export
                         </button>
                         <ul class="dropdown-menu">
@@ -136,39 +142,55 @@ include "../backend/phpscripts/check_role.php";
     </main>
 
     <!-- Filter Modal -->
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal fade" id="filterAdminArticleModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <form id="filterForm">
-                <div class="modal-header">
-                <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <div class="mb-3">
-                    <label for="filterRole" class="form-label">Role</label>
-                    <select id="filterRole" class="form-select">
-                    <option value="">All</option>
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="filterActive" class="form-label">Status</label>
-                    <select id="filterActive" class="form-select">
-                    <option value="">All</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    </select>
-                </div>
-                </div>
-                <div class="modal-footer">
-                <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
-                </div>
-            </form>
+                <form id="filterAdminArticleForm">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="filterAdminArticleCategory" class="form-label">Category</label>
+                            <select id="filterAdminArticleCategory" class="form-select">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterAdminArticleStatus" class="form-label">Status</label>
+                            <select id="filterAdminArticleStatus" class="form-select">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteArticleModal" tabindex="-1" aria-labelledby="deleteArticleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteArticleModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this article?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -192,7 +214,7 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
-    <script src="../backend/javascript/admin_article_management.js"></script>
+    <script src="../backend/javascript/admin_article_management.js"></script>z
     <script>
         function toggleOptionsMenu(icon) {
         const menu = icon.nextElementSibling;
@@ -215,7 +237,34 @@ include "../backend/phpscripts/check_role.php";
             }
         });
     </script>
+
+
+    <script>
+    let deleteId = null;
+
+    function prepareDelete(articleId) {
+        deleteId = articleId;
+    }
+
+    $('#confirmDeleteBtn').click(function () {
+        if (deleteId !== null) {
+            $.post('../backend/phpscripts/delete_article.php', { id: deleteId }, function(response) {
+                // Optional: check success from response
+                location.reload(); // refresh to update the article list
+            }).fail(function(xhr) {
+                console.error("Delete failed:", xhr.responseText);
+            });
+
+            $.post('../backend/phpscripts/log_activity.php', {
+                action: 'DELETE',
+                details: 'Deleted article'
+            });
+            }
+    }); 
+    </script>
+
     <?php include "../components/button_logout.php" ?>
 
+    <script src="../backend/javascript/log_activity.js"></script>
 </body>
 </html>

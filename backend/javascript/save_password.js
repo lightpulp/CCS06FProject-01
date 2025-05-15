@@ -1,5 +1,22 @@
 $(document).ready(function() {
-    $('#savePassForm').on('submit', function(e) {
+    $("#savePassForm").validate({
+    rules: {
+        user_pass: {
+            required: true
+        },
+        new_pass: {
+            required: true
+        },
+        new_passCheck: {
+            required: true
+        },
+    },
+    messages: {
+        user_pass: "Please enter your old password.",
+        new_pass: "Please enter your new password.",
+        new_passCheck: "Please Confirm your new password.",
+    },
+    submitHandler: function (form, e) {
         e.preventDefault();
 
         // Get form values
@@ -19,6 +36,8 @@ $(document).ready(function() {
             new_pass: newPass
         }, function(response) {
             alert(response);
+            $('#savePassForm')[0].reset();
         });
+        }
     });
 });

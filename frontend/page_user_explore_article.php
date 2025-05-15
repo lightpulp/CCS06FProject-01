@@ -80,7 +80,7 @@ include "../backend/phpscripts/account.php";
                     <!-- Main Article Content -->
                     <div class="col-12 col-md-8">
                         <!-- Controls: responsive row -->
-                        <div class="row align-items-center mb-4 mx-5">
+                        <div class="row align-items-center mx-5">
                             <!-- Search box -->
                             <div class="col-md-12">
                                 <div class="input-group">
@@ -106,7 +106,7 @@ include "../backend/phpscripts/account.php";
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-article-body">
+                                <tbody id="explore-article-body">
                                     <!-- Users will be dynamically inserted here -->
                                 </tbody>
                             </table>

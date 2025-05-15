@@ -11,9 +11,10 @@ while ($row = $result->fetch_assoc()) {
     $roleClass = $row['role'] == 1 ? 'status-admin' : 'status-user';
     $roleText = $row['role'] == 1 ? 'Admin' : 'User';
 
-    // Placeholder for active status
-    $activeClass = 'status-active';
-    $activeText = 'Active';
+    //Determine active status
+    $activeClass = $row['active'] == 1 ? 'status-active' : 'status-inactive';
+    $activeText = $row['active'] == 1 ? 'Active' : 'Inactive';
+
 
     $data[] = [
         $row['user_id'],
@@ -27,24 +28,11 @@ while ($row = $result->fetch_assoc()) {
 
         "<div class='rounded p-1 {$activeClass} text-center' style='max-width: 80px;'>{$activeText}</div>",
         
-        "<a href='#' class='link-warning'><i class='fa-solid fa-pen-to-square fs-5 mx-1'></i></a>
-         <a href='#' class='link-danger'><i class='fa-solid fa-trash fs-5'></i></a>"
+        "<a href='page_admin_edit_account.php?id=$row[user_id]' class='link-warning'><i class='fa-solid fa-pen-to-square fs-5 mx-1'></i></a>"
     ];
 }
 
 echo json_encode(["data" => $data]);
-
-    /*
-
-
-        //Determine active status
-        $activeClass = $row['active'] == 1 ? 'status-active' : 'status-inactive';
-        $activeText = $row['active'] == 1 ? 'Active' : 'Inactive';
-
-
-
-    */
-
 ?>
 
 

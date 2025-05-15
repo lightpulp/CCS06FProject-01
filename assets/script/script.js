@@ -112,8 +112,9 @@ $(document).ready(function(){
     });
 
 
-    if(window.innerWidth < 768) {
+    if (window.innerWidth < 768) {
         $('.sidebar').addClass('collapsed');
+        $('.sidebar-overlay').addClass('d-none');
     }
 
     // Auto-expand the current section
@@ -200,108 +201,105 @@ $(document).ready(function(){
     }
 
     loadUsers();
+
+    $('#newAccountBtn').on('click', function () {
+        $('#createUserModal').modal('show');
+    });
+
+        // initialize validation
+    $('#createUserForm').validate({
+        errorElement: 'div',
+        errorClass: 'invalid-feedback',
+        highlight(el) {
+            $(el).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight(el) {
+            $(el).addClass('is-valid').removeClass('is-invalid');
+        },
+        // << add this block >>
+        errorPlacement(error, element) {
+            if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+            } else {
+            error.insertAfter(element);
+            }
+        },
+        // validation rules
+        rules: {
+            user_fname: { required: true },
+            user_lname: { required: true },
+            user_name:  { required: true },
+            user_pass:  { required: true },
+            confirm_password: { required: true, equalTo: '#userPassword' },
+            user_email: { required: true, email: true },
+            birthdate:  { date: true },
+            address:    { required: true },
+            number: { 
+                required: true, 
+                digits: true, 
+                minlength: 11, 
+                maxlength: 11 
+                },
+            role:       { required: true },
+            active:     { required: true }
+        },
+
+        // optional custom messages
+        messages: {
+            confirm_password: {
+                equalTo: 'Passwords must match.'
+            },
+            number: {
+                minlength: 'Enter an 11-digit phone number, e.g. 09171234567',
+                maxlength: 'Enter an 11-digit phone number, e.g. 09171234567'
+            }
+        },
+        submitHandler: function(form) {
+            // serialize *that* form
+            const data = $(form).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '../backend/phpscripts/admin_create_user.php',
+                data: data,
+                dataType: 'json'
+            })
+            .done(function(res) {
+                if (res.success) {
+                    alert(res.message);
+                    $('#createUserModal').modal('hide');
+                    loadUsers();
+                } else {
+                    alert('Error: ' + res.message);
+                }
+                })
+                .fail(function(xhr, status, err) {
+                alert('AJAX failed: ' + status + ' — ' + err);
+            });
+        }
+    });
+
+    // 2) reset on close
+    $('#createUserModal').on('hidden.bs.modal', function(){
+        const $form = $('#createUserForm');
+        // a) HTML reset
+
+        $form[0].reset();
+        // b) Reset jQuery Validate
+        if ($form.data('validator')) {
+            $form.validate().resetForm(); // clears internal error tracking
+        }
+
+        // c) Remove all Bootstrap validation classes and feedback messages manually
+        $form.find('.form-control, .form-select')
+            .removeClass('is-valid is-invalid');
+
+        $form.find('.invalid-feedback').remove(); // also remove error <div>s from DOM
+    });
+
+    $('#createUserModal').on('shown.bs.modal', function () {
+        $('#userFname').trigger('focus');
+    });
     ///////////////////////////////////////////////
     //   End: page_admin_account_management.php  //
-    ///////////////////////////////////////////////
-
-    ///////////////////////////////////////
-    // Start: page_admin_categories.php  //
-    ///////////////////////////////////////
-    $('#categoryModal').on('shown.bs.modal', function () {
-        $('#categoryName').trigger('focus');
-    });
-
-    var categoryTable = $.fn.dataTable.isDataTable('#categoryTable') 
-        ? $('#categoryTable').DataTable() 
-        : $('#categoryTable').DataTable({
-            dom: 'lfrtip',
-            lengthChange: true,
-            lengthMenu: [[10,20,50],[10,20,50]],
-            pageLength: 10,
-            ordering: true,
-            order: [[0, 'desc']],
-            responsive: true,
-            language: { paginate: { previous: '<', next: '>' } },
-            initComplete: function() {
-                $('#categoryTable_info').appendTo('#infoContainer');
-                $('#categoryTable_length').appendTo('#lengthContainer');
-                $('#categoryTable_paginate').appendTo('#paginateContainer');
-            },
-            drawCallback: function() {
-                $('#categoryTable_paginate').appendTo('#paginateContainer');
-            }
-        });
-
-    function loadCategories() {
-        $.ajax({
-            url: '../backend/phpscripts/admin_categories.php',
-            type: 'GET',
-            success: function(data) {
-            const categories = JSON.parse(data);
-            
-            // Clear and repopulate DataTable
-            categoryTable.clear();
-    
-            categories.forEach(cat => {
-                categoryTable.row.add([
-                    cat.category_id,
-                    cat.category_name,
-                    cat.created_at,
-                    `<a href='#' id='delete-category-btn' class='link-danger' data-id='${cat.category_id}'>
-                        <i class='fa-solid fa-trash fs-5'></i>
-                    </a>`
-                ]);
-            });
-
-            categoryTable.draw();
-            },
-            error: function() {
-              alert('There was an error adding the category.');
-            }
-          });
-    }
-
-    loadCategories();
-    $('#categoryForm').on('submit', function(e) {
-        e.preventDefault();
-        const categoryName = $('#categoryName').val().trim();
-      
-        if (categoryName === '') {
-          alert('Please enter a category name.');
-          return;
-        }
-      
-        $.ajax({
-          url: '../backend/phpscripts/admin_categories.php',
-          type: 'POST',
-          data: { categoryName },
-          success: function(response) {
-            $('#categoryModal').modal('hide');
-            $('#categoryForm')[0].reset();
-            alert('Category successfully added!');
-            loadCategories();
-          },
-          error: function() {
-            alert('There was an error adding the category.');
-          }
-        });
-      });
-
-    $(document).on('click', '#delete-category-btn', function() {
-        var id = $(this).data('id');
-
-        if (confirm("Are you sure you want to delete this category?")) {
-            $.ajax({
-                url: "../backend/phpscripts/admin_categories.php",
-                type: "DELETE",
-                data: { id: id },
-                success: function() {
-                    loadCategories();
-                }
-            });
-        }
-    });
-    ///////////////////////////////////////////////
-    //   End: page_admin_categories.php          //
     ///////////////////////////////////////////////
 });

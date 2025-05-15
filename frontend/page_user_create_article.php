@@ -83,6 +83,12 @@ include "../backend/phpscripts/account.php";
         #file-upload {
             display: none;
         }
+
+        #createArticleForm label.error {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #FB667A;
+        }
 </style>
 <body>
 
@@ -121,7 +127,7 @@ include "../backend/phpscripts/account.php";
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
-                            <form id="articleForm">
+                            <form id="createArticleForm" autocomplete="off">
                                 <!-- top row: 2 columns -->
                                 <div class="row align-stretch">
                                     <!-- left column -->
@@ -149,7 +155,7 @@ include "../backend/phpscripts/account.php";
                                         <!-- DATE PUBLISHED -->
 										<div class="form-group mb-3">
 											<label for="date_published" class="form-label">Date Published</label>
-											<input type="date" class="form-control" id="date_published" required>
+											<input type="date" name="createDatePublished" class="form-control" id="date_published" required>
 										</div>
                                     </div>
                                     <!-- right column -->
@@ -169,7 +175,7 @@ include "../backend/phpscripts/account.php";
                                     </div>
                                 </div>
                                 <hr class="my-4">
-                                <button type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Submit Article</button>
+                                <button id="createArticleBtn" type="submit" class="btn btn-primary w-100 mt-3 primaryBtnAnimate">Submit Article</button>
                             </form>
                     </div> <!-- /.card-body -->
                 </div> <!-- /.col-12 -->
@@ -182,6 +188,7 @@ include "../backend/phpscripts/account.php";
 
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -214,6 +221,7 @@ include "../backend/phpscripts/account.php";
 
 
     <?php include "../components/button_logout.php" ?>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 

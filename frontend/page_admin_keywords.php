@@ -38,7 +38,7 @@ include "../backend/phpscripts/check_role.php";
             <nav class="px-3 py-2 mb-3 border-bottom">
                 <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
                 <div class="col">
-                    <h3 class="fw-bolder me-auto text-muted">Category Setting</h3>
+                    <h3 class="fw-bolder me-auto text-muted">Keyword Management</h3>
                 </div>
                 <div class="dropdown">
                     <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown"
@@ -62,15 +62,15 @@ include "../backend/phpscripts/check_role.php";
             <!-- Search box -->
             <div class="col-12 col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control table-search" data-table="#categoryTable" placeholder="Search for Category">
+                    <input type="text" class="form-control table-search" data-table="#fakeKeywordTable" placeholder="Search for Keyword">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
 
             <div class="col-12 col-md-6">
                 <div class="d-flex flex-wrap justify-content-md-end gap-2">
-                    <button class="btn btn-primary px-3 py-2 rounded fw-semibold" data-bs-toggle="modal" data-bs-target="#fakeKeywordModal">
-                        <i class="fa-solid fa-plus"></i> Add Category
+                    <button id="addKeywordBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold" data-bs-toggle="modal" data-bs-target="#fakeKeywordModal">
+                        <i class="fa-solid fa-plus"></i> Add Keyword
                     </button>
                 </div>
             </div>
@@ -105,21 +105,21 @@ include "../backend/phpscripts/check_role.php";
 
     <!-- Bootstrap Modal for Adding Fake Keyword -->
     <div class="modal fade" id="fakeKeywordModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <form id="fakeKeywordForm" class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Add Fake Keyword</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-dialog">
+            <form id="fakeKeywordForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Fake Keyword</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="fakeWord" class="form-control mb-2" placeholder="Keyword" required>
+                <input type="number" id="fakeValue" class="form-control" placeholder="Value (1–5)" min="1" max="5" required>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary px-3 py-2">Add</button>
+            </div>
+            </form>
         </div>
-        <div class="modal-body">
-            <input type="text" id="fakeWord" class="form-control mb-2" placeholder="Keyword" required>
-            <input type="number" id="fakeValue" class="form-control" placeholder="Value (1–5)" min="1" max="5" required>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-        </form>
-    </div>
     </div>
 
 
@@ -148,6 +148,7 @@ include "../backend/phpscripts/check_role.php";
 
     <?php include "../components/button_logout.php" ?>
     <script src="../backend/javascript/admin_keywords.js"></script>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 </html>

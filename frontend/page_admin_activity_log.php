@@ -23,7 +23,7 @@ include "../backend/phpscripts/check_role.php";
     <!-- start: CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
     <!-- end: CSS -->
-    <title>Account Management</title>
+    <title>Activity Logs</title>
 </head>
 <body>
 
@@ -62,7 +62,7 @@ include "../backend/phpscripts/check_role.php";
             <!-- Search box -->
             <div class="col-12 col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control table-search" data-table="#accountTable" placeholder="Search for id, account name, username etc.">
+                    <input type="text" class="form-control table-search" data-table="#logTable" placeholder="Search for id, account name, username etc.">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>
@@ -71,7 +71,7 @@ include "../backend/phpscripts/check_role.php";
             <div class="col-12 col-md-6">
                 <div class="d-flex flex-wrap justify-content-md-end gap-2">
                     <!-- Filter Button -->
-                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterModal">
+                    <button id="filterAccountBtn" class="btn btn-outline-secondary px-4 py-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#filterActivityLogModal">
                         <i class="fas fa-filter me-1"></i> Filter
                     </button>
 
@@ -81,35 +81,39 @@ include "../backend/phpscripts/check_role.php";
                             <i class="fas fa-download me-1"></i> Export
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#accountTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
-                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#accountTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
-                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#accountTable"><i class="fas fa-print me-1"></i> Print</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="csv" data-table="#logTable"><i class="fas fa-file-csv me-1"></i> CSV</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="excel" data-table="#logTable"><i class="fas fa-file-excel me-1"></i> Excel</a></li>
+                            <li><a class="dropdown-item export-btn" href="#" data-type="print" data-table="#logTable"><i class="fas fa-print me-1"></i> Print</a></li>
                         </ul>
                     </div>
 
-                    <!-- New Account Button -->
-                    <button id="newAccountBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold">
-                        <i class="fas fa-user-plus me-1"></i> New Account
-                    </button>
+                    <!-- Clean Logs Button -->
+                    <div class="dropdown d-inline-block">
+                        <button id="cleanLogsBtn" class="btn btn-primary px-3 py-2 rounded fw-semibold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-plus me-1"></i> Clean Logs
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item clean-logs-option" data-days="10">Delete past 10 days</a></li>
+                            <li><a class="dropdown-item clean-logs-option" data-days="30">Delete past 30 days</a></li>
+                            <li><a class="dropdown-item clean-logs-option" data-days="90">Delete past 90 days</a></li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
 
         <!-- DataTable -->
         <div class="table-responsive">
-        <table id="accountTable" class="table table-hover nowrap" style="width:100%">
+        <table id="logTable" class="table table-hover nowrap" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Account Name</th>
-                    <th>Username</th>
-                    <th>Birth Date</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Contact Number</th>
-                    <th>Role</th>
-                    <th>Active</th>
-                    <th>Actions</th>
+                    <th>Log Id</th>
+                    <th>Timestamp</th>
+                    <th>Edited By</th>
+                    <th>Action</th>
+                    <th>Details</th>
+                    <th>Page</th>
                 </tr>
             </thead>
             <tbody id="user-table-body">
@@ -129,40 +133,36 @@ include "../backend/phpscripts/check_role.php";
         </div>
     </main>
 
-
-
-
     <!-- Filter Modal -->
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal fade" id="filterActivityLogModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <form id="filterForm">
-                <div class="modal-header">
-                <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <div class="mb-3">
-                    <label for="filterRole" class="form-label">Role</label>
-                    <select id="filterRole" class="form-select">
-                    <option value="">All</option>
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="filterActive" class="form-label">Status</label>
-                    <select id="filterActive" class="form-select">
-                    <option value="">All</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    </select>
-                </div>
-                </div>
-                <div class="modal-footer">
-                <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
-                </div>
-            </form>
+                <form id="filterActivityLogForm">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Advanced Filter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="filterLogStart" class="form-label">From</label>
+                            <input type="date" id="filterLogStart" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterLogEnd" class="form-label">To</label>
+                            <input type="date" id="filterLogEnd" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterLogAction" class="form-label">Action</label>
+                            <select id="filterLogAction" class="form-select">
+                            <option value="">All</option>
+                            <!-- we’ll populate this one dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary py-2 rounded">Apply Filter</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -191,8 +191,8 @@ include "../backend/phpscripts/check_role.php";
     <script src="../assets/script/script.js"></script>
     
     <?php include "../components/button_logout.php" ?>
-    <script src="../backend/javascript/admin_account_table.js"></script>
-
+    <script src="../backend/javascript/admin_activity_log.js"></script>
+    <script src="../backend/javascript/log_activity.js"></script>
 
 </body>
 </html>

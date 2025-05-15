@@ -1,34 +1,132 @@
-CREATE TABLE users (
-    user_id INT(11) PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(255),
-    user_pass VARCHAR(255),
-    user_fname VARCHAR(255),
-    user_lname VARCHAR(255),
-    user_email VARCHAR(255),
-    birthdate DATE,
-    address VARCHAR(255),
-    number VARCHAR(11),
-    role TINYINT(1),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE categories (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(100) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+--
+-- Database: `ccs06`
+--
 
 
-CREATE TABLE articles (
-    article_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    source_url VARCHAR(255),
-    category_id INT NOT NULL,
-    status TINYINT DEFAULT 1, -- 1: Pending, 2: Approved, 3: Fake, 4: Deleted
-    date_published DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
-);
+CREATE TABLE `articles` (
+  `article_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `source_url` varchar(255) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `status` tinyint(4) DEFAULT 1,
+  `date_published` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `percentage` decimal(5,2) UNSIGNED DEFAULT 0.00 CHECK (`percentage` >= 0.00 and `percentage` <= 100.00),
+  `f_words` text DEFAULT NULL,
+  `f_score` int(11) DEFAULT NULL,
+  `total_words` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE `categories` (
+  `category_id` int(11) NOT NULL,
+  `category_name` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+CREATE TABLE `fake_kw` (
+  `fword_id` int(11) NOT NULL,
+  `fword_word` varchar(255) NOT NULL,
+  `fword_value` tinyint(4) NOT NULL CHECK (`fword_value` between 1 and 5),
+  `is_active` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_pass` varchar(255) DEFAULT NULL,
+  `user_fname` varchar(255) DEFAULT NULL,
+  `user_lname` varchar(255) DEFAULT NULL,
+  `user_email` varchar(255) DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `number` varchar(11) DEFAULT NULL,
+  `role` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_name`, `user_pass`, `user_fname`, `user_lname`, `user_email`, `birthdate`, `address`, `number`, `role`, `created_at`) VALUES
+(24, '1@1', '$2y$10$cDIzheNfaYRwzBcI2AAkg.Fdst5zGSq/TqXU.oNXJrN4vnhJvKxeK', 'FirstName', 'LastName', '1@1', '2025-04-30', 'Angeles', '12345678912', 1, '2025-05-07 06:49:25'),
+(25, 'lightpulp', '$2y$10$L8za7Uw0/Bjusn/KZPFvyuGQp.bosa01cm2dYDMOhQzD1hudNhfim', 'Ron', 'Rodriguez', 'ron@email.com', '2025-05-21', 'Angeles', '9152895634', 0, '2025-05-07 06:57:27'),
+(26, 'slo', '$2y$10$AxH27xlMSwx2zWtody9q8e9d5V7IU/uTxGmIj0vVCHkZzCJY3yRHS', 'Shawn', 'Lopez', 'slo@email.com', '2025-05-15', 'Cavite', '12345678911', 0, '2025-05-08 03:37:56'),
+(27, 'Kalabasa', '$2y$10$0PUUkIhXcvwp.OuBAMgN1uekqfIJjnv70Ixrbg/FowjdxsdR/1hyy', 'Gerick', 'Isidro', 'gerick@email.com', '2025-05-14', 'Calilfornia', '23457891231', 0, '2025-05-09 06:07:59');
+
+--
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`article_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`category_id`),
+  ADD UNIQUE KEY `category_name` (`category_name`);
+
+--
+-- Indexes for table `fake_kw`
+--
+ALTER TABLE `fake_kw`
+  ADD PRIMARY KEY (`fword_id`),
+  ADD UNIQUE KEY `fword_word` (`fword_word`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `fake_kw`
+--
+ALTER TABLE `fake_kw`
+  MODIFY `fword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `articles`
+--
+ALTER TABLE `articles`
+  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `articles_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
