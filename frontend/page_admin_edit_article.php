@@ -35,6 +35,13 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
     <link rel="stylesheet" href="../assets/styles/style.css">
     <title>Edit Article</title>
 </head>
+<style>
+    #editAdminArticleForm label.error {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #FB667A;
+    }
+</style>
 <body>
     <!-- start: Sidebar -->
     <?php include '../components/sidebar.php'; ?>
@@ -71,7 +78,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
-                        <form id="articleForm">
+                        <form id="editAdminArticleForm">
                             <input type="hidden" id="article_id" value="<?php echo $article['article_id']; ?>">
                             
                             <!-- top row: 2 columns -->
@@ -81,7 +88,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                                     <!-- Title -->
                                     <div class="form-group mb-3">
                                         <label for="title" class="fw-semibold fs-7 mb-2 text-muted">Title</label>
-                                        <input type="text" name="title" id="title" class="form-control" 
+                                        <input type="text" name="admin_edit_title" id="title" class="form-control" 
                                                value="<?php echo htmlspecialchars($article['title']); ?>" 
                                                placeholder="Enter your Title Here">
                                     </div>
@@ -89,7 +96,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                                     <!-- Category -->
                                     <div class="form-group mb-3">
                                         <label for="category" class="fw-semibold fs-7 mb-2 text-muted">Category</label>
-                                        <select id="category" name="category" class="form-select">
+                                        <select id="category" name="admin_edit_category" class="form-select">
                                             <option value="">-- Select Category --</option>
                                             <?php while ($category = $categories_result->fetch_assoc()): ?>
                                                 <option value="<?php echo $category['category_id']; ?>"
@@ -103,7 +110,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                                     <!-- Source URL -->
                                     <div class="form-group mb-3">
                                         <label for="source_url" class="fw-semibold fs-7 mb-2 text-muted">Source URL</label>
-                                        <input type="text" name="source_url" id="source_url" class="form-control" 
+                                        <input type="text" name="admin_edit_source_url" id="source_url" class="form-control" 
                                                value="<?php echo htmlspecialchars($article['source_url']); ?>" 
                                                placeholder="Enter your Source URL here">
                                     </div>
@@ -111,7 +118,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                                     <!-- DATE PUBLISHED -->
                                     <div class="form-group mb-3">
                                         <label for="date_published" class="form-label">Date Published</label>
-                                        <input type="date" class="form-control" id="date_published" 
+                                        <input type="date" class="form-control" name="admin_edit_date_published" id="date_published" 
                                                value="<?php echo date('Y-m-d', strtotime($article['date_published'])); ?>" required>
                                     </div>
                                 </div>
@@ -129,7 +136,7 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="content" class="fw-semibold fs-7 mb-2 text-muted">Content</label>
-                                    <textarea class="form-control" id="content" name="content" 
+                                    <textarea class="form-control" id="content" name="admin_edit_content"  
                                               placeholder="Enter your content here" 
                                               style="min-height: 200px;"><?php echo htmlspecialchars($article['content']); ?></textarea>
                                 </div>
@@ -147,13 +154,39 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/script/script.js"></script>
     
     <script>
     $(document).ready(function () {
         // Handle article update
-        $('#articleForm').submit(function (e) {
+        $("#editAdminArticleForm").validate({
+        rules: {
+            admin_edit_title: {
+               required: true
+            },
+            admin_edit_category: {
+                required: true
+            },
+            admin_edit_source_url: {
+                required: true
+            },
+            admin_edit_date_published: {
+                required: true,
+            },
+            admin_edit_content: {
+                required: true,
+            },
+        },
+        messages: {
+            admin_edit_title: "Please enter your title.",
+            admin_edit_category: "Please Select a Category.",
+            admin_edit_source_url: "Please enter your source URL.",
+            admin_edit_date_published: "Please enter your published date.",
+            admin_edit_content: "Please put your article content.",
+        },
+        submitHandler: function (form, e) {
             e.preventDefault();
 
             const articleData = {
@@ -183,7 +216,8 @@ $categories_result = $conn->query("SELECT category_id, category_name FROM catego
                     alert('Error updating article: ' + error);
                 }
             });
-        });
+        }
+    });
     });
     </script>
     
