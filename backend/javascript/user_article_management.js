@@ -203,5 +203,5 @@ $(document).ready(function () {
             alert('There was an error adding the category.');
           }
         });
-      });
+    });
 });
