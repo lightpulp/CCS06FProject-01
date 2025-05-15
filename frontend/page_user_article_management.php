@@ -72,7 +72,7 @@ include "../backend/phpscripts/account.php";
             <!-- Search box -->
             <div class="col-12 col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control table-search" data-table="#adminArticlesTable" placeholder="Search for title, category, content, status">
+                    <input type="text" class="form-control table-search" data-table="#userArticlesTable" placeholder="Search for title, category, content, status">
                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
             </div>

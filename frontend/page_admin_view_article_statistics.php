@@ -63,9 +63,6 @@ if (!empty($article['f_words'])) {
     }
 }
 
-
-
-
 // Handle status change
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && isset($_POST['article_id'])) {
     $new_status = intval($_POST['change_status']);
@@ -84,7 +81,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
     }
 }
 
+// 1) grab the raw text
+$raw = $article['content'];
 
+// 2) escape it so nothing dangerous comes out
+$escaped = htmlspecialchars($raw, ENT_QUOTES|ENT_SUBSTITUTE);
+
+// 3) if you have any flagged words, build a regex of them
+if (!empty($flagged_words)) {
+
+    // pull out just the keywords
+    $words   = array_map('preg_quote', array_keys($flagged_words));
+    
+    // \b on either side to only match whole words, i modifier for case-insensitivity
+    $pattern = '/\b(' . implode('|', $words) . ')\b/i';
+
+    // 4) replace each occurrence with a span
+    $escaped = preg_replace(
+      $pattern,
+      '<span class="keyword-highlight">$1</span>',
+      $escaped
+    );
+}
 ?>
 
 <!DOCTYPE html>
@@ -176,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_status']) && i
 
                                     <!-- Body text -->
                                     <div class="card-text mb-4">
-                                        <?php echo nl2br(htmlspecialchars($article['content'], ENT_QUOTES|ENT_SUBSTITUTE)); ?>
+                                        <?= nl2br($escaped) ?>
                                     </div>
                                     
                                     <!-- Source footer -->

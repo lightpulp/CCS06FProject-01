@@ -165,8 +165,112 @@ include "../backend/phpscripts/check_role.php";
         </div>
     </div>
 
+    <!-- Create User Modal -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <form id="createUserForm" autocomplete="off">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserLabel">Create New User</h5>
+                    <button type="button" class="btn-close" id="createUserFormClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- First Name -->
+                    <div class="form-group col-md-12">
+                        <label for="user_fname" class="fw-semibold fs-7 mb-2 text-muted">First Name</label>
+                        <input type="text" name="user_fname" id="userFname" class="form-control" placeholder="Enter your First Name">
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group col-md-12">
+                        <label for="user_lname" class="fw-semibold fs-7 mb-2 text-muted">Last Name</label>
+                        <input type="text" name="user_lname" id="userLname" class="form-control" placeholder="Enter your Last Name">
+                    </div>
+
+                    <!-- User Name -->
+                    <div class="form-group col-md-12">
+                        <label for="userUsername" class="fw-semibold fs-7 mb-2 text-muted">User Name</label>
+                        <input type="text" name="user_name" id="userUsername" class="form-control" placeholder="Enter your username">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group col-md-12">
+                        <label for="userPassword" class="fw-semibold fs-7 mb-2 text-muted">Password</label>
+                        <div class="input-group">
+                        <input type="password" class="form-control py-2" name="user_pass" id="userPassword" placeholder="Enter your password here">
+
+                        <!-- Password Visibility -->
+                        <span class="input-group-text toggle-password"><i class="fa-solid fa-eye"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group col-md-12">
+                        <label for="userConfirmPassword" class="fw-semibold fs-7 mb-2 text-muted">Confirm Password</label>
+                        <div class="input-group">
+                        <input type="password" class="form-control py-2" name="confirm_password" id="userConfirmPassword" placeholder="Confirm password">
+
+                        <!-- Password Visibility -->
+                        <span class="input-group-text toggle-password"><i class="fa-solid fa-eye"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group col-md-12">
+                        <label for="userEmail" class="fw-semibold fs-7 mb-2 text-muted">Email</label>
+                        <input type="email" name="user_email" id="userEmail" class="form-control" placeholder="example@gmail.com">
+                    </div>
+
+                    <!-- Birthdate -->
+                    <div class="form-group col-md-12">
+                        <label for="userBirthdate" class="fw-semibold fs-7 mb-2 text-muted">Birthdate</label>
+                        <input type="date" class="form-control" id="userBirthdate" name="birthdate">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group col-md-12">
+                        <label for="userAddress" class="fw-semibold fs-7 mb-2 text-muted">Address</label>
+                        <input type="text" name="address" id="userAddress" class="form-control" placeholder="Enter your Address.">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group col-md-12">
+                        <label for="userNumber" class="fw-semibold fs-7 mb-2 text-muted">Phone Number</label>
+                        <input type="text" name="number" id="userNumber" class="form-control" placeholder="09xxxxxxxxx">
+                    </div>
+
+                    <!-- Role -->
+                    <div class="form-group col-md-12">
+                        <label for="userRole" class="fw-semibold fs-7 mb-2 text-muted">Role</label>
+                        <select class="form-select" id="userRole" name="role">
+                            <option value="0">User</option>
+                            <option value="1">Admin</option>
+                        </select>
+                    </div>
+
+                     <!-- Active -->
+                    <div class="form-group col-md-12">
+                        <label for="userActive" class="fw-semibold fs-7 mb-2 text-muted">Role</label>
+                        <select class="form-select" id="userActive" name="active">
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary py-2 rounded">Create User</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
     <!-- start: JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -187,7 +291,8 @@ include "../backend/phpscripts/check_role.php";
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="../assets/script/script.js"></script>
-
+    <script>
+    </script>
     <?php include "../components/button_logout.php" ?>
 
 </body>

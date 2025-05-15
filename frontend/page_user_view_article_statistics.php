@@ -62,6 +62,29 @@ if (!empty($article['f_words'])) {
         $flagged_words = explode(',', $article['f_words']);
     }
 }
+
+// 1) grab the raw text
+$raw = $article['content'];
+
+// 2) escape it so nothing dangerous comes out
+$escaped = htmlspecialchars($raw, ENT_QUOTES|ENT_SUBSTITUTE);
+
+// 3) if you have any flagged words, build a regex of them
+if (!empty($flagged_words)) {
+
+    // pull out just the keywords
+    $words   = array_map('preg_quote', array_keys($flagged_words));
+    
+    // \b on either side to only match whole words, i modifier for case-insensitivity
+    $pattern = '/\b(' . implode('|', $words) . ')\b/i';
+
+    // 4) replace each occurrence with a span
+    $escaped = preg_replace(
+      $pattern,
+      '<span class="keyword-highlight">$1</span>',
+      $escaped
+    );
+}
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +176,7 @@ if (!empty($article['f_words'])) {
 
                                     <!-- Body text -->
                                     <div class="card-text mb-4">
-                                        <?php echo nl2br(htmlspecialchars($article['content'], ENT_QUOTES|ENT_SUBSTITUTE)); ?>
+                                        <?= nl2br($escaped) ?>
                                     </div>
                                     
                                     <!-- Source footer -->
@@ -207,7 +230,7 @@ if (!empty($article['f_words'])) {
                             <div class="card shadow-sm p-4">
                                 <div class="d-flex flex-column justify-content-center align-items-center border-bottom mb-2">
                                     <h6 class="text-muted fw-bold fs-5">Approval Status</h6>
-                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder' style='max-width: 120px;'><?php echo $status_display; ?></div>
+                                    <div class='rounded px-4 py-2 <?php echo $status_class; ?> text-center mb-3 fw-bolder'><?php echo $status_display; ?></div>
                                 </div>
                                 <div class="mb-3 border-bottom">
                                     <h6 class="text-muted fw-bold fs-6">Reason</h6>
