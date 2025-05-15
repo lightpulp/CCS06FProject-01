@@ -129,7 +129,7 @@ $(document).ready(function () {
                         `<div class='rounded px-2 py-1 ${statusClass} text-center' style='max-width: 90px;'>${status}</div>`,
                         article.created_at,
                         
-                        `<a href='#' class='link-warning' onclick='editArticle(${article.article_id})'><i class='fa-solid fa-pen-to-square fs-5'></i></a>
+                        `<a href='page_user_edit_article.php?id=${article.article_id}' class='link-warning' onclick='editArticle(${article.article_id})'><i class='fa-solid fa-pen-to-square fs-5'></i></a>
                         <a href='#' class='link-danger' onclick='deleteArticle(${article.article_id})'><i class='fa-solid fa-trash fs-5 mx-2'></i></a>
                         <a href='page_user_view_article_statistics.php?id=${article.article_id}' class='link-secondary'><i class='fa-solid fa-eye fs-5'></i></a>`
                 ]);
@@ -161,16 +161,16 @@ $(document).ready(function () {
     }
 
     $('#filterUserArticleForm').on('submit', function(e){
-    e.preventDefault();
-    const cat  = $('#filterUserArticleCategory').val();
-    const stat = $('#filterUserArticleStatus').val();
+        e.preventDefault();
+        const cat  = $('#filterUserArticleCategory').val();
+        const stat = $('#filterUserArticleStatus').val();
 
-    userArticles
-        .column(4).search(cat)
-        .column(6).search(stat)
-        .draw();
+        userArticles
+            .column(4).search(cat)
+            .column(6).search(stat)
+            .draw();
 
-    $('#filterUserArticleModal').modal('hide');
+        $('#filterUserArticleModal').modal('hide');
     });
       
       $('#listViewUserArticleBtn').on('click', function () {
