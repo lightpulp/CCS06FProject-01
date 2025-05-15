@@ -134,31 +134,39 @@ include "../backend/phpscripts/user_get_article_count.php";
             <!-- end: Article Overview Cards -->
 
                 <!-- start: Graph -->
-                <div class="row g-3 mt-2">
-                    <div class="col-12 col-md-7 col-xl-8">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white">
-                                Sales
-                            </div>
-                            <div class="card-body">
-                                <canvas id="sales-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--
-                    <div class="col-12 col-md-5 col-xl-4">
-                        <div class="card border-0 shadow-sm h-100">
-                            <div class="card-header bg-white">
-                                Visitors
-                            </div>
-                            <div class="card-body">
-                                <canvas id="visitors-chart"></canvas>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-4 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <p class="h6 fw-bold text-body-tertiary mb-2">Approved vs. Fake Articles</p>
+                                    <div class="card-body">
+                                        <canvas id="articleDoughnutChart" width="100" height="100"></canvas>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    -->
                 </div>
+                
+                <div class="col-12 col-sm-6 col-lg-8 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <p class="h6 fw-bold text-body-tertiary mb-2">Most Flagged Fake News Keywords</p>
+                                    <div class="card-body">
+                                        <canvas id="keywordChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end: Article Overview Cards -->
+
                 <!-- end: Graph -->
             </div>
             <!-- end: Content -->
@@ -191,45 +199,67 @@ include "../backend/phpscripts/user_get_article_count.php";
     <!-- end: JS -->
 
     <script>
-          // start: Charts
-          const labels = [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-          ];
+        const articleCounts = {
+            approved: <?= $article_counts['approved'] ?>,
+            fake: <?= $article_counts['fake'] ?>
+        };
 
-          const salesChart = new Chart($('#sales-chart'), {
-              type: 'bar',
-              data: {
-                  labels: labels,
-                  datasets: [{
-                      backgroundColor: '#6610f2',
-                      data: [5, 10, 5, 2, 20, 30, 45],
-                  }]
-              },
-              options: {
-                  plugins: {
-                      legend: {
-                          display: false
-                      }
-                  }
-              }
-          })
+        const ctx = document.getElementById('articleDoughnutChart').getContext('2d');
+        const doughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Approved', 'Fake'],
+                datasets: [{
+                    label: 'Article Count',
+                    data: [articleCounts.approved, articleCounts.fake],
+                    backgroundColor: [
+                        'rgba(25, 135, 84, 0.8)',
+                        'rgba(220, 53, 69, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
 
-          const visitorsChart = new Chart($('#visitors-chart'), {
-              type: 'doughnut',
-              data: {
-                  labels: ['Children', 'Teenager', 'Parent'],
-                  datasets: [{
-                      backgroundColor: ['#6610f2', '#198754', '#ffc107'],
-                      data: [40, 60, 80],
-                  }]
-              }
-          });
-          // end: Charts
+        fetch('../backend/phpscripts/user_dashboard_get_flagged_keywords.php')
+        .then(response => response.json())
+        .then(chartData => {
+            const flaggedKeywords = document.getElementById('keywordChart').getContext('2d');
+            new Chart(flaggedKeywords, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Most Common Fake News Keywords',
+                        data: chartData.data,
+                        backgroundColor: 'rgba(220, 53, 69, 0.8)',
+                    }]
+                },
+                    options: {
+                    indexAxis: 'y', // horizontal
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            ticks: {
+                                font: {
+                                    weight: 'bold' // ✅ this makes the labels bold
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
     </script>
     <?php include "../components/button_logout.php" ?>
 </body>

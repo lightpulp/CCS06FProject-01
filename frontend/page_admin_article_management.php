@@ -118,6 +118,7 @@ include "../backend/phpscripts/check_role.php";
                         <th>Category</th>
                         <th>Source URL</th>
                         <th>Status</th>
+                        <th>Percentage</th>
                         <th>Date Created</th>
                         <th>Actions</th>
                     </tr>
