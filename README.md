@@ -17,6 +17,7 @@ It serves as a platform where users can submit articles for verification, and ad
 - **HTML5**
 - **CSS3**
 - **JavaScript**
+- **Bootstrap**
 
 ### 🛠️ Backend
 - **PHP** (Procedural and Basic OOP)
@@ -25,6 +26,7 @@ It serves as a platform where users can submit articles for verification, and ad
 ### 📦 Libraries and Tools
 - **Chart.js** (Data visualization for reports)
 - **Ajax** (Smooth communication between frontend and backend)
+- **Jquery** (Simplification of javascript)
 
 ---
 
