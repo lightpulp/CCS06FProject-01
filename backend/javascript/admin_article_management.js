@@ -130,8 +130,8 @@ $(document).ready(function () {
                         article.category_name,
                         `<a href='${article.source_url}' class='link-secondary'>Link</a>`,
                         `<div class='rounded px-2 py-1 ${statusClass} text-center' style='max-width: 90px;'>${status}</div>`,
+                        article.percentage + '%',
                         article.created_at,
-                        
                         `<a href='page_admin_edit_article.php?id=${article.article_id}' class='link-warning' onclick='editArticle(${article.article_id})'><i class='fa-solid fa-pen-to-square fs-5'></i></a>
                         <a href='#' class='link-danger' data-bs-toggle='modal' data-bs-target='#deleteArticleModal' onclick='prepareDelete(${article.article_id})'><i class='fa-solid fa-trash fs-5 mx-2'></i></a>
                         <a href='page_admin_view_article_statistics.php?id=${article.article_id}' class='link-secondary' onclick=''><i class='fa-solid fa-eye fs-5'></i></a>`

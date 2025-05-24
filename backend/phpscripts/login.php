@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_pass = $_POST['user_pass'];
 
     // Check if email exists
-    $sql = "SELECT user_id, user_name, user_pass, role FROM users WHERE user_email = '$user_email'";
+    $sql = "SELECT user_id, user_name, user_pass, role, active  FROM users WHERE user_email = '$user_email'";
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) == 1) {
@@ -20,14 +20,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['user_name'] = $row['user_name'];
             $_SESSION['role'] = $row['role'];
+            $_SESSION['active'] = $row['active'];
 
-            if ($row['role'] == 1) { // IF ADMIN
-                header("Location: ../../frontend/page_admin_dashboard.php");
-                exit();
-            } else if ($row['role'] == 0){ // IF USER
-                header("Location: ../../frontend/page_user_dashboard.php");
-                exit();
+            if ($row['active'] == 1) { // IF Account is Active 
+                if ($row['role'] == 1) { // IF ADMIN
+                    header("Location: ../../frontend/page_admin_dashboard.php");
+                    exit();
+                } else if ($row['role'] == 0){ // IF USER
+                    header("Location: ../../frontend/page_user_dashboard.php");
+                    exit();
+                }
+            } else {
+                echo '
+                    <script>
+                        alert("Sorry your account is inactive");
+                        window.location.href = "../../frontend/page_login.php";
+                    </script>
+                ';
             }
+
 
         } else {
             echo '
